@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: scraper
+      POSTGRES_PASSWORD: scraper_password
+      POSTGRES_DB: poznan_scraper
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scraper -d poznan_scraper"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  scraper:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://scraper:scraper_password@db:5432/poznan_scraper?schema=public
+      PORT: 3000
+      LOG_LEVEL: info
+      LOG_PRETTY: "false"
+      PLAYWRIGHT_HEADLESS: "true"
+      CRAWLER_CONCURRENCY: "4"
+      DETAIL_FETCH_CONCURRENCY: "2"
+      REQUEST_TIMEOUT_MS: "25000"
+      RATE_LIMIT_DELAY_MS: "1500"
+      MAX_RETRIES: "3"
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    volumes:
+      # Optional: persist Playwright browser cache
+      - playwright_cache:/home/scraper/.cache/ms-playwright
+
+volumes:
+  postgres_data:
+  playwright_cache:

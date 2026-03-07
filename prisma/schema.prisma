@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Saved searches – one per portal + filter combination
+// ---------------------------------------------------------------------------
+model SavedSearch {
+  id               String    @id @default(uuid())
+  name             String
+  portal           String    // "immohouse" | "olx" | "otodom"
+  enabled          Boolean   @default(true)
+  frequencyMinutes Int       @default(60) @map("frequency_minutes")
+  filtersJson      Json      @map("filters_json")
+  searchUrl        String    @map("search_url")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+  lastRunAt        DateTime? @map("last_run_at")
+  lastSuccessAt    DateTime? @map("last_success_at")
+  lastError        String?   @map("last_error")
+
+  matches  SearchListingMatch[]
+  runLogs  ScrapeRunLog[]
+
+  @@map("saved_searches")
+}
+
+// ---------------------------------------------------------------------------
+// Listings – one canonical record per unique listing across portals
+// ---------------------------------------------------------------------------
+model Listing {
+  id             String   @id @default(uuid())
+  source         String   // "immohouse" | "olx" | "otodom"
+  externalId     String?  @map("external_id")
+  canonicalUrl   String   @unique @map("canonical_url")
+  urlHash        String   @unique @map("url_hash")  // SHA-256 of canonicalUrl
+  status         String   @default("active")        // "active" | "inactive"
+
+  // Core fields
+  title          String?
+  description    String?
+  price          Int?     // in PLN, integer
+  currency       String?  @default("PLN")
+  rooms          Int?
+  bathrooms      Int?
+  areaM2         Float?   @map("area_m2")
+  floor          String?
+  neighborhood   String?
+  city           String?
+  region         String?
+  addressText    String?  @map("address_text")
+  lat            Float?
+  lon            Float?
+
+  // Agency / advertiser
+  agencyName     String?  @map("agency_name")
+  advertiserType String?  @map("advertiser_type")  // "agency" | "private" | "unknown"
+
+  // Media
+  thumbnailUrl   String?  @map("thumbnail_url")
+  photosJson     Json?    @map("photos_json")       // string[]
+  featuresJson   Json?    @map("features_json")     // string[]
+
+  // Raw data for debugging / re-parsing
+  rawSummaryJson Json?    @map("raw_summary_json")
+  rawDetailsJson Json?    @map("raw_details_json")
+
+  // Change tracking
+  fingerprint    String?  // hash of key fields for change detection
+  publishedAtText String? @map("published_at_text")
+  firstSeenAt    DateTime @default(now()) @map("first_seen_at")
+  lastSeenAt     DateTime @default(now()) @map("last_seen_at")
+  lastCheckedAt  DateTime @default(now()) @map("last_checked_at")
+  lastChangedAt  DateTime? @map("last_changed_at")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  matches SearchListingMatch[]
+  events  ListingEvent[]
+
+  @@index([source, externalId], name: "idx_listings_source_external_id")
+  @@index([status])
+  @@index([price])
+  @@index([city])
+  @@index([lastSeenAt])
+  @@index([updatedAt])
+  @@map("listings")
+}
+
+// ---------------------------------------------------------------------------
+// Junction: which listings appeared in which saved search run
+// ---------------------------------------------------------------------------
+model SearchListingMatch {
+  id               String    @id @default(uuid())
+  searchId         String    @map("search_id")
+  listingId        String    @map("listing_id")
+  firstMatchedAt   DateTime  @default(now()) @map("first_matched_at")
+  lastMatchedAt    DateTime  @default(now()) @map("last_matched_at")
+  currentMatchScore Float?   @map("current_match_score")
+  userState        String    @default("new") @map("user_state")
+  // "new" | "seen" | "favorite" | "discarded" | "contacted"
+
+  search  SavedSearch @relation(fields: [searchId], references: [id], onDelete: Cascade)
+  listing Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([searchId, listingId])
+  @@index([userState])
+  @@map("search_listing_matches")
+}
+
+// ---------------------------------------------------------------------------
+// Audit log of every change detected on a listing
+// ---------------------------------------------------------------------------
+model ListingEvent {
+  id           String   @id @default(uuid())
+  listingId    String   @map("listing_id")
+  eventType    String   @map("event_type")
+  // "new" | "updated" | "price_down" | "price_up" | "inactive" | "reactivated"
+  oldValueJson Json?    @map("old_value_json")
+  newValueJson Json?    @map("new_value_json")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([listingId, createdAt])
+  @@index([eventType])
+  @@map("listing_events")
+}
+
+// ---------------------------------------------------------------------------
+// Observability: one row per crawler run per saved search
+// ---------------------------------------------------------------------------
+model ScrapeRunLog {
+  id             String    @id @default(uuid())
+  searchId       String    @map("search_id")
+  portal         String
+  startedAt      DateTime  @default(now()) @map("started_at")
+  finishedAt     DateTime? @map("finished_at")
+  durationMs     Int?      @map("duration_ms")
+  success        Boolean?
+  discoveredCount Int?     @map("discovered_count")
+  newCount       Int?      @map("new_count")
+  updatedCount   Int?      @map("updated_count")
+  inactiveCount  Int?      @map("inactive_count")
+  errorMessage   String?   @map("error_message")
+
+  search SavedSearch @relation(fields: [searchId], references: [id], onDelete: Cascade)
+
+  @@index([searchId, startedAt])
+  @@map("scrape_run_logs")
+}
