@@ -1,4 +1,4 @@
-import { db } from "../db/db.js";
+import { db } from "../db/prisma.js";
 import { logger } from "../utils/logger.js";
 import type { ListingUserState, ListingStatus, UpdateListingStateRequest } from "../types/index.js";
 

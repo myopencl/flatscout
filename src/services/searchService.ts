@@ -1,4 +1,4 @@
-import { db } from "../db/db.js";
+import { db } from "../db/prisma.js";
 import { logger } from "../utils/logger.js";
 import type { SearchFilters } from "../types/index.js";
 import { OtodomAdapter } from "../adapters/otodom/OtodomAdapter.js";
