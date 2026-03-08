@@ -30,6 +30,12 @@ export class OtodomAdapter implements PortalAdapter {
   private readonly log = logger.child({ adapter: "otodom" });
 
   buildSearchUrl(filters: SearchFilters): string {
+    // If a custom search URL is provided, use it directly
+    if (filters.customSearchUrl) {
+      this.log.debug({ url: filters.customSearchUrl }, "Using custom search URL");
+      return filters.customSearchUrl;
+    }
+
     const operation = filters.operation === "buy" ? "sprzedaz" : "wynajem";
 
     // Build property type with rooms in path (e.g., "mieszkanie,3-pokoje")

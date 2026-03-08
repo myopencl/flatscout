@@ -1,5 +1,5 @@
 ---
-name: poznan-scraper-api
+name: flatscout-scraper-api
 description: >
   Access the Poznań real estate market database with advanced apartment management. Use this whenever a user wants to search for properties, manage apartment viewing workflow (track which you've seen, visited, or shortlisted), monitor saved searches, bulk delete properties, compare real estate market trends across OLX/Otodom/Immohouse, or analyze market data. Trigger for queries mentioning "properties in Poznań", "apartment hunting", "real estate market", "track properties", "manage apartment visits", "market analysis", property searches, saved search management, or data analysis of Polish housing market. Also trigger for any apartment-related workflow like "mark as favorite", "I want to keep track of which apartments I've visited", "compare properties", "generate market report".
 ---
@@ -287,6 +287,22 @@ The script will:
 2. Extract all filters from the URL parameters
 3. Create a saved search with those filters
 4. Show the extracted configuration for review
+
+### Use Custom URLs Directly
+
+If you want to use a specific URL exactly as-is without parameter reconstruction, pass it via `--customUrl`:
+
+```bash
+node scripts/create-search.js \
+  --name "My custom search" \
+  --portal otodom \
+  --customUrl "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,3-pokoje/cala-polska?distanceRadius=2000&placeId=ChIJe_X2eohbBEcRLij13o6MmOM&priceMin=400000&priceMax=650000"
+```
+
+When a custom URL is provided, all other filter parameters are ignored and the URL is used exactly as specified. This is useful when:
+- You have a complex search URL that's hard to express with parameters
+- You want to use the exact same filters Otodom/OLX show in the browser
+- You're debugging URL construction issues
 
 ### `scripts/manage-listings.js` – Track Your Apartment Hunt ⭐ NEW
 

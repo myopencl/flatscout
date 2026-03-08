@@ -13,6 +13,12 @@ export class OlxAdapter implements PortalAdapter {
   private readonly log = logger.child({ adapter: "olx" });
 
   buildSearchUrl(filters: SearchFilters): string {
+    // If a custom search URL is provided, use it directly
+    if (filters.customSearchUrl) {
+      this.log.debug({ url: filters.customSearchUrl }, "Using custom search URL");
+      return filters.customSearchUrl;
+    }
+
     // Build dynamic base URL with city support
     const operation = filters.operation === "buy" ? "sprzedaz" : "wynajem";
     const city = filters.city?.toLowerCase() ?? "poznan";

@@ -25,6 +25,8 @@ export interface SearchFilters {
   };
   sortBy?: string;
   sortDirection?: "ASC" | "DESC";
+  // If provided, use this URL directly instead of building from filters
+  customSearchUrl?: string;
   extra?: Record<string, unknown>;
 }
 
