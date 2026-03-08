@@ -61,9 +61,6 @@ ADVANCED FILTERS:
   --resultsPerPage NUM     Limit results per page
   --ownerType STR          Owner type filter
 
-CUSTOM URL (advanced):
-  --customUrl STR          Use this exact URL (ignores all other filters)
-
 SCHEDULE:
   --frequencyMinutes NUM   How often to run (minutes, default: 1440/daily)
   --enabled BOOL           Start enabled (true/false, default: true)
@@ -108,12 +105,6 @@ EXAMPLES:
      --frequencyMinutes 60 \\
      --minPrice 400000 \\
      --maxPrice 700000
-
-6. Custom URL (use exact URL from browser):
-   node create-search.js \\
-     --name "From browser" \\
-     --portal otodom \\
-     --customUrl "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,3-pokoje/cala-polska?distanceRadius=2000&placeId=ChIJe_X2eohbBEcRLij13o6MmOM&priceMin=400000&priceMax=650000"
   `);
   process.exit(1);
 }
@@ -144,9 +135,6 @@ if (args.ownerType) filters.ownerType = args.ownerType;
 if (args.sortBy) filters.sortBy = args.sortBy;
 if (args.sortDirection) filters.sortDirection = args.sortDirection;
 if (args.resultsPerPage) filters.resultsPerPage = parseInt(args.resultsPerPage);
-
-// Custom URL (if provided, use it directly instead of building from filters)
-if (args.customUrl) filters.customSearchUrl = args.customUrl;
 
 // Build search config
 const config = {

@@ -1,5 +1,5 @@
 ---
-name: flatscout-scraper-api
+name: poznan-scraper-api
 description: >
   Access the Poznań real estate market database with advanced apartment management. Use this whenever a user wants to search for properties, manage apartment viewing workflow (track which you've seen, visited, or shortlisted), monitor saved searches, bulk delete properties, compare real estate market trends across OLX/Otodom/Immohouse, or analyze market data. Trigger for queries mentioning "properties in Poznań", "apartment hunting", "real estate market", "track properties", "manage apartment visits", "market analysis", property searches, saved search management, or data analysis of Polish housing market. Also trigger for any apartment-related workflow like "mark as favorite", "I want to keep track of which apartments I've visited", "compare properties", "generate market report".
 ---
@@ -68,25 +68,6 @@ node scripts/create-search.js \
   --maxPrice 650000 \
   --rooms 3 \
   --portal otodom
-```
-
-### Create search from a Otodom URL
-```bash
-# Just copy-paste the URL from your browser!
-node scripts/parse-url-to-search.js \
-  "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,3-pokoje/cala-polska?distanceRadius=2000&placeId=ChIJe_X2eohbBEcRLij13o6MmOM&priceMin=400000&priceMax=650000" \
-  "My search"
-```
-
-### Create distance-based search
-```bash
-node scripts/create-search.js \
-  --name "Within 2km of city center" \
-  --portal otodom \
-  --radiusKm 2000 \
-  --placeId "ChIJe_X2eohbBEcRLij13o6MmOM" \
-  --minPrice 400000 \
-  --maxPrice 650000
 ```
 
 ### Mark an apartment as visited and add notes
@@ -190,119 +171,38 @@ node scripts/search-listings.js \
   --output table
 ```
 
-### `scripts/create-search.js` – Create Automated Searches (Enhanced)
+### `scripts/create-search.js` – Create Automated Searches
 
-Create a new saved search that runs on a schedule. Supports all filter parameters including advanced ones like distance radius, map bounds, and portal-specific filters.
+Create a new saved search that runs on a schedule.
 
 **Arguments:**
 ```
-REQUIRED:
---name STR              Name of the search
---portal STR            'immohouse', 'olx', 'otodom'
-
-BASIC FILTERS:
---operation STR         'buy' or 'rent' (default: 'buy')
---city STR              City name (default: 'Poznań')
---rooms NUM             Number of rooms (1-5)
---minPrice NUM          Minimum price in PLN
---maxPrice NUM          Maximum price in PLN
+--name STR              Name of the search (required)
+--portal STR            'immohouse', 'olx', 'otodom' (required)
+--frequencyMinutes NUM  How often to run (in minutes, default: 1440/daily)
+--minPrice NUM          Minimum price
+--maxPrice NUM          Maximum price
 --minArea NUM           Minimum area in m²
 --maxArea NUM           Maximum area in m²
-
-ADVANCED FILTERS:
---radiusKm NUM          Search radius in km (for distance-based searches)
---placeId STR           Google Maps place ID (for Otodom distance searches)
---districtId STR        OLX district ID
---mapBounds JSON        Map bounds as JSON: '{"west":16.9,"south":52.3,"east":16.8,"north":52.4}'
---sortBy STR            Sort field (DEFAULT, price, area, etc.)
---sortDirection STR     'ASC' or 'DESC' (default: 'DESC')
---resultsPerPage NUM    Limit results per page
---ownerType STR         Owner type filter
-
-SCHEDULE:
---frequencyMinutes NUM  How often to run (minutes, default: 1440/daily)
---enabled BOOL          Start enabled (default: true)
+--rooms NUM             Number of rooms
+--propertyType STR      'flat' (default)
+--city STR              City name (default: 'Poznań')
+--operation STR         'buy' or 'rent' (default: 'buy')
+--enabled BOOL          Start enabled or disabled (default: true)
 ```
 
-**Examples:**
-
-Basic hourly search:
+**Example – Create hourly search:**
 ```bash
 node scripts/create-search.js \
-  --name "Hourly: 3-room apts" \
+  --name "Hourly: 3-room apts €450k-€650k" \
   --portal olx \
   --frequencyMinutes 60 \
-  --rooms 3 \
   --minPrice 450000 \
-  --maxPrice 650000
+  --maxPrice 650000 \
+  --rooms 3
 ```
 
-Distance-based search (Otodom):
-```bash
-node scripts/create-search.js \
-  --name "Within 2km of city center" \
-  --portal otodom \
-  --radiusKm 2000 \
-  --placeId "ChIJe_X2eohbBEcRLij13o6MmOM" \
-  --minPrice 400000 \
-  --maxPrice 650000
-```
-
-With map bounds:
-```bash
-node scripts/create-search.js \
-  --name "Stare Miasto area" \
-  --portal otodom \
-  --mapBounds '{"west":16.99,"south":52.37,"east":16.84,"north":52.44}' \
-  --maxPrice 700000
-```
-
-### `scripts/parse-url-to-search.js` – Parse URLs to Searches ⭐ NEW
-
-Automatically extract search parameters from a Otodom/OLX URL and create a saved search. Perfect for copying a URL from your browser and turning it into a monitored search.
-
-**Usage:**
-```bash
-node scripts/parse-url-to-search.js "<URL>" ["Search Name"]
-```
-
-**Examples:**
-
-From Otodom URL:
-```bash
-node scripts/parse-url-to-search.js \
-  "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,3-pokoje/cala-polska?distanceRadius=2000&placeId=ChIJe_X2eohbBEcRLij13o6MmOM&priceMin=400000&priceMax=650000" \
-  "3-room within 2km"
-```
-
-From OLX URL:
-```bash
-node scripts/parse-url-to-search.js \
-  "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/poznan/?search[district_id]=325&search[filter_float_price:from]=400000" \
-  "Poznan center"
-```
-
-The script will:
-1. Detect the portal (Otodom, OLX, Immohouse)
-2. Extract all filters from the URL parameters
-3. Create a saved search with those filters
-4. Show the extracted configuration for review
-
-### Use Custom URLs Directly
-
-If you want to use a specific URL exactly as-is without parameter reconstruction, pass it via `--customUrl`:
-
-```bash
-node scripts/create-search.js \
-  --name "My custom search" \
-  --portal otodom \
-  --customUrl "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,3-pokoje/cala-polska?distanceRadius=2000&placeId=ChIJe_X2eohbBEcRLij13o6MmOM&priceMin=400000&priceMax=650000"
-```
-
-When a custom URL is provided, all other filter parameters are ignored and the URL is used exactly as specified. This is useful when:
-- You have a complex search URL that's hard to express with parameters
-- You want to use the exact same filters Otodom/OLX show in the browser
-- You're debugging URL construction issues
+**Returns:** The created search ID and a link to view results.
 
 ### `scripts/manage-listings.js` – Track Your Apartment Hunt ⭐ NEW
 
