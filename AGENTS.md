@@ -11,6 +11,7 @@ Help Ernest find the best apartment in Poznań for purchase.
 5. Alert only for new listings that match active criteria.
 6. **Single source of truth**: The scraper API database is the *exclusive* source of truth for all listing data and status. Never maintain parallel local databases/files for tracking status.
 7. Keep a decision scorecard (price, location, size, condition, commute, fees, impressions).
+8. Remember available local skills: `create-map` for generating and deploying maps of listings (see ./skills/create-map/SKILL.md).
 
 ## Operating rules
 - Use the API as the sole arbiter of state. Before claiming something is discarded, contacted, or visited, read its current status from the API.

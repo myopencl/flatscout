@@ -1,0 +1,33 @@
+{
+  "name": "create-map",
+  "version": "1.0.0",
+  "description": "FlatScout Map Generator Skill",
+  "main": "scripts/generate_map.js",
+  "scripts": {
+    "generate": "node scripts/generate_map.js",
+    "api": "node scripts/poznan-api.js",
+    "stats": "node scripts/stats.js",
+    "manage": "node scripts/manage-listings.js",
+    "bulk": "node scripts/bulk-operations.js",
+    "parse-url": "node scripts/parse-url-to-search.js",
+    "install-deps": "npm install node-fetch@2 minimist",
+    "test": "npm run search -- --rooms 3 --limit 5"
+  },
+  "keywords": [
+    "poznan",
+    "real-estate",
+    "scraper",
+    "api",
+    "map",
+    "property-search",
+    "listing-state"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "minimist": "^1.2.8"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
