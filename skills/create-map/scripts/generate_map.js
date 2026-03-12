@@ -24,7 +24,8 @@ if (args.rooms) {
         return parseInt(r) === parseInt(args.rooms);
     });
 }
-if (args.status) {
+// Apply status filter only when provided and not requesting 'all'
+if (args.status && args.status !== 'all') {
     apartments = apartments.filter(apt => (apt.userState?.status || apt.status) === args.status);
 }
 
