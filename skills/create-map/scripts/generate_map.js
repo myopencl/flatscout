@@ -4,17 +4,10 @@ const path = require('path');
 const args = require('minimist')(process.argv.slice(2));
 
 const WORKSPACE_ROOT = '/home/ubuntu/.openclaw/workspace-flatscout';
-// Nombre de archivo dinámico: por defecto index.html, si no, map_[name].html
 const filename = args.name ? `map_${args.name}.html` : 'index.html';
 const OUTPUT_PATH = path.join(WORKSPACE_ROOT, filename);
 
-// Construir descripción de filtros activa
-const activeFilters = [];
-if (args.rooms) activeFilters.push('Habitaciones: ' + args.rooms);
-if (args.status) activeFilters.push('Estado: ' + args.status);
-const filterText = activeFilters.length > 0 ? activeFilters.join(' | ') : 'Todos';
-
-console.log(`📥 Generando mapa dinámico: ${filename} | Filtros: ${filterText}`);
+console.log(`📥 Generando mapa dinámico: ${filename} | Filtros: ${JSON.stringify(args)}`);
 
 let db;
 try {
@@ -22,7 +15,24 @@ try {
   db = JSON.parse(fs.readFileSync(TEMP_DATA, 'utf8'));
 } catch (error) { process.exit(1); }
 
-const apartments = (Array.isArray(db) ? db : db.listings || []).filter(apt => apt.status !== 'rejected');
+// Filtrado LÓGICO REAL
+let apartments = (Array.isArray(db) ? db : db.listings || []).filter(apt => apt.status !== 'rejected');
+
+if (args.rooms) {
+    apartments = apartments.filter(apt => {
+        const r = apt.roomsNumber === "THREE" ? 3 : (apt.roomsNumber || apt.rooms || 'N/A');
+        return parseInt(r) === parseInt(args.rooms);
+    });
+}
+if (args.status) {
+    apartments = apartments.filter(apt => (apt.userState?.status || apt.status) === args.status);
+}
+
+// Construir descripción de filtros activa
+const activeFilters = [];
+if (args.rooms) activeFilters.push('Habitaciones: ' + args.rooms);
+if (args.status) activeFilters.push('Estado: ' + args.status);
+const filterText = activeFilters.length > 0 ? activeFilters.join(' | ') : 'Todos';
 
 const apartmentsJS = apartments.map(apt => {
   const coordsData = apt.rawDetailsJson?.location?.coordinates || apt.location?.coordinates || {};
@@ -63,20 +73,23 @@ const html = `<!DOCTYPE html>
         <div class="legend-item"><div class="legend-color" style="background:#ef4444;"></div><span>> 600k PLN</span></div>
         <div class="legend-item"><div class="legend-color" style="background:#f59e0b;"></div><span>500-600k PLN</span></div>
         <div class="legend-item"><div class="legend-color" style="background:#10b981;"></div><span>< 500k PLN</span></div>
+        <div class="legend-item"><div class="legend-color" style="background:#8b5cf6;"></div><span>🎭 Teatr Wielki</span></div>
     </div>
     <div class="update-time">Actualizado: ${new Date().toLocaleString('es-ES')}</div>
     <script>
         const map = L.map('map').setView([52.409694, 16.917666], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        L.marker([52.409694, 16.917666], { icon: L.divIcon({ html: '🎭', className: 'custom-icon'}) }).addTo(map).bindPopup('Teatr Wielki');
+        L.circle([52.409694, 16.917666], { color: '#8b5cf6', radius: 3000, dashArray: '5,5' }).addTo(map);
         const apartments = ${JSON.stringify(apartmentsJS)};
         apartments.forEach(apt => {
             const color = apt.price < 500000 ? '#10b981' : (apt.price < 600000 ? '#f59e0b' : '#ef4444');
             L.circleMarker(apt.coords, { radius: 12, fillColor: color, color: '#fff', weight: 2, fillOpacity: 1 }).addTo(map)
-                .bindPopup("<b>" + apt.address + "</b><br>Precio: " + apt.price.toLocaleString() + " PLN<br>Hab: " + apt.rooms + " | Piso: " + apt.floor + "<br><a href='"+apt.url+"' target='_blank'>Ver anuncio</a>");
+                .bindPopup("<b>" + apt.address + "</b><br>Precio: " + apt.price.toLocaleString() + " PLN<br>Hab: " + apt.rooms + " | Piso: " + apt.floor + "<br>Gastos: " + apt.monthly + " PLN/mes<br><a href='"+apt.url+"' target='_blank'>Ver anuncio</a>");
         });
     </script>
 </body>
 </html>`;
 
 fs.writeFileSync(OUTPUT_PATH, html, 'utf8');
-console.log('✅ ' + filename + ' generado.');
+console.log('✅ ' + filename + ' generado con los filtros aplicados.');

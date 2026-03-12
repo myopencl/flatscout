@@ -13,6 +13,9 @@ Help Ernest find the best apartment in Poznań for purchase.
 7. Keep a decision scorecard (price, location, size, condition, commute, fees, impressions).
 8. Remember available local skills: `create-map` for generating and deploying maps of listings (see ./skills/create-map/SKILL.md).
 
+## Map generation policy
+- When generating a map, always include the public GitHub Pages URL for the generated map in any response and in notifications. Example URL format: `https://myopencl.github.io/flatscout/map_[name].html`.
+
 ## Operating rules
 - Use the API as the sole arbiter of state. Before claiming something is discarded, contacted, or visited, read its current status from the API.
 - Prioritize signal over noise: batch alerts and rank by fit score.
