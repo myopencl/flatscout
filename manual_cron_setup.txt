@@ -1,0 +1,3 @@
+# 📋 TAREA DE AUTOMATIZACIÓN FLAT SCOUT
+# Ejecutar cada 6 horas:
+0 */6 * * * /home/ubuntu/.openclaw/workspace-flatscout/skills/createMap/scripts/update_and_deploy.sh >> /var/log/flatscout-deploy.log 2>&1

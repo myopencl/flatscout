@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlatScout Poznań - Mapa de Apartamentos</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .legend {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 13px;
+            max-width: 250px;
+        }
+        .legend h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .legend-item {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            border: 2px solid #333;
+        }
+        .work-marker {
+            background: gold;
+            border: 3px solid #333;
+        }
+        .leaflet-popup-content {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .popup-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .popup-price {
+            font-size: 16px;
+            color: #2a7;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .popup-details {
+            color: #666;
+            margin: 3px 0;
+        }
+        .popup-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .popup-link:hover {
+            text-decoration: underline;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+        .status-top1 {
+            background: gold;
+            color: #333;
+            font-weight: bold;
+        }
+        .status-visited {
+            background: #4CAF50;
+            color: white;
+        }
+        .status-visit-scheduled {
+            background: #2196F3;
+            color: white;
+        }
+        .status-contacted {
+            background: #FF9800;
+            color: white;
+        }
+        .status-offer-candidate {
+            background: #9C27B0;
+            color: white;
+        }
+        .status-rejected {
+            background: #F44336;
+            color: white;
+        }
+        .status-new {
+            background: #00BCD4;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="legend">
+        <h3>🏠 FlatScout Poznań</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: gold;"></div>
+            <span>⭐ TOP 1</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #4CAF50;"></div>
+            <span>Visitado</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #2196F3;"></div>
+            <span>Visita programada</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #9C27B0;"></div>
+            <span>Candidato oferta</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #FF9800;"></div>
+            <span>Contactado</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #00BCD4;"></div>
+            <span>Nuevo</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #F44336;"></div>
+            <span>Rechazado</span>
+        </div>
+        <div class="legend-item" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd;">
+            <div class="legend-color work-marker"></div>
+            <span>⚡ Trabajo (Teatr Wielki)</span>
+        </div>
+        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 11px; color: #666;">
+            <strong>Total:</strong> 16 apartamentos<br>
+            <strong>Actualizado:</strong> 6 marzo 2026
+        </div>
+    </div>
+
+    <script>
+        // Initialize map centered on Poznań
+        const map = L.map('map').setView([52.4064, 16.9252], 13);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Work location - Teatr Wielki
+        const workIcon = L.divIcon({
+            className: 'custom-div-icon',
+            html: "<div style='background-color:gold;width:30px;height:30px;border-radius:50%;border:3px solid #333;display:flex;align-items:center;justify-content:center;font-size:16px;'>⚡</div>",
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+
+        L.marker([52.40641, 16.93252], {icon: workIcon})
+            .bindPopup('<div class="popup-title">⚡ Teatr Wielki</div><div class="popup-details">Fredry 9, 61-701 Poznań</div>')
+            .addTo(map);
+
+        // Function to get marker color based on status and score
+        function getMarkerColor(status, score) {
+            if (score === 95) return 'gold';  // TOP 1
+            if (status === 'visited') return '#4CAF50';
+            if (status === 'visit_scheduled') return '#2196F3';
+            if (status === 'offer_candidate') return '#9C27B0';
+            if (status === 'contacted') return '#FF9800';
+            if (status === 'rejected') return '#F44336';
+            return '#00BCD4';  // new
+        }
+
+        function getStatusLabel(status, score) {
+            if (score === 95) return '<span class="status-badge status-top1">⭐ TOP 1</span>';
+            if (status === 'visited') return '<span class="status-badge status-visited">Visitado</span>';
+            if (status === 'visit_scheduled') return '<span class="status-badge status-visit-scheduled">Visita programada</span>';
+            if (status === 'offer_candidate') return '<span class="status-badge status-offer-candidate">Candidato oferta</span>';
+            if (status === 'contacted') return '<span class="status-badge status-contacted">Contactado</span>';
+            if (status === 'rejected') return '<span class="status-badge status-rejected">Rechazado</span>';
+            return '<span class="status-badge status-new">Nuevo</span>';
+        }
+
+        // Listings data
+        const listings = [
+            {
+                address: "Wielka, Poznań",
+                coords: [52.40834, 16.93417],
+                price: 545000,
+                pricePerM2: 9.07,
+                size: 60.07,
+                rooms: 3,
+                floor: "3/4",
+                fees: 616,
+                status: "offer_candidate",
+                score: 95,
+                url: "https://www.otodom.pl/pl/oferta/wysokie-mieszkanie-w-doskonalej-lokalizacji-cieplik-miejski-ID4Aegq",
+                notes: "⭐ TOP 1 - Por reformar"
+            },
+            {
+                address: "Wielka 12, Poznań",
+                coords: [52.40834, 16.93417],
+                price: 519000,
+                pricePerM2: 10.1,
+                size: 51,
+                rooms: null,
+                floor: "4/4",
+                fees: 580,
+                status: "visited",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/poddasze-nietuzinkowe-mieszkanie-150-m-od-starego-rynku-po-remoncie-ID4zTBb",
+                notes: "Ático reformado"
+            },
+            {
+                address: "Wodna, Stary Rynek, Poznań",
+                coords: [52.40750, 16.93350],
+                price: 580000,
+                pricePerM2: 11.3,
+                size: 51,
+                rooms: 2,
+                floor: "2/3",
+                fees: 460,
+                status: "visit_scheduled",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/2-pokoje-51-m-stare-miasto-poznan-ID4slO3",
+                notes: "Visita mañana 15:00"
+            },
+            {
+                address: "Winiary, Jeżyce, Poznań",
+                coords: [52.41500, 16.90800],
+                price: 595000,
+                pricePerM2: 12.71,
+                size: 46.8,
+                rooms: 3,
+                floor: "1/4",
+                fees: 830,
+                status: "visit_scheduled",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/funkcjonalne-3-pokoje-niski-blok-balkon-ID4zY0g",
+                notes: "Visita miércoles 15:00"
+            },
+            {
+                address: "Grunwald, Poznań",
+                coords: [52.39500, 16.92500],
+                price: 658000,
+                pricePerM2: 11.07,
+                size: 59.4,
+                rooms: null,
+                floor: null,
+                fees: 445,
+                status: "visit_scheduled",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/z-balkonem-i-piwnica-przy-tramwaju-ID4Al20",
+                notes: "Visita mañana 15:30"
+            },
+            {
+                address: "Stanisława Staszica, Jeżyce, Poznań",
+                coords: [52.41200, 16.91500],
+                price: 419000,
+                pricePerM2: 8.5,
+                size: 49,
+                rooms: 2,
+                floor: "0/4",
+                fees: 300,
+                status: "rejected",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/mieszkanie-2-pokoje-49-m2-ul-staszica-jezyce-ID4zwHh",
+                notes: "Rechazado: planta baja"
+            },
+            {
+                address: "Żelazna, Malta, Poznań",
+                coords: [52.41000, 16.96000],
+                price: 579000,
+                pricePerM2: 12.5,
+                size: 46,
+                rooms: null,
+                floor: "3/3",
+                fees: 410,
+                status: "new",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/klimatyczne-mieszkanie-z-antresola-w-otoczeniu-malty-i-lasow-ID4AlaR",
+                notes: ""
+            },
+            {
+                address: "Naramowicka, Poznań",
+                coords: [52.42500, 16.88000],
+                price: 589000,
+                pricePerM2: 12.5,
+                size: 47,
+                rooms: null,
+                floor: "0",
+                fees: 450,
+                status: "contacted",
+                score: null,
+                url: "https://immohouse.pl/nieruchomosc?id=12440621",
+                notes: "Lejos pero nos gusta"
+            },
+            {
+                address: "Kolejowa 40, Łazarz, Poznań",
+                coords: [52.40200, 16.91000],
+                price: 620000,
+                pricePerM2: 10.2,
+                size: 62,
+                rooms: null,
+                floor: "4/4",
+                fees: 750,
+                status: "offer_candidate",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/klimatyczne-z-antresola-open-space-lazarz-ID4AbyK",
+                notes: "¿Ofrecer 595k?"
+            },
+            {
+                address: "Rynek Wildecki, Wilda, Poznań",
+                coords: [52.40000, 16.93800],
+                price: 565000,
+                pricePerM2: 8.5,
+                size: 66.4,
+                rooms: null,
+                floor: "2/4",
+                fees: 600,
+                status: "contacted",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/rynek-wildecki-do-wprowadzenia-po-rewitalizacji-ID4yvWF",
+                notes: "Llamar semana que viene"
+            },
+            {
+                address: "Polna, Jeżyce, Poznań",
+                coords: [52.41800, 16.91200],
+                price: 550000,
+                pricePerM2: 9.32,
+                size: 62,
+                rooms: null,
+                floor: null,
+                fees: 568,
+                status: "contacted",
+                score: null,
+                url: "https://immohouse.pl/nieruchomosc?id=12333613",
+                notes: "Coordinar después del 10"
+            },
+            {
+                address: "Antoni Małeckiego, Łazarz, Poznań",
+                coords: [52.40300, 16.91500],
+                price: 679000,
+                pricePerM2: 10.25,
+                size: 68,
+                rooms: 3,
+                floor: "2/4",
+                fees: 520,
+                status: "new",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/trzypokojowe-mieszkanie-po-remoncie-ID4AfQ7",
+                notes: "Puerta azul"
+            },
+            {
+                address: "Wilda, Poznań (centro)",
+                coords: [52.40100, 16.93600],
+                price: 749000,
+                pricePerM2: 10.26,
+                size: 73,
+                rooms: null,
+                floor: "4/4",
+                fees: 600,
+                status: "new",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/bezposrednio-mieszkanie-w-centrum-poznania-73m2-2-balkony-ID4mOmx",
+                notes: "2 balcones"
+            },
+            {
+                address: "Jasielska, Podolany, Poznań",
+                coords: [52.43000, 16.91000],
+                price: 545000,
+                pricePerM2: 9.79,
+                size: 55.67,
+                rooms: 3,
+                floor: "1/5",
+                fees: 600,
+                status: "new",
+                score: null,
+                url: "https://www.otodom.pl/pl/oferta/okazja-3pok-55-m-2-balkony-od-poludnia-ID4zxVO",
+                notes: "Vacío, 2 balcones sur"
+            },
+            {
+                address: "Raszyńska, Poznań",
+                coords: [52.39000, 16.90000],
+                price: 599000,
+                pricePerM2: 11.3,
+                size: 53,
+                rooms: null,
+                floor: "9/?",
+                fees: null,
+                status: "new",
+                score: null,
+                url: "https://immohouse.pl/nieruchomosc?id=12161314",
+                notes: "Con ascensor"
+            },
+            {
+                address: "Rynarzewska, Poznań",
+                coords: [52.39200, 16.91800],
+                price: 660000,
+                pricePerM2: 9.7,
+                size: 68,
+                rooms: 4,
+                floor: "3/?",
+                fees: null,
+                status: "new",
+                score: null,
+                url: "https://immohouse.pl/nieruchomosc?id=11872986",
+                notes: "4 habitaciones"
+            }
+        ];
+
+        // Add markers for each listing
+        listings.forEach(listing => {
+            const color = getMarkerColor(listing.status, listing.score);
+            const markerIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div style='background-color:${color};width:24px;height:24px;border-radius:50%;border:2px solid #333;'></div>`,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+
+            const roomsText = listing.rooms ? `${listing.rooms} hab` : '';
+            const feesText = listing.fees ? `${listing.fees} zł/mes` : 'Gastos: ?';
+            
+            const popupContent = `
+                <div class="popup-title">${listing.address}</div>
+                <div class="popup-price">${listing.price.toLocaleString('es-ES')} PLN</div>
+                <div class="popup-details">
+                    ${listing.pricePerM2} zł/m² | ${listing.size} m²
+                    ${roomsText ? ' | ' + roomsText : ''}
+                </div>
+                <div class="popup-details">Piso: ${listing.floor || '?'} | ${feesText}</div>
+                ${getStatusLabel(listing.status, listing.score)}
+                ${listing.notes ? '<div class="popup-details" style="margin-top:5px;font-style:italic;">' + listing.notes + '</div>' : ''}
+                ${listing.url ? '<a href="' + listing.url + '" target="_blank" class="popup-link">Ver anuncio →</a>' : ''}
+            `;
+
+            L.marker(listing.coords, {icon: markerIcon})
+                .bindPopup(popupContent)
+                .addTo(map);
+        });
+    </script>
+</body>
+</html>

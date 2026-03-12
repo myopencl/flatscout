@@ -1,0 +1,73 @@
+[
+  {
+    "index": 1,
+    "listing_id": "007e1370-793c-4bb8-8ba0-e51b139f3fe8",
+    "title": "3 pokoje w centrum miasta",
+    "neighborhood": null,
+    "city": null,
+    "price": 598000,
+    "currency": "PLN",
+    "area_m2": 67,
+    "rooms": 3,
+    "url": "https://www.otodom.pl/pl/oferta/3-pokoje-w-centrum-miasta-ID4onUz",
+    "status": "FOUND",
+    "comments": null,
+    "notes": ""
+  },
+  {
+    "listing_id": "6153d8f3-16aa-45c4-9e23-f9a6956c656b",
+    "title": "Mieszkanie - inwestycja w centrum Poznania",
+    "neighborhood": "Jeżyce/Centrum",
+    "city": "Poznań",
+    "price": 620000,
+    "currency": "PLN",
+    "area_m2": 68.62,
+    "rooms": 3,
+    "url": "https://www.otodom.pl/pl/oferta/mieszkanie-inwestycja-w-centrum-poznania-ID4vFk8",
+    "status": "FOUND",
+    "comments": null,
+    "notes": ""
+  },
+  {
+    "listing_id": "d1b35843-6328-451a-aae2-ddb6260c665f",
+    "title": "3 pokoje, przestronny lokal inwestycyjny, Jeżyce",
+    "neighborhood": null,
+    "city": "Poznań",
+    "price": 624274,
+    "currency": "PLN",
+    "area_m2": 51.17,
+    "rooms": 3,
+    "url": "https://www.otodom.pl/pl/oferta/3-pokoje-przestronny-lokal-inwestycyjny-jezyce-ID4sLRN",
+    "status": "FOUND",
+    "comments": null,
+    "notes": ""
+  },
+  {
+    "listing_id": "ff4ff472-a145-4ff4-b2a4-448653baf4a8",
+    "title": "Weekendowa cena_Garbary 26_mieszkanie 3 pokojowe",
+    "neighborhood": "Garbary",
+    "city": "Poznań",
+    "price": 560999,
+    "currency": "PLN",
+    "area_m2": 46.83,
+    "rooms": 3,
+    "url": "https://www.otodom.pl/pl/oferta/weekendowa-cena-garbary-26-mieszkanie-3-pokojowe-ID4ysnz",
+    "status": "FOUND",
+    "comments": null,
+    "notes": ""
+  },
+  {
+    "listing_id": "e163f659-08a7-4803-8050-c545ae026e5c",
+    "title": "Urabanowska - blisko Park Sołacki",
+    "neighborhood": null,
+    "city": "Poznań",
+    "price": 458000,
+    "currency": "PLN",
+    "area_m2": 47,
+    "rooms": 3,
+    "url": "https://www.otodom.pl/pl/oferta/urabanowska-blisko-park-solacki-ID4zdTt",
+    "status": "FOUND",
+    "comments": null,
+    "notes": ""
+  }
+]

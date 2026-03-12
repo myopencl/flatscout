@@ -1,0 +1,639 @@
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:25:19
+🔍 Consultando API y generando mapa...
+📥 Consultando flatscout-scraper-api para obtener listings...
+❌ Error consultando el scraper: spawnSync /bin/sh ENOBUFS
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:28:51
+📥 Consultando Scraper API...
+🗺️  Generando mapa...
+📥 Leyendo datos del scraper desde archivo temporal...
+✅ Mapa generado con 50 listings.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29567420b02c7763b51ec",
+  "deploy_url": "https://69b29567420b02c7763b51ec--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29567420b02c7763b51ec",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Deploy exitoso!
+   URL: https://myflatscout.netlify.app/apartments_map.html
+================================================
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:33:02
+📥 Consultando Scraper API...
+🗺️  Generando mapa...
+📥 Consultando flatscout-scraper-api...
+❌ Error consultando el scraper: spawnSync /bin/sh ENOBUFS
+🔄 Pipeline inicializado - 2026-03-12 11:34:02
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Consultando flatscout-scraper-api...
+❌ Error consultando el scraper: spawnSync /bin/sh ENOBUFS
+🔄 Pipeline inicializado - 2026-03-12 11:35:11
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Leyendo datos del scraper desde archivo...
+✅ Mapa generado exitosamente.
+🚀 Desplegando...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b296e4c45136bf448fdb8d",
+  "deploy_url": "https://69b296e4c45136bf448fdb8d--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b296e4c45136bf448fdb8d",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+🔄 Pipeline inicializado - 2026-03-12 11:38:56
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa visual completo...
+✅ Mapa restaurado y generado.
+🚀 Desplegando...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b297c39a8adadece313d77",
+  "deploy_url": "https://69b297c39a8adadece313d77--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b297c39a8adadece313d77",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+🔄 Pipeline inicializado - 2026-03-12 11:40:57
+📥 Consultando Scraper (Límite 500)...
+Error: API Error 400: Bad Request
+Details: {
+  error: 'Validation error',
+  details: { _errors: [], limit: { _errors: [Array] } }
+}
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:42:05
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa visual completo...
+✅ Mapa restaurado y generado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29880625dbec3598587f2",
+  "deploy_url": "https://69b29880625dbec3598587f2--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29880625dbec3598587f2",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:46:32
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa visual completo...
+✅ Mapa restaurado y generado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b2998b55ab46e1e7d15d46",
+  "deploy_url": "https://69b2998b55ab46e1e7d15d46--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b2998b55ab46e1e7d15d46",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:50:19
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa visual completo...
+✅ Mapa restaurado y generado totalmente.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29a6e55ab46e53ed15da9",
+  "deploy_url": "https://69b29a6e55ab46e53ed15da9--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29a6e55ab46e53ed15da9",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:56:07
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa con mapeo de datos mejorado...
+✅ Mapa generado con mapeo completo.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29bcb55ab46ea32d15d79",
+  "deploy_url": "https://69b29bcb55ab46ea32d15d79--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29bcb55ab46ea32d15d79",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 11:59:11
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa con mapeo de campos real...
+✅ Mapa generado con éxito.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29c826e86cff28362a812",
+  "deploy_url": "https://69b29c826e86cff28362a812--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29c826e86cff28362a812",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:00:06
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Leyendo datos del scraper...
+📊 Total apartamentos detectados: 50
+✅ Mapa generado con 50 apartamentos.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29cb91d38d5f16eb0c0ed",
+  "deploy_url": "https://69b29cb91d38d5f16eb0c0ed--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29cb91d38d5f16eb0c0ed",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:01:10
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+DEBUG: Procesando 50 items.
+DEBUG: Ejemplo de data [0]: {
+  "id": "e163f659-08a7-4803-8050-c545ae026e5c",
+  "source": "otodom",
+  "externalId": "67500235",
+  "canonicalUrl": "https://www.otodom.pl/pl/oferta/urabanowska-blisko-park-solacki-ID4zdTt",
+  "urlHash": "63a2c1446cecac038d63479d73052a9c1437bbe51ad1e2bc6f484e84ee9e6565",
+  "status": "active",
+  "title": "Urabanowska - blisko Park Sołacki",
+  "description": null,
+  "price": 458000,
+  "currency": "PLN",
+  "rooms": 3,
+  "bathrooms": null,
+  "areaM2": 47,
+  "floor": null,
+  "neighborhood": null,
+  "city": null,
+  "region": null,
+  "addressText": null,
+  "lat": null,
+  "lon": null,
+  "agencyName": null,
+  "advertiserType": null,
+  "thumbnailUrl": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InFtbHhyd2pkOGs0dTItQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.PHK1d4DYxXZn59anUXL6_zzqAfhrHBx0Vxlh8hslDZE/image;s=655x491;q=80",
+  "photosJson": null,
+  "featuresJson": null,
+  "rawSummaryJson": {
+    "id": 67500235,
+    "href": "[lang]/ad/urabanowska-blisko-park-solacki-ID4zdTt",
+    "slug": "urabanowska-blisko-park-solacki-ID4zdTt",
+    "title": "Urabanowska - blisko Park Sołacki",
+    "agency": {
+      "id": 34686,
+      "name": "Nieruchomosci Laskowski",
+      "slug": "nieruchomosci-laskowski-ID34686",
+      "type": "AGENCY",
+      "imageUrl": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6IjJua3JhdzVjdmJ5MS1BUEwifQ.xStN8sFTq97pnzGg5F8Q8xKZRPUhWt-BmSfxo7GEyaI/image;s=800x600;q=90",
+      "__typename": "AgencyListingDetails",
+      "highlightedAds": false,
+      "brandingVisible": false,
+      "enhancedBrandingFeatures": [
+        "ENHANCED_BRANDING_SELLER_TYPE"
+      ]
+    },
+    "estate": "FLAT",
+    "images": [
+      {
+        "large": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InFtbHhyd2pkOGs0dTItQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.PHK1d4DYxXZn59anUXL6_zzqAfhrHBx0Vxlh8hslDZE/image;s=1280x1024;q=80",
+        "medium": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InFtbHhyd2pkOGs0dTItQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.PHK1d4DYxXZn59anUXL6_zzqAfhrHBx0Vxlh8hslDZE/image;s=655x491;q=80",
+        "__typename": "AdImage"
+      },
+      {
+        "large": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InUxZnF1NXp3Y3lsNzEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.z91Q3owAAMAoabhdj8eeihaWXbraNEuw2pCMHe0e8NM/image;s=1280x1024;q=80",
+        "medium": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InUxZnF1NXp3Y3lsNzEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.z91Q3owAAMAoabhdj8eeihaWXbraNEuw2pCMHe0e8NM/image;s=655x491;q=80",
+        "__typename": "AdImage"
+      },
+      {
+        "large": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Imtob3d4OXgydGZ5ZzEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.Vw4oV7FmIitjqJFeuSkJU9aSjZbmL20e7Lyixqq4Hb0/image;s=1280x1024;q=80",
+        "medium": "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Imtob3d4OXgydGZ5ZzEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.Vw4oV7FmIitjqJFeuSkJU9aSjZbmL20e7Lyixqq4Hb0/image;s=655x491;q=80",
+        "__typename": "AdImage"
+      }
+    ],
+    "source": "urn:site:local",
+    "location": {
+      "address": {
+        "city": {
+          "name": "Poznań",
+          "__typename": "City"
+        },
+        "street": null,
+        "province": {
+          "name": "wielkopolskie",
+          "__typename": "Province"
+        },
+        "__typename": "Address"
+      },
+      "__typename": "LocationDetails",
+      "mapDetails": {
+        "radius": 0,
+        "__typename": "MapDetails"
+      },
+      "reverseGeocoding": {
+        "locations": [
+          {
+            "id": "wielkopolskie",
+            "name": "wielkopolskie",
+            "fullName": "wielkopolskie",
+            "__typename": "BasicLocationObject",
+            "locationLevel": "voivodeship"
+          },
+          {
+            "id": "wielkopolskie/poznan/poznan/poznan",
+            "name": "Poznań",
+            "fullName": "Poznań, wielkopolskie",
+            "__typename": "BasicLocationObject",
+            "locationLevel": "city_or_village"
+          },
+          {
+            "id": "wielkopolskie/poznan/poznan/poznan/jezyce",
+            "name": "Jeżyce",
+            "fullName": "Jeżyce, Poznań, wielkopolskie",
+            "__typename": "BasicLocationObject",
+            "locationLevel": "district"
+          },
+          {
+            "id": "wielkopolskie/poznan/poznan/poznan/jezyce/winiary",
+            "name": "Winiary",
+            "fullName": "Winiary, Jeżyce, Poznań, wielkopolskie",
+            "__typename": "BasicLocationObject",
+            "locationLevel": "residential"
+          }
+        ],
+        "__typename": "ReverseGeocoding"
+      }
+    },
+    "openDays": "",
+    "rowIndex": 32,
+    "hidePrice": false,
+    "rentPrice": {
+      "value": 875,
+      "currency": "PLN",
+      "__typename": "Money"
+    },
+    "__typename": "AdvertListItem",
+    "isPromoted": false,
+    "pushedUpAt": null,
+    "totalPrice": {
+      "value": 458000,
+      "currency": "PLN",
+      "__typename": "Money"
+    },
+    "advertOwner": {
+      "name": "Nieruchomosci Laskowski",
+      "contacts": [],
+      "imageUrl": "",
+      "__typename": "LegacyAdvertOwner"
+    },
+    "dateCreated": "2025-12-02 12:21:38",
+    "development": null,
+    "floorNumber": "FOURTH",
+    "roomsNumber": "THREE",
+    "transaction": "SELL",
+    "imagesHashes": [
+      "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InFtbHhyd2pkOGs0dTItQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.PHK1d4DYxXZn59anUXL6_zzqAfhrHBx0Vxlh8hslDZE/image",
+      "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InUxZnF1NXp3Y3lsNzEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.z91Q3owAAMAoabhdj8eeihaWXbraNEuw2pCMHe0e8NM/image",
+      "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Imtob3d4OXgydGZ5ZzEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.Vw4oV7FmIitjqJFeuSkJU9aSjZbmL20e7Lyixqq4Hb0/image"
+    ],
+    "specialOffer": null,
+    "developmentId": 0,
+    "peoplePerRoom": null,
+    "createdAtFirst": "2025-12-02T12:20:08Z",
+    "developmentUrl": "",
+    "isPrivateOwner": false,
+    "investmentState": null,
+    "showPremiumTile": false,
+    "developmentTitle": "",
+    "isExclusiveOffer": false,
+    "shortDescription": "BLOKADA!!! do 08.03.26Do sprzedaży 3 - pokojowe mieszkanie położone w bardzo dobrej lokalizacji w Poznaniu, przy ul. Urbanowskiej na Jeżycach.Mieszkanie położone na 4 piętrze w niskim IV piętrowym blo...",
+    "areaInSquareMeters": 47,
+    "pricePerSquareMeter": {
+      "value": 9745,
+      "currency": "PLN",
+      "__typename": "Money"
+    },
+    "totalPossibleImages": 13,
+    "investmentUnitsNumber": null,
+    "priceFromPerSquareMeter": null,
+    "terrainAreaInSquareMeters": null,
+    "investmentUnitsRoomsNumber": null,
+    "organisationAssignedMember": null,
+    "investmentEstimatedDelivery": null,
+    "investmentUnitsAreaInSquareMeters": null
+  },
+  "rawDetailsJson": null,
+  "fingerprint": "543082649ab324aed040584422da1cfe576ec16860460b0c3571c2f49b2b24bb",
+  "publishedAtText": null,
+  "firstSeenAt": "2026-03-08T10:44:12.952Z",
+  "lastSeenAt": "2026-03-12T10:32:16.640Z",
+  "lastCheckedAt": "2026-03-11T16:20:07.143Z",
+  "lastChangedAt": null,
+  "createdAt": "2026-03-08T10:44:18.110Z",
+  "updatedAt": "2026-03-12T10:32:16.641Z",
+  "userState": {
+    "id": "cmmhmkksh00v9x1cfu4fwndck",
+    "listingId": "e163f659-08a7-4803-8050-c545ae026e5c",
+    "status": "FOUND",
+    "comments": null,
+    "visitDate": null,
+    "prosJson": null,
+    "consJson": null,
+    "rating": null,
+    "createdAt": "2026-03-08T10:44:18.113Z",
+    "updatedAt": "2026-03-08T10:44:18.113Z"
+  }
+}
+✅ Generado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29cfcb34fb1fdbd35c12f",
+  "deploy_url": "https://69b29cfcb34fb1fdbd35c12f--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29cfcb34fb1fdbd35c12f",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:04:18
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa con mapeo robusto...
+DEBUG: Primeros 3 apartamentos procesados: [
+  {
+    "coords": [
+      52.4064,
+      16.9252
+    ],
+    "title": "Urabanowska - blisko Park Sołacki",
+    "price": 458000,
+    "size": 47,
+    "rooms": "N/A",
+    "floor": "-",
+    "monthly": "N/A",
+    "url": "https://www.otodom.pl/pl/oferta/urabanowska-blisko-park-solacki-ID4zdTt"
+  },
+  {
+    "coords": [
+      52.4064,
+      16.9252
+    ],
+    "title": "Klimatyczne mieszkanie 3 pokojowe",
+    "price": 647955,
+    "size": 63,
+    "rooms": "N/A",
+    "floor": "-",
+    "monthly": "N/A",
+    "url": "https://www.otodom.pl/pl/oferta/klimatyczne-mieszkanie-3-pokojowe-ID4zCJB"
+  },
+  {
+    "coords": [
+      52.4064,
+      16.9252
+    ],
+    "title": "Mieszkanie dwupoziomowe, piwnica, schowki",
+    "price": 550000,
+    "size": 62,
+    "rooms": "N/A",
+    "floor": "-",
+    "monthly": "N/A",
+    "url": "https://www.otodom.pl/pl/oferta/mieszkanie-dwupoziomowe-piwnica-schowki-ID4y2k6"
+  }
+]
+✅ Mapa generado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29db555ab46f4a7d15c3b",
+  "deploy_url": "https://69b29db555ab46f4a7d15c3b--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29db555ab46f4a7d15c3b",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:05:09
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa - DEPURACIÓN TOTAL...
+DEBUG: Tipo de dato raíz: object
+DEBUG: Es array?: true
+DEBUG: Keys del objeto raíz: [
+  '0',  '1',  '2',  '3',  '4',  '5',  '6',
+  '7',  '8',  '9',  '10', '11', '12', '13',
+  '14', '15', '16', '17', '18', '19', '20',
+  '21', '22', '23', '24', '25', '26', '27',
+  '28', '29', '30', '31', '32', '33', '34',
+  '35', '36', '37', '38', '39', '40', '41',
+  '42', '43', '44', '45', '46', '47', '48',
+  '49'
+]
+📊 Total apartamentos detectados tras parseo: 50
+DEBUG: Primeras coordenadas: [[52.4064,16.9252],[52.4064,16.9252],[52.4064,16.9252],[52.4064,16.9252],[52.4064,16.9252]]
+✅ Generado mapa con 50 puntos.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29de9c45136df458fdbce",
+  "deploy_url": "https://69b29de9c45136df458fdbce--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29de9c45136df458fdbce",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:07:20
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa optimizado...
+✅ Mapa generado correctamente.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29e6be7809feafc30ca71",
+  "deploy_url": "https://69b29e6be7809feafc30ca71--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29e6be7809feafc30ca71",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:09:18
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+✅ Mapa generado con 50 puntos.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29ee2426f7fe622a7ec6b",
+  "deploy_url": "https://69b29ee2426f7fe622a7ec6b--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29ee2426f7fe622a7ec6b",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:10:48
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa visual completo y robusto...
+✅ Mapa restaurado y funcional.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29f3b426f7fe622a7ec77",
+  "deploy_url": "https://69b29f3b426f7fe622a7ec77--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29f3b426f7fe622a7ec77",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:13:37
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+✅ Generado mapa con mapeo limpio.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b29fe4426f7fe6eca7ed14",
+  "deploy_url": "https://69b29fe4426f7fe6eca7ed14--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b29fe4426f7fe6eca7ed14",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:15:44
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa visual completo...
+✅ Visualización restaurada con mapeado de datos avanzado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b2a06433f4fe058639e402",
+  "deploy_url": "https://69b2a06433f4fe058639e402--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b2a06433f4fe058639e402",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:17:31
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa con mapeo multi-ruta...
+✅ Mapa generado con mapeo profundo completado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b2a0cee7809ff43130ca96",
+  "deploy_url": "https://69b2a0cee7809ff43130ca96--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b2a0cee7809ff43130ca96",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:18:54
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa con mapeo multi-ruta...
+✅ Mapa generado con mapeo profundo completado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b2a122c45136ec0d8fdc30",
+  "deploy_url": "https://69b2a122c45136ec0d8fdc30--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b2a122c45136ec0d8fdc30",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:19:48
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa con mapeo multi-ruta...
+✅ Mapa generado con mapeo profundo completado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b2a157420b02fb813b53e8",
+  "deploy_url": "https://69b2a157420b02fb813b53e8--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b2a157420b02fb813b53e8",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:21:13
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+📥 Generando mapa con mapeo multi-ruta...
+✅ Mapa generado con mapeo profundo completado.
+🚀 Desplegando en Netlify...
+{
+  "site_id": "6dded4e4-354a-4210-aea7-a45624d6b359",
+  "site_name": "myflatscout",
+  "deploy_id": "69b2a1ada53125f507717d1c",
+  "deploy_url": "https://69b2a1ada53125f507717d1c--myflatscout.netlify.app",
+  "logs": "https://app.netlify.com/projects/myflatscout/deploys/69b2a1ada53125f507717d1c",
+  "function_logs": "https://app.netlify.com/projects/myflatscout/logs/functions",
+  "edge_function_logs": "https://app.netlify.com/projects/myflatscout/logs/edge-functions",
+  "url": "https://myflatscout.netlify.app"
+}✅ Pipeline completado.
+================================================
+🔄 FlatScout API-to-Netlify Pipeline - 2026-03-12 12:26:44
+📥 Consultando Scraper...
+🗺️  Generando mapa...
+✅ Mapa generado.
+🚀 Desplegando en Netlify...
+ ›   JSONHTTPError: Forbidden
+================================================
+🔄 FlatScout GitHub Pipeline - 2026-03-12 15:03:09
+📥 Consultando Scraper...

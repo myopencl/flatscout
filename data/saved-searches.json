@@ -1,0 +1,23 @@
+{
+  "savedSearchIds": [],
+  "bootstrapSearches": [
+    {
+      "name": "Otodom custom URL · 3 rooms · 400k-650k",
+      "portal": "otodom",
+      "frequencyMinutes": 1440,
+      "enabled": true,
+      "filters": {
+        "customSearchUrl": "https://www.otodom.pl/pl/wyniki/sprzedaz/mieszkanie,3-pokoje/cala-polska?distanceRadius=2000&placeId=ChIJe_X2eohbBEcRLij13o6MmOM&limit=36&ownerTypeSingleSelect=ALL&priceMin=400000&priceMax=650000&areaMin=40&areaMax=80&by=DEFAULT&direction=DESC&mapBounds=16.99218914113556%2C52.445193445606336%2C16.843702058864473%2C52.3746156557515"
+      }
+    },
+    {
+      "name": "OLX custom URL · district 325 · 3 rooms · 400k-600k",
+      "portal": "olx",
+      "frequencyMinutes": 1440,
+      "enabled": true,
+      "filters": {
+        "customSearchUrl": "https://www.olx.pl/nieruchomosci/mieszkania/sprzedaz/poznan/?search%5Bdistrict_id%5D=325&search%5Bfilter_float_price:from%5D=400000&search%5Bfilter_float_price:to%5D=600000&search%5Bfilter_float_m:from%5D=40&search%5Bfilter_float_m:to%5D=80&search%5Bfilter_enum_rooms%5D%5B0%5D=three"
+      }
+    }
+  ]
+}

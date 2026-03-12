@@ -1,0 +1,84 @@
+[
+  {
+    "index": 1,
+    "title": "3 pokoje w centrum miasta",
+    "price_pln": 598000,
+    "price_eur": 131560,
+    "area_m2": 67,
+    "rooms": 3,
+    "neighborhood": null,
+    "url": "https://www.otodom.pl/pl/oferta/3-pokoje-w-centrum-miasta-ID4onUz",
+    "listing_status": "VISITED",
+    "our_status": "VISITED",
+    "comments": "Pequeño",
+    "cons": [],
+    "pros": []
+  },
+  {
+    "index": 2,
+    "title": "Mieszkanie - inwestycja w centrum Poznania",
+    "price_pln": 620000,
+    "price_eur": 136400,
+    "area_m2": 68.62,
+    "rooms": 3,
+    "neighborhood": "Jeżyce/Centrum",
+    "url": "https://www.otodom.pl/pl/oferta/mieszkanie-inwestycja-w-centrum-poznania-ID4vFk8",
+    "listing_status": "FOUND",
+    "our_status": "FOUND",
+    "comments": null,
+    "cons": [
+      "Necesita renovación",
+      "Hay una parte del comedor que tiene ventanas a una zona interior",
+      "Edificio en general necesita renovaciones. Gastos a futuro."
+    ],
+    "pros": [
+      "3 habitaciones y buen tamaño",
+      "Céntrico"
+    ]
+  },
+  {
+    "index": 3,
+    "title": "3 pokoje, przestronny lokal inwestycyjny, Jeżyce",
+    "price_pln": 624274,
+    "price_eur": 137342,
+    "area_m2": 51.17,
+    "rooms": 3,
+    "neighborhood": null,
+    "url": "https://www.otodom.pl/pl/oferta/3-pokoje-przestronny-lokal-inwestycyjny-jezyce-ID4sLRN",
+    "listing_status": "FOUND",
+    "our_status": "FOUND",
+    "comments": null,
+    "cons": [],
+    "pros": []
+  },
+  {
+    "index": 4,
+    "title": "Weekendowa cena_Garbary 26_mieszkanie 3 pokojowe",
+    "price_pln": 560999,
+    "price_eur": 123420,
+    "area_m2": 46.83,
+    "rooms": 3,
+    "neighborhood": "Garbary",
+    "url": "https://www.otodom.pl/pl/oferta/weekendowa-cena-garbary-26-mieszkanie-3-pokojowe-ID4ysnz",
+    "listing_status": "FOUND",
+    "our_status": "FOUND",
+    "comments": null,
+    "cons": [],
+    "pros": []
+  },
+  {
+    "index": 5,
+    "title": "Urabanowska - blisko Park Sołacki",
+    "price_pln": 458000,
+    "price_eur": 100760,
+    "area_m2": 47,
+    "rooms": 3,
+    "neighborhood": null,
+    "url": "https://www.otodom.pl/pl/oferta/urabanowska-blisko-park-solacki-ID4zdTt",
+    "listing_status": "FOUND",
+    "our_status": "FOUND",
+    "comments": null,
+    "cons": [],
+    "pros": []
+  }
+]
