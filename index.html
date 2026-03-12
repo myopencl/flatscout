@@ -8,23 +8,24 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         body { margin:0; padding:0; font-family:sans-serif; } #map { height: 100vh; width: 100%; }
-        .controls { position: absolute; z-index: 2000; top: 15px; left: 60px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; }
+        .controls { position: absolute; z-index: 2000; top: 15px; left: 60px; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .legend { position: absolute; bottom: 20px; right: 10px; background: white; padding: 10px; border-radius: 8px; font-size: 11px; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .popup-content { min-width: 200px; font-size: 14px; line-height: 1.4; }
         .price { font-size: 16px; font-weight: bold; color: #2563eb; }
-        select, input { display: block; width: 100%; margin: 5px 0; padding: 8px; }
+        select { display: block; width: 100%; margin: 5px 0; padding: 5px; }
+        #scoreFilter { display: block; width: 40px; padding: 5px; }
     </style>
 </head>
 <body>
     <button style="position:absolute; z-index:2000; top:15px; left:15px; padding:10px; background:#2563eb; color:white; border:none; border-radius:8px;" onclick="document.getElementById('filterMenu').style.display = (document.getElementById('filterMenu').style.display === 'block' ? 'none' : 'block')">🔎</button>
     <div id="filterMenu" class="controls">
-        <label>Hab:</label><select id="roomFilter" onchange="filterMap()"><option value="all">Todas</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select>
-        <label>Score min:</label><input type="number" id="scoreFilter" oninput="filterMap()" value="0">
+        <label style="font-size:10px">Hab:</label><select id="roomFilter" onchange="filterMap()"><option value="all">Todas</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select>
+        <label style="font-size:10px">Score:</label><input type="number" id="scoreFilter" oninput="filterMap()" value="0" maxlength="3">
+        <label style="font-size:10px">Estado:</label><select id="statusFilter" onchange="filterMap()"><option value="all">Todos</option><option value="FOUND">FOUND</option><option value="SEEN">SEEN</option><option value="VISITED">VISITED</option><option value="FINALIST">FINALIST</option></select>
     </div>
     <div id="map"></div>
     <div class="legend">
-        <b>Precios:</b><br><span style="color:#10b981">● < 500k</span><br><span style="color:#f59e0b">● 500-600k</span><br><span style="color:#ef4444">● > 600k</span>
-        <br><span style="color:#8b5cf6">● 🎭 Teatro</span>
+        <b>Precios:</b><br><span style="color:#10b981">● < 500k</span><br><span style="color:#f59e0b">● 500-600k</span><br><span style="color:#ef4444">● > 600k</span><br><span style="color:#8b5cf6">● 🎭 Teatro</span>
     </div>
     <script>
         const map = L.map('map').setView([52.409694, 16.917666], 13);
@@ -40,11 +41,12 @@
             markers = [];
             const r = document.getElementById('roomFilter').value;
             const s = parseFloat(document.getElementById('scoreFilter').value) || 0;
+            const st = document.getElementById('statusFilter').value;
             
-            apartments.filter(a => (r === 'all' || a.rooms == r) && (a.score >= s)).forEach(apt => {
+            apartments.filter(a => (r === 'all' || a.rooms == r) && (a.score >= s) && (st === 'all' || a.status === st)).forEach(apt => {
                 const color = apt.price < 500000 ? '#10b981' : (apt.price < 600000 ? '#f59e0b' : '#ef4444');
                 const m = L.circleMarker(apt.coords, { radius: 12, fillColor: color, color: '#fff', weight: 2, fillOpacity: 1 }).addTo(map)
-                    .bindPopup("<div class='popup-content'><b>"+apt.address+"</b><br><div class='price'>"+apt.price.toLocaleString()+" PLN</div>📐 "+apt.size+" m² | 🛏️ Rooms: "+apt.rooms+" | 🏢 Floor: "+apt.floor+"<br>💰 Gastos: "+apt.monthly+" PLN<br><a href='"+apt.url+"' target='_blank'>Ver anuncio</a></div>");
+                    .bindPopup("<div class='popup-content'><b>"+apt.address+"</b><br><div class='price'>"+apt.price.toLocaleString()+" PLN</div>📐 "+apt.size+" m² | 🛏️ Rooms: "+apt.rooms+" | 🏢 Floor: "+apt.floor+"<br>💰 Gastos: "+apt.monthly+" PLN<br>Score: "+apt.score+"<br><a href='"+apt.url+"' target='_blank'>Ver anuncio</a></div>");
                 markers.push(m);
             });
         }
