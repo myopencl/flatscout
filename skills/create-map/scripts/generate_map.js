@@ -11,7 +11,7 @@ console.log(`📥 Generando mapa dinámico: ${filename} | Filtros: ${JSON.string
 
 let db;
 try {
-  const TEMP_DATA = path.join(WORKSPACE_ROOT, 'listings_temp.json');
+  const TEMP_DATA = args.input ? path.isAbsolute(args.input) ? args.input : path.join(WORKSPACE_ROOT, args.input) : path.join(WORKSPACE_ROOT, 'listings_temp.json');
   db = JSON.parse(fs.readFileSync(TEMP_DATA, 'utf8'));
 } catch (error) { process.exit(1); }
 
