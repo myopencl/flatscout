@@ -12,54 +12,43 @@ const BASE_URL = "https://domy.pl";
 /**
  * Parse the search results HTML from domy.pl and return a list of stubs.
  *
- * Domy.pl renders listings server-side (PHP/Symfony).  Each listing card
- * is wrapped in an <article> or <div> with a class containing "offer".
- *
- * Verified selectors (2025):
- *   <article class="offer-item offer-item--list">
- *     <a class="offer-item__title" href="/mieszkania/oferta/...">Title</a>
- *     <span class="offer-item__price">600 000 zł</span>
- *     <li class="parameters__parameter" data-name="area">75 m²</li>
- *     <li class="parameters__parameter" data-name="rooms">3</li>
- *     <span class="offer-item__location">Poznań, Jeżyce</span>
- *     <img class="offer-item__photo" src="..." />
- *   </article>
- *
- * NOTE: selectors are intentionally broad and defensive – if domy.pl
- * restructures their HTML, only this file needs updating.
+ * Domy.pl structure (verified 2026-03-13):
+ *   <div class="propertyBox">
+ *     <a class="property_link" href="/nieruchomosci/oferta/...">
+ *       <h3>Title</h3>
+ *       <span class="propertyPriceOpt">600 000 zł</span>
+ *       <div class="propertyNumberDetails">Rooms, Area, etc.</div>
+ *     </a>
+ *     <div class="propertyDescribeText">Description</div>
+ *     <img src="..." />
+ *   </div>
  */
 export function parseSearchResults(html: string): ListingStub[] {
   const $ = cheerio.load(html);
   const stubs: ListingStub[] = [];
   const discoveredAt = new Date().toISOString();
 
-  // Primary selectors for listing cards
-  const cardSelectors = [
-    "article.offer-item",
-    "article[class*='offer']",
-    "[class*='offer-item']",
-    ".search-list__item",
-    ".listing-item",
-    "[class*='property-item']",
-    "[data-id]",
-  ];
+  // Domy.pl uses .propertyBox for listing cards
+  let cards = $(".propertyBox");
 
-  let cards = $();
-  for (const sel of cardSelectors) {
-    cards = $(sel);
-    if (cards.length > 0) break;
+  // Fallback if propertyBox doesn't work
+  if (cards.length === 0) {
+    cards = $("[class*='propertyBox'], [class*='property-box'], .listing-item, .offer-item");
   }
 
+  // Last resort: extract via property_link anchors
   if (cards.length === 0) {
-    // Fallback: collect links that look like domy.pl detail URLs
-    $("a[href]").each((_i, el) => {
+    $("a.property_link[href*='/oferta']").each((_i, el) => {
       const href = $(el).attr("href") ?? "";
-      if (/\/(mieszkani|nieruchomosci|ofert)\//i.test(href)) {
-        const full = resolveUrl(href);
-        const canonical = canonicalizeUrl(SOURCE, full);
-        if (!stubs.find((s) => s.canonicalUrl === canonical)) {
-          stubs.push({ source: SOURCE, canonicalUrl: canonical, discoveredAt });
-        }
+      const full = resolveUrl(href);
+      const canonical = canonicalizeUrl(SOURCE, full);
+      if (!stubs.find((s) => s.canonicalUrl === canonical)) {
+        stubs.push({
+          source: SOURCE,
+          canonicalUrl: canonical,
+          discoveredAt,
+          title: $(el).find("h2, h3").text().trim() || undefined,
+        });
       }
     });
     return stubs;
@@ -78,74 +67,79 @@ export function parseSearchResults(html: string): ListingStub[] {
 }
 
 function parseCard(
-  _$: cheerio.CheerioAPI,
+  $: cheerio.CheerioAPI,
   card: cheerio.Cheerio<any>,
   discoveredAt: string
 ): ListingStub | null {
-  // --- URL ---
+  // --- URL: look for property_link or any href in the card ---
   const href =
-    card.find('a[class*="title"]').first().attr("href") ||
-    card.find("a[href*='/ofert']").first().attr("href") ||
-    card.find("a[href]").first().attr("href") ||
-    card.attr("data-href");
+    card.find("a.property_link").first().attr("href") ||
+    card.find("a[href*='/oferta']").first().attr("href") ||
+    card.find("a[href]").first().attr("href");
 
   if (!href) return null;
 
   const canonicalUrl = canonicalizeUrl(SOURCE, resolveUrl(href));
 
-  // --- External ID ---
+  // --- External ID: extract from URL or data attributes ---
   const idMatch = href.match(/[-/](\d{5,})/);
   const externalId =
     card.attr("data-id") || card.attr("id") || (idMatch ? idMatch[1] : undefined);
 
-  // --- Title ---
+  // --- Title: from property_link h2/h3 or link text ---
+  const titleEl = card.find("a.property_link");
   const title =
-    card.find('[class*="title"], h2, h3').first().text().trim() ||
-    card.find("a[href]").first().attr("title") ||
-    card.find("a[href]").first().text().trim() ||
+    titleEl.find("h2, h3").first().text().trim() ||
+    titleEl.text().trim() ||
     undefined;
 
-  // --- Price ---
-  const priceText = extractText(card, [
-    '[class*="price"]',
-    '[class*="cena"]',
-    ".kwota",
-    '[data-name="price"]',
-  ]);
+  // --- Price: from propertyPriceOpt span ---
+  const priceText = card.find(".propertyPriceOpt").text().trim() ||
+    extractText(card, [
+      '[class*="price"]',
+      '[class*="cena"]',
+      ".kwota",
+    ]);
   const price = parsePrice(priceText);
 
-  // --- Area ---
-  // domy.pl uses data-name="area" on <li> elements inside a parameters list
-  const areaText =
-    card.find('[data-name="area"]').text().trim() ||
-    extractText(card, [
+  // --- Area & Rooms: from propertyNumberDetails (text like "3 pokoje, 75 m²") ---
+  const detailsText = card.find(".propertyNumberDetails").text().trim();
+
+  // Parse area (m²) from details or fallback
+  let areaM2: number | undefined;
+  const areaMatch = detailsText.match(/(\d+(?:[.,]\d+)?)\s*m[²2]/i);
+  if (areaMatch) {
+    areaM2 = parseArea(areaMatch[1]);
+  } else {
+    areaM2 = parseArea(extractText(card, [
       '[class*="area"]',
       '[class*="powierzchnia"]',
       '[class*="m2"]',
-    ]);
-  const areaM2 = parseArea(areaText);
+    ]));
+  }
 
-  // --- Rooms ---
-  const roomsText =
-    card.find('[data-name="rooms"]').text().trim() ||
-    extractText(card, [
+  // Parse rooms (pokoje) from details or fallback
+  let rooms: number | undefined;
+  const roomsMatch = detailsText.match(/(\d+)\s*pokoje?/i);
+  if (roomsMatch) {
+    rooms = parseRooms(roomsMatch[1]);
+  } else {
+    rooms = parseRooms(extractText(card, [
       '[class*="rooms"]',
       '[class*="pokoje"]',
-      '[class*="pokoj"]',
-      '[data-name="rooms"]',
-    ]);
-  const rooms = parseRooms(roomsText);
+    ]));
+  }
 
-  // --- Location ---
+  // --- Location: from propertyDescribeText or fallback ---
   const locationText =
+    card.find(".propertyDescribeText").text().trim() ||
     extractText(card, [
       '[class*="location"]',
       '[class*="lokalizacja"]',
       '[class*="address"]',
-      '[class*="adres"]',
     ]) || undefined;
 
-  // --- Thumbnail ---
+  // --- Thumbnail: from img in the card ---
   const thumbnailUrl =
     card.find("img").first().attr("src") ||
     card.find("img").first().attr("data-src") ||
@@ -164,7 +158,7 @@ function parseCard(
     locationText,
     thumbnailUrl: thumbnailUrl ? resolveUrl(thumbnailUrl) : undefined,
     discoveredAt,
-    rawSummary: { href, priceText, areaText, roomsText, locationText },
+    rawSummary: { href, priceText, detailsText, locationText },
   };
 }
 

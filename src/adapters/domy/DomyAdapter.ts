@@ -223,12 +223,13 @@ export class DomyAdapter implements PortalAdapter {
   }
 
   private looksEmpty(html: string): boolean {
+    // Check for domy.pl's actual search result indicators
     return (
       html.length < 5_000 ||
-      (!html.includes("offer-item") &&
-        !html.includes("offer__") &&
-        !html.includes("data-id") &&
-        !html.includes("/ofert"))
+      (!html.includes("propertyBox") &&
+        !html.includes("property_link") &&
+        !html.includes("propertyPriceOpt") &&
+        !html.includes("/oferta/"))
     );
   }
 }
