@@ -279,4 +279,42 @@ export async function listingsRoutes(app: FastifyInstance): Promise<void> {
     });
     return reply.send(updated);
   });
+
+  /**
+   * PATCH /listings/:id/score
+   * Manually override the currentMatchScore for a specific saved-search match.
+   * The scraper computes this automatically; use this endpoint to correct it.
+   *
+   * Body: { searchId: string, score: number (0.0 – 1.0) }
+   */
+  app.patch<{
+    Params: { id: string };
+    Body: unknown;
+  }>("/listings/:id/score", async (req, reply) => {
+    const OverrideScoreSchema = z.object({
+      searchId: z.string().uuid(),
+      score: z.number().min(0).max(1),
+    });
+
+    const body = OverrideScoreSchema.safeParse(req.body);
+    if (!body.success) {
+      return reply.status(400).send({ error: "Validation error", details: body.error.format() });
+    }
+
+    const { searchId, score } = body.data;
+
+    const match = await db.searchListingMatch.findUnique({
+      where: { searchId_listingId: { searchId, listingId: req.params.id } },
+    });
+    if (!match) {
+      return reply.status(404).send({ error: "No match found for this listing + search combination" });
+    }
+
+    const updated = await db.searchListingMatch.update({
+      where: { searchId_listingId: { searchId, listingId: req.params.id } },
+      data: { currentMatchScore: score },
+    });
+
+    return reply.send({ listingId: req.params.id, searchId, currentMatchScore: updated.currentMatchScore });
+  });
 }
