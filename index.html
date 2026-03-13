@@ -33,7 +33,7 @@
   </div>
   <div id="map"></div>
   <div class="legend"><b>Precios:</b><br><span style="color:#10b981">● < 500k</span><br><span style="color:#f59e0b">● 500-600k</span><br><span style="color:#ef4444">● > 600k</span><br><span style="color:#8b5cf6">● 🎭 Teatr</span></div>
-  <div style="position:absolute; bottom:20px; left:10px; background:white; padding:8px; border-radius:6px; font-size:11px; z-index:1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Actualizado: 13/3/2026, 17:37:53</div>
+  <div style="position:absolute; bottom:20px; left:10px; background:white; padding:8px; border-radius:6px; font-size:11px; z-index:1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Actualizado: 13/3/2026, 17:40:01</div>
 
   <script>
     const map = L.map('map').setView([52.409694, 16.917666], 13);
@@ -77,26 +77,36 @@
       const st = document.getElementById('statusFilter').value;
       const p = document.getElementById('portalFilter').value;
 
-      const filtered = apartments.filter(a =>
-        (r === 'all' || String(a.rooms) === r) &&
-        (fmtScore(a.score) >= s) &&
-        (st === 'all' || a.status === st) &&
-        (p === 'all' || String(a.portal).toLowerCase() === p)
-      );
+      const stNorm = String(st || 'all').toUpperCase();
+      const pNorm = String(p || 'all').toLowerCase();
+      const filtered = apartments.filter(a => {
+        const sc = score100(a.score);
+        const scoreOk = s <= 0 ? true : (sc === null ? true : sc >= s);
+        const aStatus = String(a.status || '').toUpperCase();
+        const statusOk = (stNorm === 'ALL') ? true : (aStatus === stNorm);
+        return (r === 'all' || String(a.rooms) === r) &&
+          scoreOk &&
+          statusOk &&
+          (pNorm === 'all' || String(a.portal).toLowerCase() === pNorm);
+      });
 
       filtered.forEach(apt => {
+        if (!apt.hasCoords || !Array.isArray(apt.coords)) return;
         const color = apt.price < 500000 ? '#10b981' : (apt.price < 600000 ? '#f59e0b' : '#ef4444');
         const detailText = '/detalle ' + (apt.id || '');
         const botUrl = 'https://t.me/myflatscout_bot?text=' + encodeURIComponent(detailText);
         const visitLine = fmtDate(apt.visitDate) ? ('<br>📅 Visita: ' + fmtDate(apt.visitDate)) : '';
         const commentsLine = apt.comments ? ('<br>📝 Comentarios: ' + String(apt.comments)) : '';
+        const altLinks = (apt.alternateUrls || []).length
+          ? ('<br>🔗 Alternativos: ' + apt.alternateUrls.map(u => "<a href='" + u + "' target='_blank'>link</a>").join(' · '))
+          : '';
         const m = L.circleMarker(apt.coords, { radius: 12, fillColor: color, color: '#fff', weight: 2, fillOpacity: 1 }).addTo(map)
-          .bindPopup("<div class='popup-content'><b>" + apt.address + "</b><br><div class='price'>" + Number(apt.price || 0).toLocaleString() + " PLN</div>📐 " + apt.size + " m² | 🛏️ Rooms: " + apt.rooms + " | 🏢 Floor: " + apt.floor + "<br>💰 Gastos: " + fmtMonthly(apt.monthly) + "<br>⭐ Score: " + fmtScore(apt.score) + "/100<br>🏷️ Estado: " + (apt.status || 'N/D') + visitLine + commentsLine + "<br><a href='" + apt.url + "' target='_blank'>Ver anuncio</a><a class='btn-bot' href='" + botUrl + "' target='_blank'>🤖 Comentar con @myflatscout_bot</a></div>");
+          .bindPopup("<div class='popup-content'><b>" + apt.address + "</b><br><div class='price'>" + Number(apt.price || 0).toLocaleString() + " PLN</div>📐 " + apt.size + " m² | 🛏️ Rooms: " + apt.rooms + " | 🏢 Floor: " + apt.floor + "<br>💰 Gastos: " + fmtMonthly(apt.monthly) + "<br>⭐ Score: " + fmtScore(apt.score) + "/100<br>🏷️ Estado: " + (apt.status || 'N/D') + visitLine + commentsLine + altLinks + "<br><a href='" + apt.url + "' target='_blank'>Ver anuncio</a><a class='btn-bot' href='" + botUrl + "' target='_blank'>🤖 Comentar con @myflatscout_bot</a></div>");
         markers.push(m);
       });
 
       const c = document.getElementById('listingCounter');
-      if (c) c.textContent = filtered.length + ' de ' + apartments.length + ' anuncios';
+      if (c) c.textContent = markers.length + ' de ' + apartments.length + ' anuncios';
     }
 
     populatePortalFilter();
