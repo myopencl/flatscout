@@ -49,6 +49,7 @@
         .price { font-size: 16px; font-weight: bold; color: #2563eb; }
         .btn-bot { display:block; margin-top:8px; padding:8px; background:#0088cc; color:white; text-align:center; border-radius:4px; text-decoration:none; font-weight:bold; font-size:12px; }
         .listing-counter { margin-top: 8px; font-size: 12px; font-weight: 600; color: #374151; }
+        .debug-counter { margin-top: 4px; font-size: 11px; color: #6b7280; }
 
         button, select, input { display: block; width: 100%; margin: 5px 0; padding: 8px; box-sizing: border-box; }
         #scoreFilter { width: 3.6em; }
@@ -72,13 +73,14 @@
         <label>Portal:</label><select id="portalFilter" onchange="filterMap()"><option value="all">Todos</option></select>
         <label>Score min:</label><input type="number" id="scoreFilter" inputmode="numeric" min="0" max="999" oninput="handleScoreInput()" value="0">
         <div id="listingCounter" class="listing-counter">0 de 0 anuncios</div>
+        <div id="debugCounter" class="debug-counter"></div>
     </div>
     <div id="map"></div>
     <div class="legend">
         <b>Precios:</b><br><span style="color:#10b981">● < 500k</span><br><span style="color:#f59e0b">● 500-600k</span><br><span style="color:#ef4444">● > 600k</span><br><span style="color:#8b5cf6">● 🎭 Teatr</span>
     </div>
     <div style="position:absolute; bottom:20px; left:10px; background:white; padding:8px; border-radius:6px; font-size:11px; z-index:1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        Actualizado: 13/3/2026, 15:22:47
+        Actualizado: 13/3/2026, 15:24:36
     </div>
     <script>
         const map = L.map('map').setView([52.409694, 16.917666], 13);
@@ -139,6 +141,8 @@
             const p = document.getElementById('portalFilter').value;
 
             const filtered = apartments.filter(a => (r === 'all' || a.rooms == r) && (a.score >= s) && (st === 'all' || a.status === st) && (p === 'all' || String(a.portal).toLowerCase() === p));
+            let painted = 0;
+            let omitted = 0;
             filtered.forEach(apt => {
                 try {
                     const color = apt.price < 500000 ? '#10b981' : (apt.price < 600000 ? '#f59e0b' : '#ef4444');
@@ -149,12 +153,24 @@
                     const m = L.circleMarker(apt.coords, { radius: 12, fillColor: color, color: '#fff', weight: 2, fillOpacity: 1 }).addTo(map)
                         .bindPopup("<div class='popup-content'><b>"+apt.address+"</b><br><div class='price'>"+Number(apt.price || 0).toLocaleString()+" PLN</div>📐 "+apt.size+" m² | 🛏️ Rooms: "+apt.rooms+" | 🏢 Floor: "+apt.floor+"<br>💰 Gastos: "+fmtMonthly(apt.monthly)+"<br>⭐ Score: "+Number(apt.score || 0)+"/100<br>🏷️ Estado: "+(apt.status || 'N/D')+visitLine+commentsLine+"<br><a href='"+apt.url+"' target='_blank'>Ver anuncio</a><a class='btn-bot' href='"+botUrl+"' target='_blank'>🤖 Comentar con @myflatscout_bot</a></div>");
                     markers.push(m);
+                    painted++;
                 } catch (e) {
-                    console.warn('Listing omitido por coordenadas inválidas:', apt && apt.id, apt && apt.coords);
+                    omitted++;
+                    console.warn('Listing omitido:', apt && apt.id, apt && apt.coords, e && e.message);
                 }
             });
             const counterEl = document.getElementById('listingCounter');
             if (counterEl) counterEl.textContent = filtered.length + ' de ' + apartments.length + ' anuncios';
+            const debugEl = document.getElementById('debugCounter');
+            if (debugEl) debugEl.textContent = 'Pintados: ' + painted + ' | Omitidos: ' + omitted;
+            if (markers.length > 0) {
+                try {
+                    const group = L.featureGroup(markers);
+                    map.fitBounds(group.getBounds().pad(0.2));
+                } catch (e) {
+                    console.warn('No se pudo ajustar bounds', e && e.message);
+                }
+            }
         }
 
         populatePortalFilter();
