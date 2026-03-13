@@ -43,12 +43,23 @@ This skill provides a comprehensive real estate market database for Poznań cove
 - **Duplicate detection**: Identify the same property listed on multiple portals
 - **Market insights**: Calculate average price per m², trends, category distribution
 
+### 🔗 Import a Listing Directly from URL
+- **Manual import by link**: Send a listing URL (Otodom/OLX/Immohouse) and request insertion into scraper DB
+- **Use case**: Add one-off listings shared in chat that are not yet in monitored search results
+- **Script**: `node scripts/import-listing-from-url.js --url "https://..."`
+
 ---
 
 ## API Base URL
 ```
 http://localhost:3000
 ```
+
+## Scoring ownership (important)
+- This skill/client layer does **not** compute listing `score` by itself.
+- `score` is read from scraper API listing payloads (`/api/v1/listings`).
+- If many listings have `score = null/0`, scoring is currently missing or not persisted on the scraper side ingestion/ranking pipeline.
+- FlatScout map/UI may show score, but score generation should be implemented upstream in scraper API (or via a dedicated scorer job that writes back to API DB).
 
 ---
 
@@ -287,6 +298,26 @@ The script will:
 2. Extract all filters from the URL parameters
 3. Create a saved search with those filters
 4. Show the extracted configuration for review
+
+### `scripts/import-listing-from-url.js` – Import One Listing by URL ⭐ NEW
+
+Fetch a listing from a direct portal URL and insert/update it in scraper DB.
+
+**Usage:**
+```bash
+node scripts/import-listing-from-url.js --url "https://www.otodom.pl/pl/oferta/..."
+```
+
+**Arguments:**
+```
+--url STR Direct listing URL (required)
+--source STR Optional explicit source: otodom|olx|immohouse
+--searchId STR Optional search UUID to associate
+--status STR Optional initial user status (e.g., FOUND)
+--tags STR Optional comma-separated tags
+```
+
+This command relies on scraper API import endpoints. If the API does not expose import-by-url yet, the script will return a clear error.
 
 ### Use Custom URLs Directly
 

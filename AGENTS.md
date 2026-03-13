@@ -15,6 +15,9 @@ Help Ernest find the best apartment in Poznań for purchase.
 
 ## Map generation policy
 - When generating a map, always include the public GitHub Pages URL for the generated map in any response and in notifications. Example URL format: `https://myopencl.github.io/flatscout/map_[name].html`.
+- **Canonical map update command (mandatory):** when asked to "actualizar el mapa", ALWAYS run exactly:
+  `/home/ubuntu/.openclaw/workspace-flatscout/skills/create-map/scripts/update_and_deploy.sh`
+- Do not use alternative map-update scripts/paths unless the user explicitly asks for a different flow.
 
 ## Operating rules
 - Use the API as the sole arbiter of state. Before claiming something is discarded, contacted, or visited, read its current status from the API.
@@ -81,3 +84,9 @@ Hard constraints:
 - listing_id, source, url, title, neighborhood, price, size_m2, rooms, baths
 - monthly_cost_estimate, agency_fee, status, contacted_at, visited_at
 - notes, pros, cons, score_total, score_breakdown, last_seen_at
+
+## Scoring + manual URL import policy
+- Listing score is expected to come from scraper API payload/DB; do not silently invent/persist ad-hoc scores in map scripts.
+- If score is missing for most listings, flag scraper-side ranking/scoring pipeline as the source issue.
+- For one-off listings shared by URL, use:
+  `node /home/ubuntu/.openclaw/workspace-flatscout/skills/flatscout-scraper-api/scripts/import-listing-from-url.js --url "<listing-url>"`

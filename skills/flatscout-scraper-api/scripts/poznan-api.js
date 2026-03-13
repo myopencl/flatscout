@@ -118,6 +118,39 @@ class PoznanAPI {
   async deleteListing(listingId) { return this.delete(`/api/v1/listings/${listingId}`); }
   async bulkDeleteListings(criteria) { return this.post('/api/v1/listings/bulk-delete', criteria); }
 
+  // Listing import by URL (best-effort across common endpoint variants)
+  async importListingFromUrl(url, options = {}) {
+    const body = {
+      url,
+      source: options.source,
+      searchId: options.searchId,
+      status: options.status,
+      tags: options.tags
+    };
+
+    const endpoints = [
+      '/api/v1/listings/import-url',
+      '/api/v1/listings/import-from-url',
+      '/api/v1/listings/import',
+      '/api/v1/import/listing'
+    ];
+
+    let lastError;
+    for (const endpoint of endpoints) {
+      try {
+        return await this.post(endpoint, body);
+      } catch (error) {
+        if (error.status && [404, 405].includes(error.status)) {
+          lastError = error;
+          continue;
+        }
+        throw error;
+      }
+    }
+
+    throw lastError || new Error('No compatible import endpoint found on scraper API');
+  }
+
   // ===== Searches (New) =====
   async createSearch(input) { return this.post('/api/v1/searches', input); }
   async listSearches(options = {}) { return this.get('/api/v1/searches', options); }

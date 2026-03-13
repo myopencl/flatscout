@@ -23,3 +23,9 @@ Cuando el usuario pida un mapa especial (ej: "Mapa de 2 habitaciones visitadas")
 2. Identifica los flags de filtrado.
 3. El agente debe ejecutar el script de despliegue pasando estos parámetros.
 4. El agente debe informar al usuario de la nueva URL: `https://myopencl.github.io/flatscout/map_[nombre].html`
+
+## Regla canónica de actualización de mapa (obligatoria)
+Cuando el usuario pida "actualizar el mapa" (sin pedir variantes), ejecutar SIEMPRE exactamente:
+`/home/ubuntu/.openclaw/workspace-flatscout/skills/create-map/scripts/update_and_deploy.sh`
+
+No usar rutas ni scripts alternativos salvo instrucción explícita del usuario.

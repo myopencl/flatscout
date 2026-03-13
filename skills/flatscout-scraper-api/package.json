@@ -12,6 +12,7 @@
     "manage": "node scripts/manage-listings.js",
     "bulk": "node scripts/bulk-operations.js",
     "parse-url": "node scripts/parse-url-to-search.js",
+    "import-url": "node scripts/import-listing-from-url.js",
     "install-deps": "npm install node-fetch@2 minimist",
     "test": "npm run search -- --rooms 3 --limit 5"
   },
