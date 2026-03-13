@@ -20,7 +20,7 @@
         "Top floor attic"
       ],
       "cons": [],
-      "score": 98,
+      "score": 81,
       "first_seen": "2026-03-06"
     },
     {
@@ -49,7 +49,7 @@
       "cons": [
         "Needs renovation (do wykończenia)"
       ],
-      "score": 95,
+      "score": 87,
       "first_seen": "2026-03-06"
     },
     {
@@ -68,7 +68,7 @@
       "notes": "Visit tomorrow 15:00",
       "pros": [],
       "cons": [],
-      "score": 93,
+      "score": 73,
       "first_seen": "2026-03-06"
     },
     {
@@ -87,7 +87,7 @@
       "notes": "Visit Wednesday 15:00",
       "pros": [],
       "cons": [],
-      "score": 83,
+      "score": 57,
       "first_seen": "2026-03-06"
     },
     {
@@ -106,7 +106,7 @@
       "notes": "Visit tomorrow 15:30",
       "pros": [],
       "cons": [],
-      "score": 68,
+      "score": 65,
       "first_seen": "2026-03-06"
     },
     {
@@ -131,7 +131,7 @@
       "cons": [
         "Ground floor"
       ],
-      "score": 30,
+      "score": 80,
       "first_seen": "2026-03-06"
     },
     {
@@ -150,7 +150,7 @@
       "notes": "",
       "pros": [],
       "cons": [],
-      "score": 60,
+      "score": 50,
       "first_seen": "2026-03-06"
     },
     {
@@ -172,7 +172,7 @@
         "Terrible yellow kitchen",
         "A bit far"
       ],
-      "score": 20,
+      "score": 53,
       "first_seen": "2026-03-06"
     },
     {
@@ -196,7 +196,7 @@
       "cons": [
         "High monthly fees"
       ],
-      "score": 88,
+      "score": 76,
       "first_seen": "2026-03-06"
     },
     {
@@ -218,7 +218,7 @@
         "Good size"
       ],
       "cons": [],
-      "score": 82,
+      "score": 78,
       "first_seen": "2026-03-06"
     },
     {
@@ -242,7 +242,7 @@
         "Jeżyce"
       ],
       "cons": [],
-      "score": 88,
+      "score": 86,
       "first_seen": "2026-03-06"
     },
     {
@@ -265,7 +265,7 @@
       "cons": [
         "Over budget"
       ],
-      "score": 72,
+      "score": 74,
       "first_seen": "2026-03-06"
     },
     {
@@ -289,7 +289,7 @@
       "cons": [
         "Over budget"
       ],
-      "score": 52,
+      "score": 59,
       "first_seen": "2026-03-06"
     },
     {
@@ -312,7 +312,7 @@
         "South facing"
       ],
       "cons": [],
-      "score": 45,
+      "score": 65,
       "first_seen": "2026-03-06"
     },
     {
@@ -335,7 +335,7 @@
       "cons": [
         "Terrible yellow toilet"
       ],
-      "score": 45,
+      "score": 57,
       "first_seen": "2026-03-06"
     },
     {
@@ -357,10 +357,10 @@
         "4 rooms"
       ],
       "cons": [],
-      "score": 57,
+      "score": 68,
       "first_seen": "2026-03-06"
     }
   ],
-  "last_updated": "2026-03-06T21:27:00+01:00",
+  "last_updated": "2026-03-13T10:00:00+01:00",
   "total_listings": 16
 }
