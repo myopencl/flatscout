@@ -180,7 +180,15 @@ export class DomyAdapter implements PortalAdapter {
       return { source: SOURCE, canonicalUrl: canonical, status: "inactive" };
     }
 
-    return parseListingDetail(result.html, canonical);
+    const details = parseListingDetail(result.html, canonical);
+    // DEBUG: log coordinates to verify extraction
+    if (details.lat == null || details.lon == null) {
+      this.log.warn(
+        { url: canonical, lat: details.lat, lon: details.lon, title: details.title },
+        "Domy detail has NULL coordinates"
+      );
+    }
+    return details;
   }
 
   async checkListingStatus(url: string): Promise<"active" | "inactive" | "unknown"> {
