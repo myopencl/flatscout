@@ -62,13 +62,19 @@ const MapQuerySchema = z.object({
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** Extract monthly expenses from the features JSON array if present */
+/** Extract monthly expenses from the features JSON array if present.
+ *  Otodom stores the key as "rent" (English) in characteristics, not "czynsz".
+ *  The localizedValue may look like "616 zł/miesiąc" or just "616".
+ */
 function extractMonthlyExpenses(features: unknown): number | null {
   if (!Array.isArray(features)) return null;
   for (const f of features as string[]) {
-    // Look for patterns like "Czynsz: 500 zł" or "Opłaty: 800 zł"
-    const m = String(f).match(/(?:czynsz|oplaty|opłaty|czynsz administracyjny)[:\s]+(\d[\d\s]*)\s*z[łl]/i);
-    if (m) return parseInt(m[1]!.replace(/\s/g, ""), 10);
+    // Match "rent: 616 zł/miesiąc", "czynsz: 500 zł", "opłaty: 800", etc.
+    const m = String(f).match(/^(?:rent|czynsz|oplaty|opłaty|czynsz[\s_]administracyjny)[:\s]+(\d[\d\s]*)/i);
+    if (m) {
+      const n = parseInt(m[1]!.replace(/\s/g, ""), 10);
+      if (n > 0) return n;
+    }
   }
   return null;
 }
