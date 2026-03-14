@@ -545,6 +545,7 @@ export async function refetchListingById(listingId: string): Promise<void> {
 
   const adapter = getAdapter(listing.source);
   const details = await adapter.fetchListingDetails(listing.canonicalUrl);
+  logger.info({ listingId, price: details.price, lat: details.lat, lon: details.lon }, "Adapter returned details");
   await persistDetails(details);
   logger.info({ listingId }, "Refetch completed");
 }
