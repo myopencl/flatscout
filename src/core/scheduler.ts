@@ -1,7 +1,7 @@
 import cron from "node-cron";
 import { db } from "../db/prisma.js";
 import { logger } from "../utils/logger.js";
-import { runCrawlForSearch, refetchIncompleteListings } from "./crawlerRunner.js";
+import { runCrawlForSearch, refetchIncompleteListings, validateAdapterFields } from "./crawlerRunner.js";
 
 const log = logger.child({ module: "scheduler" });
 
@@ -10,6 +10,9 @@ const activeJobs = new Map<string, boolean>();
 
 // Prevent overlapping incomplete-listing quality checks
 let qualityCheckRunning = false;
+
+// Prevent overlapping field health checks
+let fieldHealthRunning = false;
 
 /** Start the scheduler. Registers a cron job that runs every minute and
  *  dispatches due saved searches, plus a 6-hour job to re-fetch incomplete listings. */
@@ -21,6 +24,25 @@ export function startScheduler(): void {
       await dispatchDueSearches();
     } catch (err) {
       log.error({ err }, "Scheduler tick error");
+    }
+  });
+
+  // Every 3 hours: validate that all adapters are correctly parsing critical fields
+  cron.schedule("0 */3 * * *", async () => {
+    if (fieldHealthRunning) {
+      log.debug("Field health check already running – skipping");
+      return;
+    }
+    fieldHealthRunning = true;
+    log.info("Starting adapter field health check");
+    try {
+      for (const source of ["otodom", "olx", "immohouse", "domy"]) {
+        await validateAdapterFields(source, 3);
+      }
+    } catch (err) {
+      log.error({ err }, "Field health check cron error");
+    } finally {
+      fieldHealthRunning = false;
     }
   });
 

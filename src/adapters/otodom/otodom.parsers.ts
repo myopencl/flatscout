@@ -1,5 +1,6 @@
 import type { ListingStub, ListingDetails } from "../../types/index.js";
 import { canonicalizeUrl } from "../../core/canonicalizeUrl.js";
+import { resolveField } from "../shared/resolveField.js";
 
 const SOURCE = "otodom";
 
@@ -70,15 +71,28 @@ export function parseOtodomSearchPage(
         : `https://www.otodom.pl/pl/oferta/${href}`;
       const canonicalUrl = canonicalizeUrl(SOURCE, rawUrl);
 
+      const price = resolveField<number>(item, [
+        (d: any) => d.totalPrice?.value,
+        (d: any) => { const v = d.characteristics?.find((c: any) => c.key === "price")?.value; return v ? parseFloat(v) : undefined; },
+        (d: any) => d.target?.Price,
+      ], "otodom:search:price");
+
       return {
         source: SOURCE,
         externalId: String(item.id ?? ""),
         canonicalUrl,
         title: item.title,
-        price: item.totalPrice?.value,
+        price,
         currency: item.totalPrice?.currency ?? "PLN",
-        rooms: parseRooms(item.roomsNumber),
-        areaM2: item.areaInSquareMeters,
+        rooms: resolveField<number>(item, [
+          (d: any) => parseRooms(d.roomsNumber),
+          (d: any) => d.property?.properties?.numberOfRooms,
+        ], "otodom:search:rooms"),
+        areaM2: resolveField<number>(item, [
+          (d: any) => d.areaInSquareMeters,
+          (d: any) => d.property?.area?.value,
+          (d: any) => { const v = d.characteristics?.find((c: any) => c.key === "m")?.value; return v ? parseFloat(v) : undefined; },
+        ], "otodom:search:areaM2"),
         locationText: [
           item.location?.address?.district?.name,
           item.location?.address?.city?.name,
@@ -133,17 +147,34 @@ export function parseOtodomDetailPage(
     .filter((u): u is string => !!u)
     .slice(0, 30);
 
+  const price = resolveField<number>(ad, [
+    (d: any) => d.totalPrice?.value,
+    (d: any) => { const v = d.characteristics?.find((c: any) => c.key === "price")?.value; return v ? parseFloat(v) : undefined; },
+    (d: any) => d.target?.Price,
+  ], "otodom:detail:price");
+
+  const areaM2 = resolveField<number>(ad, [
+    (d: any) => d.areaInSquareMeters,
+    (d: any) => d.property?.area?.value,
+    (d: any) => { const v = d.characteristics?.find((c: any) => c.key === "m")?.value; return v ? parseFloat(v) : undefined; },
+  ], "otodom:detail:areaM2");
+
+  const rooms = resolveField<number>(ad, [
+    (d: any) => parseRooms(d.roomsNumber),
+    (d: any) => d.property?.properties?.numberOfRooms,
+  ], "otodom:detail:rooms");
+
   return {
     source: SOURCE,
     externalId: String(ad.id ?? ""),
     canonicalUrl: url,
     title: ad.title,
     description: ad.description,
-    price: ad.totalPrice?.value,
+    price,
     currency: ad.totalPrice?.currency ?? "PLN",
-    rooms: parseRooms(ad.roomsNumber),
+    rooms,
     bathrooms: bathrooms || undefined,
-    areaM2: ad.areaInSquareMeters,
+    areaM2,
     floor,
     city: ad.location?.address?.city?.name ?? "Poznań",
     neighborhood: ad.location?.address?.district?.name ?? null,

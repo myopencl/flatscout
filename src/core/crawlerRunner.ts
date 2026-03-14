@@ -588,3 +588,68 @@ export async function refetchIncompleteListings(limit: number): Promise<number> 
 
   return incomplete.length;
 }
+
+// ---------------------------------------------------------------------------
+// Generic field health validation — usable by any portal adapter
+// ---------------------------------------------------------------------------
+
+const CRITICAL_FIELDS: (keyof ListingDetails)[] = ["price", "lat", "lon", "areaM2", "rooms"];
+
+/**
+ * Fetch `sampleSize` recent active listings for a given portal, run
+ * fetchListingDetails on each, and check whether critical fields are null.
+ * Logs an error per field when null rate ≥ 50%, and auto-triggers
+ * refetchIncompleteListings if price or coordinates are widely missing.
+ */
+export async function validateAdapterFields(
+  source: string,
+  sampleSize = 3
+): Promise<void> {
+  logger.info({ source, sampleSize }, "Starting adapter field health check");
+
+  const adapter = getAdapter(source);
+  const samples = await db.listing.findMany({
+    where: { source, status: "active" },
+    orderBy: { updatedAt: "desc" },
+    take: sampleSize,
+    select: { id: true, canonicalUrl: true },
+  });
+
+  if (samples.length === 0) {
+    logger.info({ source }, "No active listings to validate for source");
+    return;
+  }
+
+  const nullCounts: Partial<Record<keyof ListingDetails, number>> = {};
+
+  for (const listing of samples) {
+    try {
+      const details = await adapter.fetchListingDetails(listing.canonicalUrl);
+      for (const field of CRITICAL_FIELDS) {
+        if (details[field] == null) {
+          nullCounts[field] = (nullCounts[field] ?? 0) + 1;
+        }
+      }
+    } catch (err) {
+      logger.warn({ err, source, listingId: listing.id }, "Field health check: fetchListingDetails failed for sample");
+    }
+  }
+
+  let healingNeeded = false;
+
+  for (const field of CRITICAL_FIELDS) {
+    const nullCount = nullCounts[field] ?? 0;
+    const rate = nullCount / samples.length;
+    if (rate >= 0.5) {
+      logger.error({ source, field, nullRate: rate, sampleSize: samples.length }, "Adapter field health check: high null rate detected");
+      if (field === "price" || field === "lat" || field === "lon") {
+        healingNeeded = true;
+      }
+    }
+  }
+
+  if (healingNeeded) {
+    logger.warn({ source }, "Auto-triggering refetchIncompleteListings after field health failure");
+    await refetchIncompleteListings(50);
+  }
+}
