@@ -69,6 +69,9 @@ export async function updateListingState(
   if (updates.rating !== undefined) {
     updateData.rating = updates.rating;
   }
+  if (updates.isFavorite !== undefined) {
+    updateData.isFavorite = updates.isFavorite;
+  }
 
   const state = await db.listingUserState.update({
     where: { listingId },
@@ -302,6 +305,7 @@ function transformState(rawState: any): ListingUserState {
     pros: rawState.prosJson ? JSON.parse(JSON.stringify(rawState.prosJson)) : undefined,
     cons: rawState.consJson ? JSON.parse(JSON.stringify(rawState.consJson)) : undefined,
     rating: rawState.rating,
+    isFavorite: rawState.isFavorite ?? false,
     createdAt: rawState.createdAt,
     updatedAt: rawState.updatedAt,
   };

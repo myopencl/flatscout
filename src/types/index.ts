@@ -140,6 +140,7 @@ export interface ListingUserState {
   pros?: string[];
   cons?: string[];
   rating?: number;
+  isFavorite: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -155,4 +156,5 @@ export interface UpdateListingStateRequest {
   pros?: string[];
   cons?: string[];
   rating?: number;
+  isFavorite?: boolean;
 }

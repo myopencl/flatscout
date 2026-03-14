@@ -190,6 +190,7 @@ model ListingUserState {
   prosJson    Json?         @map("pros_json")     // Array of strings
   consJson    Json?         @map("cons_json")     // Array of strings
   rating      Int?          // 1-5 stars
+  isFavorite  Boolean       @default(false) @map("is_favorite")
 
   // Audit
   createdAt   DateTime      @default(now()) @map("created_at")
@@ -198,5 +199,6 @@ model ListingUserState {
   @@index([status])
   @@index([createdAt])
   @@index([updatedAt])
+  @@index([isFavorite])
   @@map("listing_user_states")
 }

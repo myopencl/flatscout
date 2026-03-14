@@ -44,6 +44,7 @@ const ListingsQuerySchema = z.object({
   updatedSince: z.string().optional(),
   hasComments: z.enum(["true", "false"]).optional(),
   rating: z.coerce.number().int().min(1).max(5).optional(),
+  favorite: z.enum(["true", "false"]).optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(50),
   sortBy: z.enum(["lastSeenAt", "price", "areaM2", "createdAt", "updatedAt"]).default("lastSeenAt"),
@@ -175,7 +176,7 @@ export async function listingsRoutes(app: FastifyInstance): Promise<void> {
     const {
       source, city, minPrice, maxPrice, minArea, maxArea,
       rooms, status, listingStatus, updatedSince, hasComments,
-      rating, page, limit, sortBy, sortDir,
+      rating, favorite, page, limit, sortBy, sortDir,
     } = q.data;
 
     const skip = (page - 1) * limit;
@@ -217,6 +218,11 @@ export async function listingsRoutes(app: FastifyInstance): Promise<void> {
     // Filter by rating
     if (rating != null) {
       where.userState = { ...where.userState, rating };
+    }
+
+    // Filter by favorite
+    if (favorite !== undefined) {
+      where.userState = { ...where.userState, isFavorite: favorite === "true" };
     }
 
     const [listings, total] = await Promise.all([
@@ -277,6 +283,26 @@ export async function listingsRoutes(app: FastifyInstance): Promise<void> {
     };
 
     const state = await updateListingState(req.params.id, updates);
+    return reply.send(state);
+  });
+
+  // PATCH /listings/:id/favorite - Mark or unmark a listing as favourite
+  const FavoriteSchema = z.object({ favorite: z.boolean() });
+
+  app.patch<{ Params: { id: string }; Body: unknown }>("/listings/:id/favorite", async (req, reply) => {
+    const body = FavoriteSchema.safeParse(req.body);
+    if (!body.success) {
+      return reply.status(400).send({ error: "Validation error", details: body.error.format() });
+    }
+
+    const listing = await db.listing.findUnique({
+      where: { id: req.params.id },
+      select: { id: true },
+    });
+    if (!listing) return reply.status(404).send({ error: "Not found" });
+
+    const state = await updateListingState(req.params.id, { isFavorite: body.data.favorite });
+    log.info({ listingId: req.params.id, isFavorite: body.data.favorite }, "Listing favourite toggled");
     return reply.send(state);
   });
 

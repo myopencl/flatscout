@@ -25,6 +25,7 @@ interface MapListing {
   date_seen: string;
   user: {
     workflow_status: string;
+    is_favorite: boolean;
     rating: number | null;
     pros: string[] | null;
     cons: string[] | null;
@@ -49,6 +50,7 @@ const MapQuerySchema = z.object({
   status:      z.enum(["active", "inactive"]).optional(),
   userStatus:  z.enum(["FOUND", "SEEN", "VISIT_PENDING", "VISITED", "FINALIST", "DISCARDED"]).optional(),
   hasCoords:   z.enum(["true", "false"]).optional(),
+  favorite:    z.enum(["true", "false"]).optional(),
   minScore:    z.coerce.number().min(0).max(1).optional(),
   page:        z.coerce.number().int().min(1).default(1),
   limit:       z.coerce.number().int().min(1).max(500).default(100),
@@ -98,6 +100,7 @@ function toMapListing(
     date_seen:        row.lastSeenAt.toISOString(),
     user: {
       workflow_status: row.userState?.status ?? "FOUND",
+      is_favorite:     row.userState?.isFavorite ?? false,
       rating:          row.userState?.rating ?? null,
       pros:            (row.userState?.prosJson as string[] | null) ?? null,
       cons:            (row.userState?.consJson as string[] | null) ?? null,
@@ -140,7 +143,7 @@ export async function mapRoutes(app: FastifyInstance): Promise<void> {
     const {
       searchId, portal, city, minPrice, maxPrice,
       minArea, maxArea, rooms, status, userStatus,
-      hasCoords, minScore, page, limit, sortBy, sortDir,
+      hasCoords, favorite, minScore, page, limit, sortBy, sortDir,
     } = q.data;
 
     const skip = (page - 1) * limit;
@@ -165,6 +168,9 @@ export async function mapRoutes(app: FastifyInstance): Promise<void> {
     if (hasCoords === "true")  { where.lat = { not: null }; }
     if (hasCoords === "false") { where.lat = null; }
     if (userStatus) { where.userState = { status: userStatus }; }
+    if (favorite !== undefined) {
+      where.userState = { ...where.userState, isFavorite: favorite === "true" };
+    }
 
     // Score filter requires a join with search_listing_matches
     if (searchId) {
