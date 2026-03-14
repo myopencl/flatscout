@@ -76,9 +76,10 @@
     <span style="color:#f59e0b">● 550–600k</span><br>
     <span style="color:#ef4444">● &gt; 600k</span><br>
     <span style="color:#8b5cf6">● 🎭 Teatr</span><br>
-    ⭐ Favorito
+    ⭐ Favorito<br>
+    <span style="display:inline-block;width:10px;height:10px;background:#6b7280;border:1px solid white;border-radius:1px;vertical-align:middle;"></span> Nuevo (&lt;2d)
   </div>
-  <div style="position:absolute; bottom:20px; left:10px; background:white; padding:8px; border-radius:6px; font-size:11px; z-index:1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Actualizado: 14/3/2026, 17:28:11</div>
+  <div style="position:absolute; bottom:20px; left:10px; background:white; padding:8px; border-radius:6px; font-size:11px; z-index:1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Actualizado: 14/3/2026, 17:30:03</div>
 
   <script>
     const map = L.map('map').setView([52.409694, 16.917666], 13);
@@ -167,6 +168,7 @@
         if (!apt.hasCoords || !Array.isArray(apt.coords)) return;
 
         const color = priceColor(apt.price);
+        const isNew = apt.dateSeen && new Date(apt.dateSeen).getTime() >= (Date.now() - 2 * 24 * 60 * 60 * 1000);
         const detailText = '/detalle ' + (apt.id || '');
         const botUrl = 'https://t.me/myflatscout_bot?text=' + encodeURIComponent(detailText);
         const favCmd = apt.isFavorite ? '/unfavorite ' + apt.id : '/favorite ' + apt.id;
@@ -184,9 +186,10 @@
 
         const popupContent = "<div class='popup-content'>" +
           "<b>" + apt.address + "</b>" +
+          (isNew ? " <span style='background:#10b981;color:#fff;font-size:10px;padding:1px 5px;border-radius:3px;vertical-align:middle;'>NUEVO</span>" : "") +
           "<br><div class='price'>" + Number(apt.price || 0).toLocaleString() + " PLN</div>" +
           "📐 " + apt.size + " m² | 🛏️ " + apt.rooms + " hab | 🏢 P" + apt.floor +
-          "<br>💰 " + fmtMonthly(apt.monthly) + " | ⭐ Score: " + fmtScore(apt.score) + "/100" +
+          "<br>💰 Czynsz: " + fmtMonthly(apt.monthly) + " | 💶 " + fmtPricePerM2(apt.price, apt.size) +
           "<br>🏷️ " + (apt.status || 'N/D') +
           visitLine + commentsLine + altLinks +
           "<div class='popup-actions'>" +
@@ -200,6 +203,8 @@
         let marker;
         if (apt.isFavorite) {
           marker = L.marker(apt.coords, { icon: makeStarIcon(color) }).addTo(map);
+        } else if (isNew) {
+          marker = L.marker(apt.coords, { icon: makeSquareIcon(color) }).addTo(map);
         } else {
           marker = L.circleMarker(apt.coords, { radius: 12, fillColor: color, color: '#fff', weight: 2, fillOpacity: 1 }).addTo(map);
         }
