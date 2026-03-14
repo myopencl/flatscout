@@ -539,12 +539,14 @@ async function processWithConcurrency<T>(
 // ---------------------------------------------------------------------------
 
 export async function refetchListingById(listingId: string): Promise<void> {
+  logger.info({ listingId }, "Starting refetch for listing");
   const listing = await db.listing.findUnique({ where: { id: listingId } });
   if (!listing) throw new Error(`Listing not found: ${listingId}`);
 
   const adapter = getAdapter(listing.source);
   const details = await adapter.fetchListingDetails(listing.canonicalUrl);
   await persistDetails(details);
+  logger.info({ listingId }, "Refetch completed");
 }
 
 // ---------------------------------------------------------------------------
@@ -552,6 +554,7 @@ export async function refetchListingById(listingId: string): Promise<void> {
 // ---------------------------------------------------------------------------
 
 export async function refetchIncompleteListings(limit: number): Promise<number> {
+  logger.info({ limit }, "Starting incomplete listings refetch batch");
   const incomplete = await db.listing.findMany({
     where: {
       status: "active",
@@ -566,6 +569,8 @@ export async function refetchIncompleteListings(limit: number): Promise<number> 
     select: { id: true },
   });
 
+  logger.info({ count: incomplete.length }, "Found incomplete listings to refetch");
+
   await processWithConcurrency(
     incomplete.map((l) => l.id),
     DETAIL_CONCURRENCY,
@@ -577,6 +582,8 @@ export async function refetchIncompleteListings(limit: number): Promise<number> 
       }
     }
   );
+
+  logger.info({ processed: incomplete.length }, "Incomplete listings refetch batch completed");
 
   return incomplete.length;
 }
