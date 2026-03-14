@@ -17,6 +17,7 @@ export interface SearchFilters {
   placeId?: string;
   resultsPerPage?: number;
   districtId?: string;
+  onlyWithPhotos?: boolean;
   mapBounds?: {
     west: number;
     south: number;

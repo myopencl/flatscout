@@ -4,9 +4,11 @@ import { logger } from "../utils/logger.js";
 import { canonicalizeUrl, hashUrl } from "./canonicalizeUrl.js";
 import { computeFingerprint } from "./fingerprints.js";
 import { compareListings } from "./compareListings.js";
+import { computeMatchScore } from "./scoring.js";
 import { ImmohouseAdapter } from "../adapters/immohouse/ImmohouseAdapter.js";
 import { OlxAdapter } from "../adapters/olx/OlxAdapter.js";
 import { OtodomAdapter } from "../adapters/otodom/OtodomAdapter.js";
+import { DomyAdapter } from "../adapters/domy/DomyAdapter.js";
 import type { PortalAdapter, ListingDetails, SearchFilters, CrawlResult } from "../types/index.js";
 
 // Maximum simultaneous detail fetches across all portals
@@ -23,7 +25,31 @@ const adapters: Record<string, PortalAdapter> = {
   immohouse: new ImmohouseAdapter(),
   olx: new OlxAdapter(),
   otodom: new OtodomAdapter(),
+  domy: new DomyAdapter(),
 };
+
+// ---------------------------------------------------------------------------
+// Playwright-based portal lock
+// Portals that share a single browser instance (Playwright) must not run
+// concurrently – a finishing run closes the browser that the other run is
+// still using.  We serialise them with a per-portal promise chain.
+// ---------------------------------------------------------------------------
+
+const PLAYWRIGHT_PORTALS = new Set(["otodom"]);
+const portalLock: Record<string, Promise<unknown>> = {};
+
+/**
+ * Wrap `fn` so that only ONE call runs at a time for the given portal.
+ * Subsequent calls are queued and run after the previous one resolves.
+ */
+function withPortalLock<T>(portal: string, fn: () => Promise<T>): Promise<T> {
+  if (!PLAYWRIGHT_PORTALS.has(portal)) return fn();
+
+  const prev = portalLock[portal] ?? Promise.resolve();
+  const next = prev.then(() => fn(), () => fn()); // run even if prev errored
+  portalLock[portal] = next.catch(() => undefined); // swallow so chain keeps going
+  return next;
+}
 
 export function getAdapter(source: string): PortalAdapter {
   const adapter = adapters[source];
@@ -35,7 +61,11 @@ export function getAdapter(source: string): PortalAdapter {
 // Main runner
 // ---------------------------------------------------------------------------
 
-export async function runCrawlForSearch(search: SavedSearch): Promise<CrawlResult> {
+export function runCrawlForSearch(search: SavedSearch): Promise<CrawlResult> {
+  return withPortalLock(search.portal, () => _runCrawlForSearch(search));
+}
+
+async function _runCrawlForSearch(search: SavedSearch): Promise<CrawlResult> {
   const startedAt = Date.now();
   const log = logger.child({ searchId: search.id, portal: search.portal });
 
@@ -70,10 +100,10 @@ export async function runCrawlForSearch(search: SavedSearch): Promise<CrawlResul
       const canonical = canonicalizeUrl(stub.source, stub.canonicalUrl);
       const urlHash = hashUrl(canonical);
 
-      const existing = await db.listing.findUnique({ where: { urlHash } });
+      let existing = await db.listing.findUnique({ where: { urlHash } });
 
       if (!existing) {
-        // New listing – save stub immediately, queue for detail fetch
+        // Brand-new listing – save stub immediately, queue for detail fetch
         const newListing = await db.listing.create({
           data: {
             source: stub.source,
@@ -112,6 +142,7 @@ export async function runCrawlForSearch(search: SavedSearch): Promise<CrawlResul
 
         newCount++;
         urlsNeedingDetail.push(canonical);
+        existing = newListing;
       } else {
         // Known listing – update lastSeenAt
         await db.listing.update({
@@ -126,22 +157,36 @@ export async function runCrawlForSearch(search: SavedSearch): Promise<CrawlResul
         }
       }
 
-      // Associate with this saved search
-      const listing = await db.listing.findUnique({ where: { urlHash } });
-      if (listing) {
-        await db.searchListingMatch.upsert({
-          where: { searchId_listingId: { searchId: search.id, listingId: listing.id } },
-          create: {
-            searchId: search.id,
-            listingId: listing.id,
-            lastMatchedAt: new Date(),
-          },
-          update: { lastMatchedAt: new Date() },
-        });
-      }
+      // Associate with this saved search and compute a preliminary match score
+      // (will be refined after detail fetch with full listing data)
+      const matchScore = computeMatchScore(
+        {
+          price: existing.price,
+          rooms: existing.rooms,
+          areaM2: existing.areaM2,
+          city: existing.city,
+        },
+        filters
+      );
+
+      await db.searchListingMatch.upsert({
+        where: { searchId_listingId: { searchId: search.id, listingId: existing.id } },
+        create: {
+          searchId: search.id,
+          listingId: existing.id,
+          lastMatchedAt: new Date(),
+          currentMatchScore: matchScore,
+        },
+        update: {
+          lastMatchedAt: new Date(),
+          currentMatchScore: matchScore,
+        },
+      });
     }
 
     // ---- PHASE 3: Detail fetch (throttled) ----
+    // NOTE: cross-portal deduplication happens inside persistDetails,
+    // where the full fingerprint (price + area + rooms + city + …) is available.
     log.info({ count: urlsNeedingDetail.length }, "Starting detail fetches");
     await processWithConcurrency(
       urlsNeedingDetail,
@@ -149,17 +194,24 @@ export async function runCrawlForSearch(search: SavedSearch): Promise<CrawlResul
       async (url) => {
         try {
           const details = await adapter.fetchListingDetails(url);
-          await persistDetails(details);
-          // Mutate counters via reference (we pass the object)
+          const result = await persistDetails(details, search.id, filters);
+          if (result?.updated) updatedCount++;
         } catch (err) {
           log.error({ err, url }, "Detail fetch failed");
+          // Reset lastCheckedAt to epoch so Phase 2 re-queues this listing
+          // on the very next search run instead of waiting 24 hours.
+          try {
+            const urlHash = hashUrl(canonicalizeUrl(search.portal, url));
+            await db.listing.updateMany({
+              where: { urlHash },
+              data: { lastCheckedAt: new Date(0) },
+            });
+          } catch {
+            // Best-effort – don't let this mask the original error
+          }
         }
       }
     );
-
-    // Re-read counters (they were mutated inside persistDetails via the object ref)
-    // — actually we can't mutate counts inside a closure easily without a ref object.
-    // We'll recount from the DB using the run context.
 
     // ---- PHASE 4: Mark disappeared listings as inactive ----
     const seenUrls = new Set(stubs.map((s) => canonicalizeUrl(s.source, s.canonicalUrl)));
@@ -250,18 +302,36 @@ export async function runCrawlForSearch(search: SavedSearch): Promise<CrawlResul
 
 // ---------------------------------------------------------------------------
 // Persist detail fetch result & emit change events
+//
+// Cross-portal deduplication:
+//   Once we have full detail data (and thus a reliable fingerprint), we check
+//   whether the same physical apartment already exists under a different
+//   portal's URL.  If a duplicate is found we:
+//     1. Add this URL to the older listing's `alternateUrls` array.
+//     2. Re-map any SearchListingMatch rows that point to this stub listing
+//        so they point to the older canonical listing instead.
+//     3. Delete the stub listing that was just created for this URL.
+//
+//   This keeps exactly ONE row per real apartment in the database.
 // ---------------------------------------------------------------------------
 
+/** Public alias so the import endpoint can reuse persist logic without a searchId */
+export async function persistDetailsPublic(details: ListingDetails) {
+  return persistDetails(details);
+}
+
 async function persistDetails(
-  details: ListingDetails
-): Promise<void> {
+  details: ListingDetails,
+  searchId?: string,
+  filters?: SearchFilters
+): Promise<{ updated: boolean; mergedIntoId?: string } | null> {
   const canonical = canonicalizeUrl(details.source, details.canonicalUrl);
   const urlHash = hashUrl(canonical);
   const existing = await db.listing.findUnique({ where: { urlHash } });
 
   if (!existing) {
     logger.warn({ url: canonical }, "Detail fetch returned unknown listing – skipping persist");
-    return;
+    return null;
   }
 
   const fingerprint = computeFingerprint(details);
@@ -276,10 +346,92 @@ async function persistDetails(
         data: { listingId: existing.id, eventType: "inactive" },
       });
     }
-    return;
+    return { updated: false };
   }
 
-  // Detect changes
+  // ---- Cross-portal duplicate check ----
+  // We now have a FULL fingerprint (price, area, rooms, city, neighbourhood,
+  // agency, address, first sentence of description), so duplicates are
+  // reliable.  Only check against OTHER portals – same-portal matches are
+  // normal re-crawls.
+  const primaryListing = await db.listing.findFirst({
+    where: {
+      fingerprint,
+      source: { not: details.source },
+      status: "active",
+      // Exclude the listing we're currently working on
+      id: { not: existing.id },
+    },
+    orderBy: { firstSeenAt: "asc" }, // oldest = primary
+  });
+
+  if (primaryListing) {
+    logger.info(
+      {
+        primaryId: primaryListing.id,
+        primarySource: primaryListing.source,
+        duplicateUrl: canonical,
+        duplicateSource: details.source,
+      },
+      "Cross-portal duplicate detected during detail fetch – merging"
+    );
+
+    // 1. Add this URL to the primary listing's alternateUrls
+    const existingAlternates = (primaryListing.alternateUrls as string[] | null) ?? [];
+    if (!existingAlternates.includes(canonical)) {
+      await db.listing.update({
+        where: { id: primaryListing.id },
+        data: {
+          alternateUrls: [...existingAlternates, canonical] as any,
+          lastSeenAt: new Date(),
+        },
+      });
+    }
+
+    // 2. Re-map SearchListingMatch records from the stub to the primary
+    if (searchId && filters) {
+      const stubMatch = await db.searchListingMatch.findUnique({
+        where: { searchId_listingId: { searchId, listingId: existing.id } },
+      });
+
+      if (stubMatch) {
+        // Compute an accurate score for the primary (which has full data)
+        const matchScore = computeMatchScore(
+          {
+            price: primaryListing.price,
+            rooms: primaryListing.rooms,
+            areaM2: primaryListing.areaM2,
+            city: primaryListing.city,
+          },
+          filters
+        );
+
+        // Upsert into the primary; delete the stub match
+        await db.searchListingMatch.upsert({
+          where: { searchId_listingId: { searchId, listingId: primaryListing.id } },
+          create: {
+            searchId,
+            listingId: primaryListing.id,
+            firstMatchedAt: stubMatch.firstMatchedAt,
+            lastMatchedAt: new Date(),
+            currentMatchScore: matchScore,
+          },
+          update: { lastMatchedAt: new Date(), currentMatchScore: matchScore },
+        });
+
+        await db.searchListingMatch.delete({
+          where: { searchId_listingId: { searchId, listingId: existing.id } },
+        });
+      }
+    }
+
+    // 3. Remove the stub listing (all related rows cascade-delete)
+    await db.listing.delete({ where: { id: existing.id } });
+
+    return { updated: false, mergedIntoId: primaryListing.id };
+  }
+
+  // ---- Normal path: update the listing with full detail data ----
   const changes = compareListings(existing, details);
 
   await db.listing.update({
@@ -312,7 +464,24 @@ async function persistDetails(
     },
   });
 
-  // Emit events
+  // Re-compute score with enriched data and update the match record
+  if (searchId && filters) {
+    const refinedScore = computeMatchScore(
+      {
+        price: details.price ?? existing.price,
+        rooms: details.rooms ?? existing.rooms,
+        areaM2: details.areaM2 ?? existing.areaM2,
+        city: details.city ?? existing.city,
+      },
+      filters
+    );
+    await db.searchListingMatch.updateMany({
+      where: { listingId: existing.id, searchId },
+      data: { currentMatchScore: refinedScore },
+    });
+  }
+
+  // Emit change events
   for (const eventType of changes.events) {
     await db.listingEvent.create({
       data: {
@@ -323,6 +492,27 @@ async function persistDetails(
       },
     });
   }
+
+  return { updated: changes.hasChanged };
+}
+
+// ---------------------------------------------------------------------------
+// Cross-portal duplicate lookup (used by API endpoint)
+// ---------------------------------------------------------------------------
+
+/** Find listings with the same fingerprint (potential cross-portal duplicates). */
+export async function findPotentialDuplicates(listingId: string) {
+  const listing = await db.listing.findUnique({ where: { id: listingId } });
+  if (!listing?.fingerprint) return [];
+
+  return db.listing.findMany({
+    where: {
+      fingerprint: listing.fingerprint,
+      id: { not: listingId },
+    },
+    orderBy: { firstSeenAt: "asc" },
+    take: 10,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -342,19 +532,4 @@ async function processWithConcurrency<T>(
     }
   });
   await Promise.all(workers);
-}
-
-/** Find listings with similar fingerprint (potential cross-portal duplicates) */
-export async function findPotentialDuplicates(listingId: string) {
-  const listing = await db.listing.findUnique({ where: { id: listingId } });
-  if (!listing?.fingerprint) return [];
-
-  return db.listing.findMany({
-    where: {
-      fingerprint: listing.fingerprint,
-      id: { not: listingId },
-    },
-    orderBy: { firstSeenAt: "asc" },
-    take: 10,
-  });
 }

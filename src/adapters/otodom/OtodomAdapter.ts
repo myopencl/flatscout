@@ -159,7 +159,15 @@ export class OtodomAdapter implements PortalAdapter {
       return { source: SOURCE, canonicalUrl: canonical, status: "inactive" };
     }
 
-    return parseOtodomDetailPage(nextData, canonical);
+    const details = parseOtodomDetailPage(nextData, canonical);
+    // DEBUG: log coordinates to verify extraction
+    if (details.lat == null || details.lon == null) {
+      this.log.warn(
+        { url: canonical, lat: details.lat, lon: details.lon, title: details.title },
+        "Otodom detail has NULL coordinates"
+      );
+    }
+    return details;
   }
 
   async checkListingStatus(url: string): Promise<"active" | "inactive" | "unknown"> {

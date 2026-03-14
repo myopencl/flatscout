@@ -2,8 +2,9 @@
  * URL canonicalization utilities.
  *
  * Rules per portal:
- *  - OLX:       m.olx.pl → www.olx.pl
- *  - All:       strip tracking/UTM params, remove fragments, lowercase host
+ *  - OLX:   m.olx.pl → www.olx.pl
+ *  - domy:  strip ps[page] and other search-only params from detail URLs
+ *  - All:   strip tracking/UTM params, remove fragments, lowercase host
  */
 
 // Params that carry no identifying information and should be stripped
@@ -45,6 +46,16 @@ export function canonicalizeUrl(source: string, rawUrl: string): string {
   if (source === "olx") {
     const mapped = OLX_HOST_MAP[url.hostname];
     if (mapped) url.hostname = mapped;
+  }
+
+  // domy.pl: strip search/pagination params from detail page URLs
+  if (source === "domy") {
+    // Remove params that are only relevant to search results pages
+    for (const key of [...url.searchParams.keys()]) {
+      if (key.startsWith("ps[") || key === "page" || key === "sort") {
+        url.searchParams.delete(key);
+      }
+    }
   }
 
   // 3. Remove fragment

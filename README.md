@@ -105,14 +105,17 @@ GET /health
 ### Saved Searches
 
 ```
-POST   /api/v1/saved-searches          # Crear búsqueda guardada
-GET    /api/v1/saved-searches          # Listar todas
-GET    /api/v1/saved-searches/:id      # Detalle
-PATCH  /api/v1/saved-searches/:id      # Actualizar
-POST   /api/v1/saved-searches/:id/run  # Ejecutar ahora (async)
+POST   /api/v1/searches                # Crear búsqueda guardada
+GET    /api/v1/searches                # Listar todas
+GET    /api/v1/searches/:id            # Detalle
+PATCH  /api/v1/searches/:id            # Actualizar
+DELETE /api/v1/searches/:id            # Eliminar
+POST   /api/v1/searches/:id/duplicate  # Duplicar
+POST   /api/v1/searches/:id/run-now    # Ejecutar ahora (async)
 
-GET    /api/v1/saved-searches/:id/listings           # Anuncios de la búsqueda
-GET    /api/v1/saved-searches/:id/changes?since=...  # Cambios desde fecha
+GET    /api/v1/searches/:id/listings           # Anuncios de la búsqueda
+GET    /api/v1/searches/:id/changes?since=...  # Cambios desde fecha
+GET    /api/v1/searches/:id/stats              # Estadísticas del crawler
 ```
 
 ### Listings
@@ -148,7 +151,7 @@ PATCH  /api/v1/listings/:id/state                     # Marcar favorito/descarta
 ### Crear búsqueda en Immohouse
 
 ```bash
-curl -s -X POST http://localhost:3000/api/v1/saved-searches \
+curl -s -X POST http://localhost:3000/api/v1/searches \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Poznań 3 pokoje 400-700k Immohouse",
@@ -170,7 +173,7 @@ curl -s -X POST http://localhost:3000/api/v1/saved-searches \
 ### Lanzar búsqueda manualmente
 
 ```bash
-curl -s -X POST http://localhost:3000/api/v1/saved-searches/<ID>/run | jq .
+curl -s -X POST http://localhost:3000/api/v1/searches/<ID>/run | jq .
 ```
 
 ### Listar anuncios activos de 3 habitaciones
@@ -183,7 +186,7 @@ curl "http://localhost:3000/api/v1/listings?rooms=3&status=active&minPrice=40000
 
 ```bash
 SINCE=$(date -u -d '24 hours ago' +%Y-%m-%dT%H:%M:%SZ)
-curl "http://localhost:3000/api/v1/saved-searches/<ID>/changes?since=${SINCE}" | jq .
+curl "http://localhost:3000/api/v1/searches/<ID>/changes?since=${SINCE}" | jq .
 ```
 
 ### Marcar un anuncio como favorito

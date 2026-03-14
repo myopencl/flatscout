@@ -25,7 +25,7 @@ enum ListingStatus {
 model SavedSearch {
   id               String    @id @default(uuid())
   name             String
-  portal           String    // "immohouse" | "olx" | "otodom"
+  portal           String    // "immohouse" | "olx" | "otodom" | "domy"
   enabled          Boolean   @default(true)
   frequencyMinutes Int       @default(60) @map("frequency_minutes")
   filtersJson      Json      @map("filters_json")
@@ -47,7 +47,7 @@ model SavedSearch {
 // ---------------------------------------------------------------------------
 model Listing {
   id             String   @id @default(uuid())
-  source         String   // "immohouse" | "olx" | "otodom"
+  source         String   // "immohouse" | "olx" | "otodom" | "domy"
   externalId     String?  @map("external_id")
   canonicalUrl   String   @unique @map("canonical_url")
   urlHash        String   @unique @map("url_hash")  // SHA-256 of canonicalUrl
@@ -77,6 +77,11 @@ model Listing {
   thumbnailUrl   String?  @map("thumbnail_url")
   photosJson     Json?    @map("photos_json")       // string[]
   featuresJson   Json?    @map("features_json")     // string[]
+
+  // Cross-portal deduplication: if this listing was also found on other portals,
+  // their URLs are stored here. The primary canonicalUrl belongs to the portal
+  // that first discovered the listing.
+  alternateUrls  Json?    @map("alternate_urls")   // string[]
 
   // Raw data for debugging / re-parsing
   rawSummaryJson Json?    @map("raw_summary_json")

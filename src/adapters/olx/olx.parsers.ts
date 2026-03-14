@@ -48,6 +48,12 @@ function parseCard(
   if (!href || href === "#") return null;
 
   const rawUrl = href.startsWith("http") ? href : `https://www.olx.pl${href}`;
+
+  // Validate: reject URLs from other portals (OLX sometimes shows sponsored listings from otodom, etc.)
+  if (!rawUrl.includes("olx.pl")) {
+    return null;
+  }
+
   const canonicalUrl = canonicalizeUrl(SOURCE, rawUrl);
 
   // External ID from URL or data-id attr

@@ -54,9 +54,13 @@ export class OlxAdapter implements PortalAdapter {
       params.set("search[filter_enum_rooms][0]", roomValue);
     }
 
-    // District filter (NEW)
+    // District filter
     if (filters.districtId != null)
       params.set("search[district_id]", String(filters.districtId));
+
+    // Filter: only listings with photos
+    if (filters.onlyWithPhotos === true)
+      params.set("search[photos]", "1");
 
     return `${base}?${params.toString()}`;
   }

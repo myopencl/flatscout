@@ -5,6 +5,7 @@ import { healthRoutes } from "./routes/health.routes.js";
 import { searchesRoutes } from "./routes/searches.routes.js";
 import { listingsRoutes } from "./routes/listings.routes.js";
 import { statsRoutes } from "./routes/stats.routes.js";
+import { mapRoutes } from "./routes/map.routes.js";
 
 const PORT = Number(process.env["PORT"] ?? 3000);
 const HOST = process.env["HOST"] ?? "0.0.0.0";
@@ -46,6 +47,7 @@ export async function buildServer() {
   await app.register(searchesRoutes, { prefix: "/api/v1" });
   await app.register(listingsRoutes, { prefix: "/api/v1" });
   await app.register(statsRoutes, { prefix: "/api/v1" });
+  await app.register(mapRoutes, { prefix: "/api/v1" });
 
   return app;
 }

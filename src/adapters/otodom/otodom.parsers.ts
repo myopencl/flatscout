@@ -24,6 +24,7 @@ interface NextDataListing {
       street?: { name?: string };
     };
     mapDetails?: { lat?: number; lon?: number };
+    coordinates?: { latitude?: number; longitude?: number };
   };
   agency?: { name?: string };
   isPrivateOwner?: boolean;
@@ -153,8 +154,8 @@ export function parseOtodomDetailPage(
     ]
       .filter(Boolean)
       .join(", ") || null,
-    lat: ad.location?.mapDetails?.lat ?? null,
-    lon: ad.location?.mapDetails?.lon ?? null,
+    lat: ad.location?.coordinates?.latitude ?? ad.location?.mapDetails?.lat ?? null,
+    lon: ad.location?.coordinates?.longitude ?? ad.location?.mapDetails?.lon ?? null,
     photos,
     features: Object.entries(charMap).map(([k, v]) => `${k}: ${v}`).slice(0, 50),
     agencyName: ad.agency?.name ?? null,
