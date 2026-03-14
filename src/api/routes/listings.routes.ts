@@ -1,8 +1,9 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { db } from "../../db/prisma.js";
-import { findPotentialDuplicates, getAdapter, persistDetailsPublic } from "../../core/crawlerRunner.js";
+import { findPotentialDuplicates, getAdapter, persistDetailsPublic, refetchListingById, refetchIncompleteListings } from "../../core/crawlerRunner.js";
 import { canonicalizeUrl, hashUrl } from "../../core/canonicalizeUrl.js";
+import { logger } from "../../utils/logger.js";
 import {
   getOrCreateListingState,
   updateListingState,
@@ -58,6 +59,14 @@ const UpdateListingStateSchema = z.object({
   rating: z.number().int().min(1).max(5).optional(),
 });
 
+const CreateListingSchema = z.object({
+  url: z.string().url(),
+});
+
+const RefetchIncompleteQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(200).default(50),
+});
+
 const BulkDeleteSchema = z.object({
   // Filter by listing status (only FOUND listings can be deleted)
   listingStatus: ListingStatus.optional(),
@@ -79,6 +88,82 @@ const BulkDeleteSchema = z.object({
 // ---------------------------------------------------------------------------
 
 export async function listingsRoutes(app: FastifyInstance): Promise<void> {
+
+  const log = logger.child({ module: "api:listings" });
+
+  // POST /listings - Add a listing manually by URL and immediately trigger detail fetch
+  app.post<{ Body: unknown }>("/listings", async (req, reply) => {
+    const body = CreateListingSchema.safeParse(req.body);
+    if (!body.success) {
+      return reply.status(400).send({ error: "Validation error", details: body.error.format() });
+    }
+
+    const source = detectPortal(body.data.url);
+    if (!source) {
+      return reply.status(400).send({ error: "Unsupported portal URL. Supported portals: otodom, olx, domy, immohouse" });
+    }
+
+    const canonical = canonicalizeUrl(source, body.data.url);
+    const urlHash = hashUrl(canonical);
+
+    const existing = await db.listing.findUnique({ where: { urlHash }, include: { userState: true } });
+    if (existing) {
+      return reply.status(409).send({ error: "Listing already exists", listingId: existing.id, listing: existing });
+    }
+
+    const now = new Date();
+    const newListing = await db.listing.create({
+      data: {
+        source,
+        canonicalUrl: canonical,
+        urlHash,
+        status: "active",
+        firstSeenAt: now,
+        lastSeenAt: now,
+        lastCheckedAt: now,
+        rawSummaryJson: {},
+      },
+    });
+
+    await db.listingUserState.create({ data: { listingId: newListing.id, status: "FOUND" } });
+    await db.listingEvent.create({
+      data: { listingId: newListing.id, eventType: "new", newValueJson: { url: canonical, source } },
+    });
+
+    setImmediate(() => {
+      refetchListingById(newListing.id).catch((err) =>
+        log.error({ err, listingId: newListing.id }, "Auto refetch after manual add failed")
+      );
+    });
+
+    log.info({ listingId: newListing.id, source, url: canonical }, "Listing added manually");
+    return reply.status(201).send(newListing);
+  });
+
+  // POST /listings/refetch-incomplete - Queue re-fetch for listings missing price or location
+  app.post<{ Querystring: Record<string, string> }>("/listings/refetch-incomplete", async (req, reply) => {
+    const q = RefetchIncompleteQuerySchema.safeParse(req.query);
+    if (!q.success) {
+      return reply.status(400).send({ error: "Validation error", details: q.error.format() });
+    }
+
+    const count = await db.listing.count({
+      where: {
+        status: "active",
+        OR: [{ price: null }, { lat: null }, { lon: null }],
+      },
+    });
+    const queued = Math.min(count, q.data.limit);
+
+    setImmediate(() => {
+      refetchIncompleteListings(q.data.limit).catch((err) =>
+        log.error({ err }, "Background incomplete refetch failed")
+      );
+    });
+
+    log.info({ queued }, "Queued incomplete listing refetches");
+    return reply.status(202).send({ message: "Refetch queued for incomplete listings", count: queued });
+  });
 
   // GET /listings - List with optional state filter
   app.get<{ Querystring: Record<string, string> }>("/listings", async (req, reply) => {
@@ -193,6 +278,29 @@ export async function listingsRoutes(app: FastifyInstance): Promise<void> {
 
     const state = await updateListingState(req.params.id, updates);
     return reply.send(state);
+  });
+
+  // POST /listings/:id/refetch - Force re-fetch of a single listing's details
+  app.post<{ Params: { id: string } }>("/listings/:id/refetch", async (req, reply) => {
+    const listing = await db.listing.findUnique({
+      where: { id: req.params.id },
+      select: { id: true, source: true },
+    });
+    if (!listing) return reply.status(404).send({ error: "Not found" });
+
+    const knownPortals = ["otodom", "olx", "domy", "immohouse"];
+    if (!knownPortals.includes(listing.source)) {
+      return reply.status(400).send({ error: `No adapter available for source: ${listing.source}` });
+    }
+
+    setImmediate(() => {
+      refetchListingById(listing.id).catch((err) =>
+        log.error({ err, listingId: listing.id }, "Manual refetch failed")
+      );
+    });
+
+    log.info({ listingId: listing.id }, "Manual refetch triggered");
+    return reply.status(202).send({ message: "Refetch started", listingId: listing.id });
   });
 
   // DELETE /listings/:id - Delete single listing (only if FOUND)

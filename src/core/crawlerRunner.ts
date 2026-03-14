@@ -533,3 +533,50 @@ async function processWithConcurrency<T>(
   });
   await Promise.all(workers);
 }
+
+// ---------------------------------------------------------------------------
+// Re-fetch a single listing by ID
+// ---------------------------------------------------------------------------
+
+export async function refetchListingById(listingId: string): Promise<void> {
+  const listing = await db.listing.findUnique({ where: { id: listingId } });
+  if (!listing) throw new Error(`Listing not found: ${listingId}`);
+
+  const adapter = getAdapter(listing.source);
+  const details = await adapter.fetchListingDetails(listing.canonicalUrl);
+  await persistDetails(details);
+}
+
+// ---------------------------------------------------------------------------
+// Re-fetch incomplete listings (missing price or lat/lon)
+// ---------------------------------------------------------------------------
+
+export async function refetchIncompleteListings(limit: number): Promise<number> {
+  const incomplete = await db.listing.findMany({
+    where: {
+      status: "active",
+      OR: [
+        { price: null },
+        { lat: null },
+        { lon: null },
+      ],
+    },
+    orderBy: { lastCheckedAt: "asc" },
+    take: limit,
+    select: { id: true },
+  });
+
+  await processWithConcurrency(
+    incomplete.map((l) => l.id),
+    DETAIL_CONCURRENCY,
+    async (id) => {
+      try {
+        await refetchListingById(id);
+      } catch (err) {
+        logger.error({ err, listingId: id }, "Incomplete listing refetch failed");
+      }
+    }
+  );
+
+  return incomplete.length;
+}
