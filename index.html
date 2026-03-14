@@ -16,10 +16,11 @@
     .price { font-size: 16px; font-weight: bold; color: #2563eb; }
     .popup-actions { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
     .btn-action { display: inline-block; padding: 7px 8px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 12px; text-align: center; flex: 1; min-width: 60px; }
-    .btn-primary { background: #2563eb; color: white; }
-    .btn-telegram { background: #0088cc; color: white; }
-    .btn-fav { background: #f59e0b; color: white; }
-    .btn-unfav { background: #6b7280; color: white; }
+    .btn-primary { background: #1d4ed8; color: #ffffff; }
+    .btn-telegram { background: #006699; color: #ffffff; }
+    .btn-fav { background: #b45309; color: #ffffff; }
+    .btn-unfav { background: #374151; color: #ffffff; }
+    .btn-discard { background: #991b1b; color: #ffffff; }
     .listing-counter { margin-top: 8px; font-size: 12px; font-weight: 600; color: #374151; }
     .controls label { font-size: 12px; font-weight: 600; margin-top: 6px; display: block; }
     .controls select, .controls input[type=number] { display: block; width: 100%; margin: 3px 0; padding: 6px; box-sizing: border-box; font-size: 13px; }
@@ -62,6 +63,10 @@
       <input type="checkbox" id="favFilter" onchange="filterMap()">
       <label for="favFilter" style="margin:0;font-weight:normal;">⭐ Solo favoritos</label>
     </div>
+    <div class="fav-row">
+      <input type="checkbox" id="recentFilter" onchange="filterMap()">
+      <label for="recentFilter" style="margin:0;font-weight:normal;">🆕 Últimos 2 días</label>
+    </div>
     <div id="listingCounter" class="listing-counter">0 de 0 anuncios</div>
   </div>
   <div id="map"></div>
@@ -73,7 +78,7 @@
     <span style="color:#8b5cf6">● 🎭 Teatr</span><br>
     ⭐ Favorito
   </div>
-  <div style="position:absolute; bottom:20px; left:10px; background:white; padding:8px; border-radius:6px; font-size:11px; z-index:1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Actualizado: 14/3/2026, 17:15:03</div>
+  <div style="position:absolute; bottom:20px; left:10px; background:white; padding:8px; border-radius:6px; font-size:11px; z-index:1000; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Actualizado: 14/3/2026, 17:17:48</div>
 
   <script>
     const map = L.map('map').setView([52.409694, 16.917666], 13);
@@ -132,6 +137,8 @@
       const stSelected = Array.from(document.getElementById('statusFilter').selectedOptions).map(o => o.value.toUpperCase());
       const p = document.getElementById('portalFilter').value;
       const favOnly = document.getElementById('favFilter').checked;
+      const recentOnly = document.getElementById('recentFilter').checked;
+      const twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000;
 
       const pNorm = String(p || 'all').toLowerCase();
 
@@ -142,10 +149,12 @@
         if (aStatus === 'DISCARDED') return false;
         const statusOk = stSelected.length === 0 || stSelected.includes(aStatus);
         const favOk = !favOnly || a.isFavorite;
+        const recentOk = !recentOnly || (a.dateSeen && new Date(a.dateSeen).getTime() >= twoDaysAgo);
         return (r === 'all' || String(a.rooms) === r) &&
           scoreOk &&
           statusOk &&
           favOk &&
+          recentOk &&
           (pNorm === 'all' || String(a.portal).toLowerCase() === pNorm);
       });
 
@@ -159,6 +168,8 @@
         const favBotUrl = 'https://t.me/myflatscout_bot?text=' + encodeURIComponent(favCmd);
         const favBtnClass = apt.isFavorite ? 'btn-action btn-unfav' : 'btn-action btn-fav';
         const favBtnLabel = apt.isFavorite ? '★ Quitar Fav' : '☆ Añadir Fav';
+        const discardCmd = '/discard ' + apt.id;
+        const discardBotUrl = 'https://t.me/myflatscout_bot?text=' + encodeURIComponent(discardCmd);
 
         const visitLine = fmtDate(apt.visitDate) ? ('<br>📅 Visita: ' + fmtDate(apt.visitDate)) : '';
         const commentsLine = apt.comments ? ('<br>📝 ' + String(apt.comments)) : '';
@@ -177,6 +188,7 @@
             "<a href='" + apt.url + "' target='_blank' class='btn-action btn-primary'>Ver Anuncio</a>" +
             "<a href='" + botUrl + "' target='_blank' class='btn-action btn-telegram'>Comentar</a>" +
             "<a href='" + favBotUrl + "' target='_blank' class='" + favBtnClass + "'>" + favBtnLabel + "</a>" +
+            "<a href='" + discardBotUrl + "' target='_blank' class='btn-action btn-discard'>🗑 Discard</a>" +
           "</div>" +
         "</div>";
 
