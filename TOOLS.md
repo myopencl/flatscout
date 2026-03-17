@@ -2,34 +2,23 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
-## What Goes Here
+## Mapa de Listings
 
-Things like:
-
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+**Script canónico para generar/actualizar el mapa:**
+```bash
+/home/ubuntu/.openclaw/workspace-flatscout/skills/create-map/scripts/update_and_deploy_map_api.sh
 ```
+
+Este script:
+1. Ejecuta el scorer para actualizar puntuaciones
+2. Genera el mapa desde la API `/api/v1/map/listings`
+3. Sube el resultado a GitHub Pages
+
+**URL del mapa:** https://myopencl.github.io/flatscout/
+
+**NO usar:** `update_and_deploy.sh` ni `generate_map.js` (obsoletos)
+
+---
 
 ## Why Separate?
 
