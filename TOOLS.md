@@ -16,7 +16,21 @@ Este script:
 
 **URL del mapa:** https://myopencl.github.io/flatscout/
 
-**NO usar:** `update_and_deploy.sh` ni `generate_map.js` (obsoletos)
+**NO usar:** `update_and_deploy.sh` (obsoleto)
+
+---
+
+## Actualizar coordenadas de un listing
+
+**Script:**
+```bash
+node /home/ubuntu/.openclaw/workspace-flatscout/skills/flatscout-scraper-api/scripts/update-coordinates.js \
+  --listingId <id> \
+  --lat 52.4084 \
+  --lon 16.9245
+```
+
+Esto actualiza las coordenadas directamente en la base de datos.
 
 ---
 
