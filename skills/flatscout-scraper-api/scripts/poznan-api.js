@@ -172,6 +172,17 @@ class PoznanAPI {
   async getActivityTimeline(days = 30) { return this.get('/api/v1/stats/activity-timeline', { days }); }
   async getOverviewStats() { return this.get('/api/v1/stats/overview'); }
 
+  // ===== Coordinates =====
+  /**
+   * Update listing coordinates
+   * @param {string} listingId - Listing UUID
+   * @param {Object} coords - { lat: number | null, lon: number | null }
+   * @returns {Promise<Object>}
+   */
+  async updateListingCoordinates(listingId, coords) {
+    return this.patch(`/api/v1/listings/${listingId}/coordinates`, coords);
+  }
+
   // ===== Legacy compatibility (older saved-searches routes) =====
   async listSavedSearches(options = {}) { return this.get('/api/v1/saved-searches', options); }
   async getSavedSearch(searchId) { return this.get(`/api/v1/saved-searches/${searchId}`); }

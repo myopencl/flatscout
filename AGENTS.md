@@ -139,6 +139,36 @@ The FlatScout Telegram bot accepts these commands for listing management:
 node skills/flatscout-scraper-api/scripts/manage-listings.js --listingId <id> --status DISCARDED
 ```
 
+## Coordinate Correction
+
+When a listing has incorrect coordinates on the map:
+
+| User says | Agent action |
+|-----------|--------------|
+| "Las coordenadas están mal" | Ask for correct address or lat/lon |
+| "Este anuncio está mal ubicado" | Use update-coordinates.js script |
+
+**Script:**
+```bash
+# Set correct coordinates
+node skills/flatscout-scraper-api/scripts/update-coordinates.js \
+  --listingId <id> \
+  --lat 52.4084 \
+  --lon 16.9245
+
+# Clear incorrect coordinates
+node skills/flatscout-scraper-api/scripts/update-coordinates.js \
+  --listingId <id> \
+  --clear
+```
+
+**API directly:**
+```bash
+curl -X PATCH "http://localhost:3000/api/v1/listings/<id>/coordinates" \
+  -H "Content-Type: application/json" \
+  -d '{"lat": 52.4084, "lon": 16.9245}'
+```
+
 ## Date Handling
 
 When the user mentions dates, parse them appropriately:

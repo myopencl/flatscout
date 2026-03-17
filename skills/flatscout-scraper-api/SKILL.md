@@ -360,6 +360,52 @@ Update apartment status, add notes, record visits.
 --action STR 'get' to view current state, 'update' to change (default: update)
 ```
 
+### `scripts/update-coordinates.js` – Fix Incorrect Coordinates ⭐ NEW
+
+Correct wrong coordinates for a listing.
+
+**Arguments:**
+```
+--listingId ID    Listing UUID (required)
+--lat NUMBER      Latitude (-90 to 90)
+--lon NUMBER      Longitude (-180 to 180)
+--clear           Clear coordinates (set to null)
+```
+
+**Examples:**
+```bash
+# Set correct coordinates
+node scripts/update-coordinates.js \
+  --listingId abc123 \
+  --lat 52.4084 \
+  --lon 16.9245
+
+# Clear incorrect coordinates
+node scripts/update-coordinates.js \
+  --listingId abc123 \
+  --clear
+```
+
+**API Endpoint:**
+```
+PATCH /api/v1/listings/:id/coordinates
+Body: { "lat": 52.4084, "lon": 16.9245 } | { "lat": null, "lon": null }
+```
+
+Update apartment status, add notes, record visits.
+
+**Arguments:**
+```
+--listingId STR Listing UUID (required)
+--status STR Status: FOUND, SEEN, VISIT_PENDING, VISITED, FINALIST, DISCARDED
+--comments STR Your notes about the apartment (max 5000 chars)
+--visitDate DATE Date you visited (natural language supported)
+--rating NUM Your rating: 1-5 stars
+--pros STR Comma-separated list of pros
+--cons STR Comma-separated list of cons
+--action STR 'get' to view current state, 'update' to change (default: update)
+```
+
 **Visit Date Formats:**
 
 The `--visitDate` argument supports natural language:
@@ -549,6 +595,8 @@ Each apartment can have:
 - **Visit Date**: When you visited
 - **Rating**: 1-5 stars
 - **Pros/Cons**: Lists of what you liked/disliked
+- **Score**: 0-100 calculated from distance, price, condition, expenses
+- **Coordinates**: lat/lon for map display (can be corrected if wrong)
 
 ### Quick Actions from Map
 

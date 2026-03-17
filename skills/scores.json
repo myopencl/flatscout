@@ -1,5 +1,5 @@
 {
-  "scoredAt": "2026-03-17T17:50:13.761Z",
+  "scoredAt": "2026-03-17T20:34:14.002Z",
   "target": {
     "lat": 52.408417,
     "lon": 16.924583
@@ -33,11 +33,11 @@
   "total": 100,
   "distribution": {
     "90-100": 1,
-    "80-89": 3,
+    "80-89": 2,
     "70-79": 19,
     "60-69": 22,
     "50-59": 25,
-    "40-49": 17,
+    "40-49": 18,
     "0-39": 13
   },
   "listings": [
@@ -50,7 +50,7 @@
       "total": 90,
       "breakdown": {
         "distance": {
-          "value": 576,
+          "value": 583,
           "points": 40,
           "maxPoints": 50
         },
@@ -70,37 +70,6 @@
           "maxPoints": 20
         },
         "total": 90
-      }
-    },
-    {
-      "id": "bef823a2-d17a-4214-9294-1f224966aa00",
-      "title": "2 przestronne pokoje do remontu przy Lesie Dębińsk",
-      "neighborhood": null,
-      "price": 560000,
-      "areaM2": 70.1,
-      "total": 85,
-      "breakdown": {
-        "distance": {
-          "value": 606,
-          "points": 40,
-          "maxPoints": 50
-        },
-        "pricePerM2": {
-          "value": 7989,
-          "points": 20,
-          "maxPoints": 20
-        },
-        "condition": {
-          "value": "to_completion",
-          "points": 5,
-          "maxPoints": 10
-        },
-        "expenses": {
-          "value": 172,
-          "points": 20,
-          "maxPoints": 20
-        },
-        "total": 85
       }
     },
     {
@@ -1995,37 +1964,6 @@
       }
     },
     {
-      "id": "8ac371f4-5d9a-47df-b666-a18766a806df",
-      "title": "Gotowy dwupak | KUP I ODLICZ VAT | świetna lokaliz",
-      "neighborhood": null,
-      "price": 612000,
-      "areaM2": 53.8,
-      "total": 53,
-      "breakdown": {
-        "distance": {
-          "value": 606,
-          "points": 40,
-          "maxPoints": 50
-        },
-        "pricePerM2": {
-          "value": 11375,
-          "points": 8,
-          "maxPoints": 20
-        },
-        "condition": {
-          "value": "default",
-          "points": 5,
-          "maxPoints": 10
-        },
-        "expenses": {
-          "value": null,
-          "points": 0,
-          "maxPoints": 20
-        },
-        "total": 53
-      }
-    },
-    {
       "id": "98cd8d2c-e6ca-4152-a8c9-e65614a0d6eb",
       "title": "Jeżyce mieszkanie 2-pokojowe",
       "neighborhood": "Jeżyce",
@@ -2143,6 +2081,37 @@
         },
         "expenses": {
           "value": 624,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 51
+      }
+    },
+    {
+      "id": "b6240b8e-8ee7-4948-bbd8-cd22712f0201",
+      "title": "53 m² po generalnym remoncie | Grunwald | 3 min od",
+      "neighborhood": "Grunwald",
+      "price": 619000,
+      "areaM2": 53,
+      "total": 51,
+      "breakdown": {
+        "distance": {
+          "value": 2159,
+          "points": 14,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11679,
+          "points": 7,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 1,
           "points": 20,
           "maxPoints": 20
         },
@@ -2333,6 +2302,37 @@
           "maxPoints": 20
         },
         "total": 46
+      }
+    },
+    {
+      "id": "bef823a2-d17a-4214-9294-1f224966aa00",
+      "title": "2 przestronne pokoje do remontu przy Lesie Dębińsk",
+      "neighborhood": null,
+      "price": 560000,
+      "areaM2": 70.1,
+      "total": 45,
+      "breakdown": {
+        "distance": {
+          "value": 4328,
+          "points": 0,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 7989,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 172,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 45
       }
     },
     {
@@ -2770,37 +2770,6 @@
       }
     },
     {
-      "id": "cb55bdf3-2a2c-465c-9621-db62ce54d933",
-      "title": "Jasne komfortowe 3 pokoje 57,3 m2 Jeżyce",
-      "neighborhood": "Jeżyce",
-      "price": 544500,
-      "areaM2": 57.3,
-      "total": 39,
-      "breakdown": {
-        "distance": {
-          "value": 2302,
-          "points": 12,
-          "maxPoints": 50
-        },
-        "pricePerM2": {
-          "value": 9503,
-          "points": 17,
-          "maxPoints": 20
-        },
-        "condition": {
-          "value": "ready_to_use",
-          "points": 10,
-          "maxPoints": 10
-        },
-        "expenses": {
-          "value": null,
-          "points": 0,
-          "maxPoints": 20
-        },
-        "total": 39
-      }
-    },
-    {
       "id": "f9403901-5822-4bb7-85ed-3c4574202380",
       "title": "Ustawne mieszkanie 40,5m2 + balkon.",
       "neighborhood": "Jeżyce",
@@ -2984,6 +2953,37 @@
           "maxPoints": 20
         },
         "total": 30
+      }
+    },
+    {
+      "id": "8ac371f4-5d9a-47df-b666-a18766a806df",
+      "title": "Gotowy dwupak | KUP I ODLICZ VAT | świetna lokaliz",
+      "neighborhood": null,
+      "price": 612000,
+      "areaM2": 53.8,
+      "total": 29,
+      "breakdown": {
+        "distance": {
+          "value": 2011,
+          "points": 16,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11375,
+          "points": 8,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 29
       }
     },
     {

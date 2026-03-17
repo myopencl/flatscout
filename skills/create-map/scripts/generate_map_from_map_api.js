@@ -52,6 +52,7 @@ function mapListing(l) {
     floor: l.floor ?? '-',
     monthly: toNum(l.monthly_expenses),
     score: toNum(l.score) ?? null,
+    thumbnailUrl: l.thumbnail_url || null,
     status: l.user?.workflow_status || 'FOUND',
     alternateUrls: Array.isArray(l.alternate_urls) ? l.alternate_urls : [],
     comments: l.user?.comments || null,
@@ -265,6 +266,7 @@ function mapListing(l) {
           : '';
 
         const popupContent = "<div class='popup-content'>" +
+          (apt.thumbnailUrl ? "<img src='" + apt.thumbnailUrl + "' style='width:100%;height:120px;object-fit:cover;border-radius:6px;margin-bottom:8px;' onerror=\\\"this.style.display='none'\\\">" : "") +
           "<b>" + apt.address + "</b>" +
           (isNew ? " <span style='background:#10b981;color:#fff;font-size:10px;padding:1px 5px;border-radius:3px;vertical-align:middle;'>NUEVO</span>" : "") +
           "<br><div class='price'>" + Number(apt.price || 0).toLocaleString() + " PLN</div>" +
