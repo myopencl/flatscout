@@ -55,11 +55,20 @@ This skill provides a comprehensive real estate market database for Poznań cove
 http://localhost:3000
 ```
 
-## Scoring ownership (important)
-- This skill/client layer does **not** compute listing `score` by itself.
-- `score` is read from scraper API listing payloads (`/api/v1/listings`).
-- If many listings have `score = null/0`, scoring is currently missing or not persisted on the scraper side ingestion/ranking pipeline.
-- FlatScout map/UI may show score, but score generation should be implemented upstream in scraper API (or via a dedicated scorer job that writes back to API DB).
+## Scoring System
+
+The skill includes a scoring system that calculates a 0-100 score for each listing:
+
+| Criterio | Puntos | Regla |
+|----------|--------|-------|
+| Distancia a Fredry 9 (Teatr Wielki) | 50 | 0km=50pts, 3km=0pts (lineal) |
+| Precio/m² | 20 | <9000=20pts, >13000=0pts |
+| Estado | 10 | Nuevo=10, Usado=5, Reformar=0 |
+| Gastos (czynsz) | 20 | <800=20pts, >1000=0pts |
+
+**Script:** `node scripts/score-listings.js [--limit=N] [--min-score=N] [--dry-run] [--json]`
+
+Scores are stored in the `listings.score` field in the database and returned by the API.
 
 ---
 
@@ -344,22 +353,43 @@ Update apartment status, add notes, record visits.
 --listingId STR Listing UUID (required)
 --status STR Status: FOUND, SEEN, VISIT_PENDING, VISITED, FINALIST, DISCARDED
 --comments STR Your notes about the apartment (max 5000 chars)
---visitDate ISO-8601 Date you visited (e.g., 2026-03-07)
+--visitDate DATE Date you visited (natural language supported)
 --rating NUM Your rating: 1-5 stars
 --pros STR Comma-separated list of pros
 --cons STR Comma-separated list of cons
 --action STR 'get' to view current state, 'update' to change (default: update)
 ```
 
+**Visit Date Formats:**
+
+The `--visitDate` argument supports natural language:
+
+| Input | Result |
+|-------|--------|
+| `"hoy"` / `"today"` | Today |
+| `"mañana"` / `"tomorrow"` | Tomorrow |
+| `"jueves"` / `"thursday"` | Next Thursday |
+| `"el 20"` | The 20th of current/next month |
+| `"el 20 de marzo"` | March 20th |
+| `"2026-03-20"` | Specific ISO date |
+
 **Example – Mark as visited with notes:**
 ```bash
 node scripts/manage-listings.js \
  --listingId a1b2c3d4 \
  --status VISITED \
- --visitDate 2026-03-07 \
+ --visitDate "hoy" \
  --rating 4 \
  --pros "Modern kitchen, balcony, good light" \
  --cons "Noisy street, no parking"
+```
+
+**Example – Schedule visit for next Thursday:**
+```bash
+node scripts/manage-listings.js \
+ --listingId a1b2c3d4 \
+ --status VISIT_PENDING \
+ --visitDate "jueves"
 ```
 
 **Example – View current state:**
@@ -397,6 +427,44 @@ node scripts/bulk-operations.js delete \
 - Only FOUND status apartments can be deleted
 - Always use `--dryRun true` first to preview
 - Script will refuse to delete apartments in other states
+
+### `scripts/score-listings.js` – Calculate Listing Scores ⭐ NEW
+
+Calculate and update scores for all active listings based on distance, price, condition, and expenses.
+
+**Arguments:**
+```
+--limit NUM       Maximum listings to score (default: 100)
+--min-score NUM   Filter output by minimum score (for display)
+--dry-run         Calculate scores without updating API
+--json            Output only JSON (for agent consumption)
+```
+
+**Examples:**
+```bash
+# Score all listings
+node scripts/score-listings.js --limit=100
+
+# Show only listings with score >= 80
+node scripts/score-listings.js --min-score=80
+
+# Dry run to see what scores would be calculated
+node scripts/score-listings.js --dry-run --limit=20
+
+# JSON output for agent consumption
+node scripts/score-listings.js --min-score=85 --json
+```
+
+**Scoring Criteria:**
+
+| Criterion | Points | Rule |
+|-----------|--------|------|
+| Distance to Fredry 9 | 50 | 0km=50pts, 3km=0pts |
+| Price per m² | 20 | <9000 PLN/m²=20pts, >13000=0pts |
+| Building condition | 10 | Ready to use=10, needs work=5, under construction=0 |
+| Monthly expenses | 20 | <800 PLN=20pts, >1000 PLN=0pts |
+
+---
 
 ### `scripts/stats.js` – Market Analytics ⭐ NEW
 
@@ -482,7 +550,35 @@ Each apartment can have:
 - **Rating**: 1-5 stars
 - **Pros/Cons**: Lists of what you liked/disliked
 
-### Data Structure
+### Quick Actions from Map
+
+The interactive map at `https://myopencl.github.io/flatscout/` provides quick action buttons for each listing:
+
+| Button | Action | Description |
+|--------|--------|-------------|
+| **Ver Anuncio** | Open listing URL | Opens the original portal listing in a new tab |
+| **Comentar** | Telegram bot | Opens Telegram with `/detalle <id>` to add comments |
+| **☆ Añadir Fav** | Mark favorite | Opens Telegram with `/favorite <id>` to mark as favorite |
+| **★ Quitar Fav** | Unmark favorite | Opens Telegram with `/unfavorite <id>` to remove from favorites |
+| **🗑 Discard** | Discard listing | Opens Telegram with `/discard <id>` to mark as discarded |
+
+**Telegram Bot Commands:**
+
+```
+/detalle <listing_id>     - View full details and add comments
+/favorite <listing_id>    - Mark as favorite (shows with ⭐ on map)
+/unfavorite <listing_id>  - Remove from favorites
+/discard <listing_id>     - Mark as DISCARDED (hidden from map)
+/status <listing_id> <STATUS> - Change status (FOUND, SEEN, VISIT_PENDING, VISITED, FINALIST, DISCARDED)
+```
+
+**Agent should use these commands when user says:**
+- "Descarta este piso" → `/discard <id>`
+- "Marcar como favorito" → `/favorite <id>`
+- "Quiero visitar este" → `/status <id> VISIT_PENDING`
+- "Ya lo he visitado" → `/status <id> VISITED`
+
+---
 
 ### Listing Object
 ```json

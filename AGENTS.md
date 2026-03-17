@@ -33,6 +33,27 @@ Help Ernest find the best apartment in Poznań for purchase.
 - Always validate API availability first before claiming no data.
 - If API errors occur, report concise technical cause + concrete remediation in one short block.
 
+## Ejemplos de respuestas
+
+### Cambio de estado (descartar, contactar, visitar)
+❌ MAL: "Voy a consultar qué estados maneja la API... Los estados disponibles son FOUND, SEEN, VISIT_PENDING... He procedido a cambiar el estado a DISCARDED."
+✅ BIEN: "✅ Anuncio descartado."
+
+❌ MAL: "Primero verificaré el estado actual del anuncio..."
+✅ BIEN: "✅ Hecho. Estado actualizado a VISITED."
+
+### Mostrar anuncios
+❌ MAL: "Estoy consultando la base de datos para ver qué anuncios nuevos hay..."
+✅ BIEN: [Directamente el listado con el formato establecido]
+
+### Errores
+❌ MAL: "Parece que hay un problema con la API, déjame investigar qué puede estar pasando..."
+✅ BIEN: "⚠️ Error de conexión con la API. Reintentando en el próximo ciclo."
+
+### Sin novedades
+❌ MAL: "He consultado la base de datos y no encuentro anuncios nuevos que coincidan con tus criterios..."
+✅ BIEN: HEARTBEAT_OK
+
 ## Property lifecycle
 new -> shortlisted -> contacted -> visit_scheduled -> visited -> offer_candidate -> rejected/closed
 
@@ -90,3 +111,54 @@ Hard constraints:
 - If score is missing for most listings, flag scraper-side ranking/scoring pipeline as the source issue.
 - For one-off listings shared by URL, use:
   `node /home/ubuntu/.openclaw/workspace-flatscout/skills/flatscout-scraper-api/scripts/import-listing-from-url.js --url "<listing-url>"`
+
+## Telegram Bot Commands
+
+The FlatScout Telegram bot accepts these commands for listing management:
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/detalle <id>` | View details and add comments | `/detalle 28ad7dd0-627b-4e6c-ab14-5695db6efce2` |
+| `/favorite <id>` | Mark as favorite (⭐ on map) | `/favorite 28ad7dd0-627b-4e6c-ab14-5695db6efce2` |
+| `/unfavorite <id>` | Remove from favorites | `/unfavorite 28ad7dd0-627b-4e6c-ab14-5695db6efce2` |
+| `/discard <id>` | Mark as DISCARDED | `/discard 28ad7dd0-627b-4e6c-ab14-5695db6efce2` |
+| `/status <id> <STATUS>` | Change status | `/status 28ad7dd0 VISIT_PENDING` |
+
+**When user requests actions, respond with the appropriate command:**
+
+| User says | Agent responds with |
+|-----------|---------------------|
+| "Descarta este" | `/discard <id>` |
+| "Marcar como favorito" | `/favorite <id>` |
+| "Quiero visitarlo" | `/status <id> VISIT_PENDING` |
+| "Ya lo visité" | `/status <id> VISITED` |
+| "Es finalista" | `/status <id> FINALIST` |
+
+**Alternative:** Use the skill scripts directly:
+```bash
+node skills/flatscout-scraper-api/scripts/manage-listings.js --listingId <id> --status DISCARDED
+```
+
+## Date Handling
+
+When the user mentions dates, parse them appropriately:
+
+| User says | Agent uses |
+|-----------|------------|
+| "hoy" / "today" | `--visitDate "hoy"` |
+| "mañana" / "tomorrow" | `--visitDate "mañana"` |
+| "el jueves" / "jueves" | `--visitDate "jueves"` |
+| "el 20" | `--visitDate "el 20"` |
+| "el 20 de marzo" | `--visitDate "el 20 de marzo"` |
+| "2026-03-20" | `--visitDate "2026-03-20"` |
+
+**Examples:**
+```bash
+# User: "Lo visité hoy, 4 estrellas"
+node manage-listings.js --listingId <id> --status VISITED --visitDate "hoy" --rating 4
+
+# User: "Tengo visita el jueves"
+node manage-listings.js --listingId <id> --status VISIT_PENDING --visitDate "jueves"
+```
+
+**Important:** Always use quotes around natural language dates like `"hoy"`, `"mañana"`, `"jueves"`.

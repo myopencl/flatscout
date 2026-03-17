@@ -1,0 +1,3145 @@
+{
+  "scoredAt": "2026-03-17T17:50:13.761Z",
+  "target": {
+    "lat": 52.408417,
+    "lon": 16.924583
+  },
+  "criteria": {
+    "DISTANCE": {
+      "maxPoints": 50,
+      "minDistance": 0,
+      "maxDistance": 3000
+    },
+    "PRICE_PER_M2": {
+      "maxPoints": 20,
+      "minPrice": 9000,
+      "maxPrice": 13000
+    },
+    "CONDITION": {
+      "maxPoints": 10,
+      "scores": {
+        "ready_to_use": 10,
+        "to_completion": 5,
+        "under_construction": 0,
+        "default": 5
+      }
+    },
+    "EXPENSES": {
+      "maxPoints": 20,
+      "minExpense": 800,
+      "maxExpense": 1000
+    }
+  },
+  "total": 100,
+  "distribution": {
+    "90-100": 1,
+    "80-89": 3,
+    "70-79": 19,
+    "60-69": 22,
+    "50-59": 25,
+    "40-49": 17,
+    "0-39": 13
+  },
+  "listings": [
+    {
+      "id": "28ad7dd0-627b-4e6c-ab14-5695db6efce2",
+      "title": "3 pokoje w centrum miasta",
+      "neighborhood": "Stare Miasto",
+      "price": 598000,
+      "areaM2": 67,
+      "total": 90,
+      "breakdown": {
+        "distance": {
+          "value": 576,
+          "points": 40,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8925,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 335,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 90
+      }
+    },
+    {
+      "id": "bef823a2-d17a-4214-9294-1f224966aa00",
+      "title": "2 przestronne pokoje do remontu przy Lesie Dębińsk",
+      "neighborhood": null,
+      "price": 560000,
+      "areaM2": 70.1,
+      "total": 85,
+      "breakdown": {
+        "distance": {
+          "value": 606,
+          "points": 40,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 7989,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 172,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 85
+      }
+    },
+    {
+      "id": "0eff521a-e401-4b3b-8c11-8912a265ded7",
+      "title": "2 pokoje z osobną kuchnią | Kamienica po rewitaliz",
+      "neighborhood": "Stare Miasto",
+      "price": 541574,
+      "areaM2": 52.58,
+      "total": 83,
+      "breakdown": {
+        "distance": {
+          "value": 676,
+          "points": 39,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10300,
+          "points": 14,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 400,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 83
+      }
+    },
+    {
+      "id": "ea4f2c84-b66a-443f-aaeb-c4455c77ae9e",
+      "title": "OKAZJA! 2 pokoje w centrum–świetna lokalizacja, go",
+      "neighborhood": "Stare Miasto",
+      "price": 526155,
+      "areaM2": 50.11,
+      "total": 82,
+      "breakdown": {
+        "distance": {
+          "value": 656,
+          "points": 39,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10500,
+          "points": 13,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 400,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 82
+      }
+    },
+    {
+      "id": "5d9525ea-a7d7-467b-83e0-6d1bb60f0b82",
+      "title": "Poddasze -Nietuzinkowe mieszkanie 150 m od Starego",
+      "neighborhood": "Stare Miasto",
+      "price": 519000,
+      "areaM2": 51,
+      "total": 79,
+      "breakdown": {
+        "distance": {
+          "value": 870,
+          "points": 35,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10176,
+          "points": 14,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 580,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 79
+      }
+    },
+    {
+      "id": "0c67b6ac-b431-442a-bb7f-dedb6d3bda16",
+      "title": "Ciche, dwupokojowe mieszkanie, Stare Miasto",
+      "neighborhood": "Stare Miasto",
+      "price": 615000,
+      "areaM2": 57.02,
+      "total": 77,
+      "breakdown": {
+        "distance": {
+          "value": 835,
+          "points": 36,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10786,
+          "points": 11,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 400,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 77
+      }
+    },
+    {
+      "id": "adb13364-780a-43a2-934c-cd5da4d252b8",
+      "title": "Centrum, Garbary 48 mkw 2 pokoje, balkon, piwnica",
+      "neighborhood": "Centrum",
+      "price": 459000,
+      "areaM2": 48,
+      "total": 77,
+      "breakdown": {
+        "distance": {
+          "value": 918,
+          "points": 35,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9563,
+          "points": 17,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 620,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 77
+      }
+    },
+    {
+      "id": "13212911-58f7-4697-b8e6-4308da8de14d",
+      "title": "Obszerne klimatyczne poddasze strych Jeżyce",
+      "neighborhood": "Jeżyce",
+      "price": 533000,
+      "areaM2": 97.29,
+      "total": 77,
+      "breakdown": {
+        "distance": {
+          "value": 1078,
+          "points": 32,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 5478,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 1,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 77
+      }
+    },
+    {
+      "id": "8ef1b4a4-e307-4573-a17a-5a5ab1974639",
+      "title": "Klimatyczne mieszkanie w samym centrum, 2 pokoje",
+      "neighborhood": "Stare Miasto",
+      "price": 635000,
+      "areaM2": 40,
+      "total": 76,
+      "breakdown": {
+        "distance": {
+          "value": 266,
+          "points": 46,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 15875,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 0,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 76
+      }
+    },
+    {
+      "id": "f27493e8-4c5b-44c0-a82a-57c0184a641e",
+      "title": "Mieszkanie, 56 m2, Poznań, ścisłe Centrum",
+      "neighborhood": "Stare Miasto",
+      "price": 640000,
+      "areaM2": 56,
+      "total": 76,
+      "breakdown": {
+        "distance": {
+          "value": 441,
+          "points": 43,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11429,
+          "points": 8,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 680,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 76
+      }
+    },
+    {
+      "id": "22556436-909f-4f3c-b714-95e465ab5bf8",
+      "title": "Rezerwacja",
+      "neighborhood": "Wilda",
+      "price": 649000,
+      "areaM2": 85,
+      "total": 75,
+      "breakdown": {
+        "distance": {
+          "value": 1192,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 7635,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 550,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 75
+      }
+    },
+    {
+      "id": "04389e49-9205-455f-927d-51f5d1173ebe",
+      "title": "2 pokoje | 51 m² | Stare Miasto Poznań",
+      "neighborhood": "Centrum",
+      "price": 580000,
+      "areaM2": 51.04,
+      "total": 75,
+      "breakdown": {
+        "distance": {
+          "value": 777,
+          "points": 37,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11364,
+          "points": 8,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 460,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 75
+      }
+    },
+    {
+      "id": "93129cce-832b-40b2-a982-24c1fe30434f",
+      "title": "Jeżyce | Św. Wawrzyńca-klimatyczne 2 pokoje",
+      "neighborhood": "Jeżyce",
+      "price": 499000,
+      "areaM2": 55,
+      "total": 73,
+      "breakdown": {
+        "distance": {
+          "value": 1643,
+          "points": 23,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9073,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 660,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 73
+      }
+    },
+    {
+      "id": "9912099e-3bb3-41bc-916a-51303cc998a1",
+      "title": "Artystyczne mieszkanie w Centrum",
+      "neighborhood": "Jeżyce",
+      "price": 539000,
+      "areaM2": 46,
+      "total": 73,
+      "breakdown": {
+        "distance": {
+          "value": 785,
+          "points": 37,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11717,
+          "points": 6,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 500,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 73
+      }
+    },
+    {
+      "id": "74850975-b253-4a6d-a8fc-e8122697d9c5",
+      "title": "3-pokoje na Jeżycach – widok, parking, do remontu",
+      "neighborhood": "Morasko",
+      "price": 540000,
+      "areaM2": 64.2,
+      "total": 73,
+      "breakdown": {
+        "distance": {
+          "value": 1344,
+          "points": 28,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8411,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 1,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 73
+      }
+    },
+    {
+      "id": "667a079b-d05e-41b3-a6c1-8e3a0cfabe9a",
+      "title": "3 pok, balkon, osiedle zamkniete, ul. Libelta",
+      "neighborhood": "Stare Miasto",
+      "price": 540000,
+      "areaM2": 43,
+      "total": 72,
+      "breakdown": {
+        "distance": {
+          "value": 280,
+          "points": 45,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12558,
+          "points": 2,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 580,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 72
+      }
+    },
+    {
+      "id": "156b4803-72dc-479c-b8c9-a81e5a81cc38",
+      "title": "Jezyce mieszkanie do Kapitalnego remontu! Balkon",
+      "neighborhood": "Morasko",
+      "price": 430000,
+      "areaM2": 44.33,
+      "total": 72,
+      "breakdown": {
+        "distance": {
+          "value": 1214,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9700,
+          "points": 17,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 0,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 72
+      }
+    },
+    {
+      "id": "8b104d40-e0db-46d0-965e-f361eac4a574",
+      "title": "Mieszkanie - inwestycja w centrum Poznania",
+      "neighborhood": "Stare Miasto",
+      "price": 620000,
+      "areaM2": 68.62,
+      "total": 71,
+      "breakdown": {
+        "distance": {
+          "value": 555,
+          "points": 41,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9035,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 71
+      }
+    },
+    {
+      "id": "2338817a-5ccb-498d-8500-fe59f1a6270d",
+      "title": "Funkcjonalne w super lokalizacji tylko za gotówkę",
+      "neighborhood": "Jeżyce",
+      "price": 449000,
+      "areaM2": 55.24,
+      "total": 71,
+      "breakdown": {
+        "distance": {
+          "value": 1730,
+          "points": 21,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8128,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 590,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 71
+      }
+    },
+    {
+      "id": "4855131b-71d7-43b0-9f3b-e214d84f5dcc",
+      "title": "Lokal po remoncie w zrewitalizowanej kamienicy!",
+      "neighborhood": "Jeżyce",
+      "price": 575000,
+      "areaM2": 63.77,
+      "total": 71,
+      "breakdown": {
+        "distance": {
+          "value": 1761,
+          "points": 21,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9017,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 700,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 71
+      }
+    },
+    {
+      "id": "f11c0e3b-b8f9-433a-b536-a6e0c59e23ea",
+      "title": "Kamienica po REMONCIE | Dla rodziny | SŁONECZNE",
+      "neighborhood": "Jeżyce",
+      "price": 640000,
+      "areaM2": 70,
+      "total": 71,
+      "breakdown": {
+        "distance": {
+          "value": 1386,
+          "points": 27,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9143,
+          "points": 19,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 1,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 71
+      }
+    },
+    {
+      "id": "931fb0f9-7f64-4e1a-825d-b9a2b438a241",
+      "title": "Mieszkanie obok Starego Browaru-ul.Spadzista",
+      "neighborhood": "Górna Wilda",
+      "price": 500000,
+      "areaM2": 59.76,
+      "total": 70,
+      "breakdown": {
+        "distance": {
+          "value": 1512,
+          "points": 25,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8367,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 545,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 70
+      }
+    },
+    {
+      "id": "3c68b878-3250-460e-b270-6a7852acad13",
+      "title": "REZERWACJA 2 pokoje 49 m2 ul. Staszica JEŻYCE",
+      "neighborhood": "Jeżyce",
+      "price": 415000,
+      "areaM2": 49,
+      "total": 70,
+      "breakdown": {
+        "distance": {
+          "value": 1812,
+          "points": 20,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8469,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 300,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 70
+      }
+    },
+    {
+      "id": "0f29c852-1ded-4ca1-b3af-31769f90b406",
+      "title": "Funkcjonalne Mieszkanie 58 m² Na Dolnej Wildzie",
+      "neighborhood": "Wilda",
+      "price": 575000,
+      "areaM2": 58,
+      "total": 69,
+      "breakdown": {
+        "distance": {
+          "value": 1287,
+          "points": 29,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9914,
+          "points": 15,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 1,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 69
+      }
+    },
+    {
+      "id": "069d216d-1fae-40f6-9aee-75dca795541f",
+      "title": "Mieszkanie Jeżyce z miejscem postojowym!",
+      "neighborhood": "Jeżyce",
+      "price": 520000,
+      "areaM2": 43,
+      "total": 67,
+      "breakdown": {
+        "distance": {
+          "value": 1097,
+          "points": 32,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12093,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 738,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 67
+      }
+    },
+    {
+      "id": "2ed10c0a-3262-4578-80fb-fd0cca860cee",
+      "title": "Mieszkanie dwupoziomowe, piwnica, schowki",
+      "neighborhood": "Jeżyce",
+      "price": 550000,
+      "areaM2": 62,
+      "total": 67,
+      "breakdown": {
+        "distance": {
+          "value": 1952,
+          "points": 17,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8871,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 418,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 67
+      }
+    },
+    {
+      "id": "e857fcc0-fb81-4d89-bafb-0d1703ad0b01",
+      "title": "Centrum,mansardowe,unikatowe mieszkanie, sprzedam",
+      "neighborhood": null,
+      "price": 540000,
+      "areaM2": 74,
+      "total": 67,
+      "breakdown": {
+        "distance": {
+          "value": 791,
+          "points": 37,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 7297,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 67
+      }
+    },
+    {
+      "id": "4fb98663-debd-4750-a62c-e5828596fee2",
+      "title": "Klimatyczne mieszkanie, 2 pokoje, balkon, Wilda",
+      "neighborhood": "Wilda",
+      "price": 530000,
+      "areaM2": 48.9,
+      "total": 67,
+      "breakdown": {
+        "distance": {
+          "value": 1325,
+          "points": 28,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10838,
+          "points": 11,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 820,
+          "points": 18,
+          "maxPoints": 20
+        },
+        "total": 67
+      }
+    },
+    {
+      "id": "11dc81a4-3e1a-45df-9e58-f14aeae2eaa6",
+      "title": "Mieszkanie w centrum Poznania – ul. Ogrodowa 53m2",
+      "neighborhood": "Stare Miasto",
+      "price": 560000,
+      "areaM2": 53,
+      "total": 67,
+      "breakdown": {
+        "distance": {
+          "value": 491,
+          "points": 42,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10566,
+          "points": 12,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 970,
+          "points": 3,
+          "maxPoints": 20
+        },
+        "total": 67
+      }
+    },
+    {
+      "id": "11f03b96-b656-420d-b7c8-703a640e7408",
+      "title": "Mieszkanie 3-pokojowe| umeblowane | Wilda, Poznań",
+      "neighborhood": "Wilda",
+      "price": 595000,
+      "areaM2": 55,
+      "total": 66,
+      "breakdown": {
+        "distance": {
+          "value": 1504,
+          "points": 25,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10818,
+          "points": 11,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 490,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 66
+      }
+    },
+    {
+      "id": "919ec5d1-2381-4a3d-8eae-5bb7ebd825fc",
+      "title": "Mieszkanie, 80 m², Poznań",
+      "neighborhood": "Centrum",
+      "price": 429000,
+      "areaM2": 80,
+      "total": 66,
+      "breakdown": {
+        "distance": {
+          "value": 824,
+          "points": 36,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 5363,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 66
+      }
+    },
+    {
+      "id": "198e81c2-f767-44f5-8cd6-3e6f3bf961af",
+      "title": "2 pokoje - Małeckiego - 59m2",
+      "neighborhood": "Łazarz",
+      "price": 460000,
+      "areaM2": 59.41,
+      "total": 66,
+      "breakdown": {
+        "distance": {
+          "value": 2053,
+          "points": 16,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 7743,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 360,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 66
+      }
+    },
+    {
+      "id": "b80a6d15-6c68-408c-adb4-276306415b78",
+      "title": "Klimatyczne mieszkanie, kamienica rewitalizowana",
+      "neighborhood": "Stare Miasto",
+      "price": 529900,
+      "areaM2": 49.12,
+      "total": 66,
+      "breakdown": {
+        "distance": {
+          "value": 1201,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10788,
+          "points": 11,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 0,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 66
+      }
+    },
+    {
+      "id": "453486d8-4a26-4f8e-aa1b-f765d9dca8fd",
+      "title": "Garbary 26_mieszkanie 3 pokojowe",
+      "neighborhood": "Stare Miasto",
+      "price": 560999,
+      "areaM2": 46.83,
+      "total": 65,
+      "breakdown": {
+        "distance": {
+          "value": 918,
+          "points": 35,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11979,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 400,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 65
+      }
+    },
+    {
+      "id": "ee5422ed-60ee-4497-a072-ba845c94b104",
+      "title": "Do remontu|Świetna lokalizacja|Zamknięte osiedle",
+      "neighborhood": null,
+      "price": 570000,
+      "areaM2": 50.7,
+      "total": 65,
+      "breakdown": {
+        "distance": {
+          "value": 1155,
+          "points": 31,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11243,
+          "points": 9,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 800,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 65
+      }
+    },
+    {
+      "id": "51ff7f42-14ad-49a5-ac69-17df2d434271",
+      "title": "Jeżyce | ul. Mylna | 3 pokoje",
+      "neighborhood": "Jeżyce",
+      "price": 439000,
+      "areaM2": 43,
+      "total": 65,
+      "breakdown": {
+        "distance": {
+          "value": 1429,
+          "points": 26,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10209,
+          "points": 14,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 700,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 65
+      }
+    },
+    {
+      "id": "6f50be3c-c312-4001-b74c-e3a884717f05",
+      "title": "Jeżyce, ul. Mylna,ATANER,nowsze, wyremontowane,gar",
+      "neighborhood": "Jeżyce",
+      "price": 620000,
+      "areaM2": 52.7,
+      "total": 64,
+      "breakdown": {
+        "distance": {
+          "value": 1333,
+          "points": 28,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11765,
+          "points": 6,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 770,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 64
+      }
+    },
+    {
+      "id": "547aa081-2ca7-477b-ab12-34836f70ca30",
+      "title": "2 pokoje w Centrum Poznania - ul. Karmelicka, przy",
+      "neighborhood": "Nowe Miasto",
+      "price": 549000,
+      "areaM2": 48,
+      "total": 64,
+      "breakdown": {
+        "distance": {
+          "value": 1115,
+          "points": 31,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11438,
+          "points": 8,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 530,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 64
+      }
+    },
+    {
+      "id": "c2c789f1-b849-44b8-851f-d9d70eb7fa16",
+      "title": "Mieszkanie 3 pokojowe w samym centrum miasta - Poz",
+      "neighborhood": "Stare Miasto",
+      "price": 589000,
+      "areaM2": 68.5,
+      "total": 64,
+      "breakdown": {
+        "distance": {
+          "value": 1233,
+          "points": 29,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8599,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 900,
+          "points": 10,
+          "maxPoints": 20
+        },
+        "total": 64
+      }
+    },
+    {
+      "id": "9f1405f5-3845-44c4-99e6-77af883221b1",
+      "title": "Atrakcyjne mieszkanie, Centrum, balkon, brama na p",
+      "neighborhood": "Centrum",
+      "price": 579000,
+      "areaM2": 56.2,
+      "total": 63,
+      "breakdown": {
+        "distance": {
+          "value": 583,
+          "points": 40,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10302,
+          "points": 13,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 63
+      }
+    },
+    {
+      "id": "fee55bb8-746a-4273-8504-f0f50395be17",
+      "title": "Sprzedane   Rewelacyjne mieszkanie w Doskonałej Lo",
+      "neighborhood": "Łazarz",
+      "price": 430000,
+      "areaM2": 43.1,
+      "total": 63,
+      "breakdown": {
+        "distance": {
+          "value": 1925,
+          "points": 18,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9977,
+          "points": 15,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 360,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 63
+      }
+    },
+    {
+      "id": "61a39fc2-101a-40b2-9125-cc52a4f98928",
+      "title": "Centrum, Królowej Jadwigi, 2 niezależne pokoje",
+      "neighborhood": "Centrum",
+      "price": 599000,
+      "areaM2": 45.6,
+      "total": 63,
+      "breakdown": {
+        "distance": {
+          "value": 1034,
+          "points": 33,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 13136,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 800,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 63
+      }
+    },
+    {
+      "id": "73fdaccf-630b-4b32-b4ac-b9a576d33108",
+      "title": "M 2-poziomowe! Top lokalizacja, Winiary/Sołacz!",
+      "neighborhood": null,
+      "price": 560000,
+      "areaM2": 65.8,
+      "total": 62,
+      "breakdown": {
+        "distance": {
+          "value": 1987,
+          "points": 17,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8511,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 420,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 62
+      }
+    },
+    {
+      "id": "6e6560b2-0812-4a84-a781-3bf48c8710ed",
+      "title": "Dwupak*Klima*Umeblowane*Top Lokalizacja",
+      "neighborhood": "Łazarz",
+      "price": 499000,
+      "areaM2": 46.9,
+      "total": 62,
+      "breakdown": {
+        "distance": {
+          "value": 1781,
+          "points": 20,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10640,
+          "points": 12,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 0,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 62
+      }
+    },
+    {
+      "id": "7686093b-998d-431c-9698-ebc2fbc73ae0",
+      "title": "Klimatyczne mieszkanie 3 pokojowe",
+      "neighborhood": "Rynek Łazarski",
+      "price": 647955,
+      "areaM2": 63,
+      "total": 61,
+      "breakdown": {
+        "distance": {
+          "value": 2001,
+          "points": 17,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10285,
+          "points": 14,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 340,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 61
+      }
+    },
+    {
+      "id": "7deb9b8a-dd93-469b-8019-a359690b3acb",
+      "title": "REZERWACJA !!! 3 Pok. (56m2)- Idealna Inwestycja -",
+      "neighborhood": "Jeżyce",
+      "price": 560000,
+      "areaM2": 56.2,
+      "total": 59,
+      "breakdown": {
+        "distance": {
+          "value": 2161,
+          "points": 14,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9964,
+          "points": 15,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 1,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 59
+      }
+    },
+    {
+      "id": "09364028-7e75-410d-93a9-3b192efa0b09",
+      "title": "Piękne do wprowadzenia dla rodziny I Nowość",
+      "neighborhood": "Jeżyce",
+      "price": 539000,
+      "areaM2": 56.5,
+      "total": 59,
+      "breakdown": {
+        "distance": {
+          "value": 2267,
+          "points": 12,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9540,
+          "points": 17,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 711,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 59
+      }
+    },
+    {
+      "id": "0cf1fc45-f2ba-4882-a24b-ac9f857ec288",
+      "title": "Jezyce 52M-2 Pok. Cegła, Wys. 2,80M, 2piętro",
+      "neighborhood": "Jeżyce",
+      "price": 535000,
+      "areaM2": 51.8,
+      "total": 59,
+      "breakdown": {
+        "distance": {
+          "value": 1730,
+          "points": 21,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10328,
+          "points": 13,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 390,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 59
+      }
+    },
+    {
+      "id": "b2c9d241-f37c-41f2-956a-d73a37b1e0df",
+      "title": "Dla inwestora - 9 mieszkań w centrum Poznania",
+      "neighborhood": "Stare Miasto",
+      "price": 617000,
+      "areaM2": 65,
+      "total": 58,
+      "breakdown": {
+        "distance": {
+          "value": 1192,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9492,
+          "points": 18,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 58
+      }
+    },
+    {
+      "id": "9425db1e-7240-491e-aed2-26b4a4fab59c",
+      "title": "„Centrum + cisza? Tak, to możliwe.",
+      "neighborhood": "Centrum",
+      "price": 555000,
+      "areaM2": 51.2,
+      "total": 58,
+      "breakdown": {
+        "distance": {
+          "value": 501,
+          "points": 42,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10840,
+          "points": 11,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 58
+      }
+    },
+    {
+      "id": "2bd17b8d-d149-4ac7-94c7-38fbc5e518ae",
+      "title": "Mieszkanie, 53 m², Poznań",
+      "neighborhood": "Centrum",
+      "price": 569000,
+      "areaM2": 53,
+      "total": 58,
+      "breakdown": {
+        "distance": {
+          "value": 751,
+          "points": 37,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10736,
+          "points": 11,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 58
+      }
+    },
+    {
+      "id": "b90fe3bd-fb62-450d-8458-106b253c9aa3",
+      "title": "Przytulne 2 pokoje  Poznań Jeżyce, Mylna",
+      "neighborhood": "Jeżyce",
+      "price": 619000,
+      "areaM2": 46.9,
+      "total": 58,
+      "breakdown": {
+        "distance": {
+          "value": 1323,
+          "points": 28,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 13198,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 700,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 58
+      }
+    },
+    {
+      "id": "785899db-2ad5-43d4-837c-8013672a24ba",
+      "title": "Rewitalizowana kamienica, wszędzie blisko, Wilda",
+      "neighborhood": "Wilda",
+      "price": 645000,
+      "areaM2": 49.5,
+      "total": 58,
+      "breakdown": {
+        "distance": {
+          "value": 1326,
+          "points": 28,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 13030,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 637,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 58
+      }
+    },
+    {
+      "id": "407d338e-6401-41c0-b863-3d46ed89da08",
+      "title": "MIESZKANIE W CENTRUM, ul. K. Libelta, 3-pokojowe 4",
+      "neighborhood": "Centrum",
+      "price": 540000,
+      "areaM2": 43,
+      "total": 58,
+      "breakdown": {
+        "distance": {
+          "value": 270,
+          "points": 46,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12558,
+          "points": 2,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 58
+      }
+    },
+    {
+      "id": "211fb077-1f6a-4950-b0c9-41593bda16b5",
+      "title": "Poznań, ul. Sikorskiego 2 – 2-pokojowe mieszkanie",
+      "neighborhood": "Wilda",
+      "price": 489000,
+      "areaM2": 48.3,
+      "total": 58,
+      "breakdown": {
+        "distance": {
+          "value": 1839,
+          "points": 19,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10124,
+          "points": 14,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 740,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 58
+      }
+    },
+    {
+      "id": "c62820e9-a617-4a10-9659-66de8de08735",
+      "title": "Układ niezależny 2pok. mieszkanie+balkon+piwnica J",
+      "neighborhood": "Jeżyce",
+      "price": 489000,
+      "areaM2": 48.2,
+      "total": 57,
+      "breakdown": {
+        "distance": {
+          "value": 1944,
+          "points": 18,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10145,
+          "points": 14,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 365,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 57
+      }
+    },
+    {
+      "id": "386e75f1-7c27-4b8c-b6a4-f1098d4dc232",
+      "title": "Mieszkanie dwupokojowe - Jeżyce, ul. Jana Kochanow",
+      "neighborhood": "Jeżyce",
+      "price": 523000,
+      "areaM2": 58.77,
+      "total": 57,
+      "breakdown": {
+        "distance": {
+          "value": 1058,
+          "points": 32,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8899,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 57
+      }
+    },
+    {
+      "id": "7139bd8b-89f3-41d3-9bb8-77434b8207e0",
+      "title": "| Dwa pokoje na sprzedaż | Kamienica - Jeżyce |",
+      "neighborhood": "Jeżyce",
+      "price": 455120,
+      "areaM2": 56.89,
+      "total": 57,
+      "breakdown": {
+        "distance": {
+          "value": 1058,
+          "points": 32,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 8000,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 57
+      }
+    },
+    {
+      "id": "f3b7c775-fd9a-4b84-9caa-1a687fecf65d",
+      "title": "Łazarz | 42 m² | Klimatyczna kamienica | 4 piętro",
+      "neighborhood": "Łazarz",
+      "price": 495000,
+      "areaM2": 42,
+      "total": 57,
+      "breakdown": {
+        "distance": {
+          "value": 1760,
+          "points": 21,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11786,
+          "points": 6,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 400,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 57
+      }
+    },
+    {
+      "id": "39352c09-12c9-4c14-bba3-99282e964e59",
+      "title": "Wyjątkowe wnętrze z klimatem kamienicy | duża prze",
+      "neighborhood": "Stare Miasto",
+      "price": 520740,
+      "areaM2": 52.6,
+      "total": 56,
+      "breakdown": {
+        "distance": {
+          "value": 918,
+          "points": 35,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9900,
+          "points": 16,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 56
+      }
+    },
+    {
+      "id": "56e9b66a-9d76-4959-a35b-3160caab830a",
+      "title": "Wyjątkowe Mieszkanie  dwupokojowe na Jeżycach! Got",
+      "neighborhood": "Jeżyce",
+      "price": 495000,
+      "areaM2": 41,
+      "total": 56,
+      "breakdown": {
+        "distance": {
+          "value": 1741,
+          "points": 21,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12073,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 700,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 56
+      }
+    },
+    {
+      "id": "920cd6fa-3e78-4347-9d8b-b6cb7c4bc47b",
+      "title": "3 pok. I panoramiczny widok I Jezyce ul. Norwida I",
+      "neighborhood": "Jeżyce",
+      "price": 581400,
+      "areaM2": 57,
+      "total": 55,
+      "breakdown": {
+        "distance": {
+          "value": 1155,
+          "points": 31,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10200,
+          "points": 14,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 55
+      }
+    },
+    {
+      "id": "774edbb7-bb1c-4c78-979e-f223fd13ae2f",
+      "title": "Jeżyce, wygodne mieszkanie 2-pok.sprzedam",
+      "neighborhood": null,
+      "price": 580000,
+      "areaM2": 55.2,
+      "total": 55,
+      "breakdown": {
+        "distance": {
+          "value": 2235,
+          "points": 13,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10507,
+          "points": 12,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 1,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 55
+      }
+    },
+    {
+      "id": "8ac371f4-5d9a-47df-b666-a18766a806df",
+      "title": "Gotowy dwupak | KUP I ODLICZ VAT | świetna lokaliz",
+      "neighborhood": null,
+      "price": 612000,
+      "areaM2": 53.8,
+      "total": 53,
+      "breakdown": {
+        "distance": {
+          "value": 606,
+          "points": 40,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11375,
+          "points": 8,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 53
+      }
+    },
+    {
+      "id": "98cd8d2c-e6ca-4152-a8c9-e65614a0d6eb",
+      "title": "Jeżyce mieszkanie 2-pokojowe",
+      "neighborhood": "Jeżyce",
+      "price": 537000,
+      "areaM2": 42,
+      "total": 51,
+      "breakdown": {
+        "distance": {
+          "value": 1828,
+          "points": 20,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12786,
+          "points": 1,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 570,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 51
+      }
+    },
+    {
+      "id": "622b9039-e676-4efa-bdef-dbe48731c888",
+      "title": "Dwupak inwestycyjny - 52,18 m2 cenrtum Poznania",
+      "neighborhood": "Chwaliszewo",
+      "price": 499900,
+      "areaM2": 52.18,
+      "total": 51,
+      "breakdown": {
+        "distance": {
+          "value": 1261,
+          "points": 29,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9580,
+          "points": 17,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 51
+      }
+    },
+    {
+      "id": "a145a0d5-b1df-4073-a6d2-a9046273b56c",
+      "title": "Dwa pokoje z dużym tarasem",
+      "neighborhood": "Wilda",
+      "price": 571000,
+      "areaM2": 46.2,
+      "total": 51,
+      "breakdown": {
+        "distance": {
+          "value": 1930,
+          "points": 18,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12359,
+          "points": 3,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 500,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 51
+      }
+    },
+    {
+      "id": "15439696-3a6a-42da-942e-a460742db1a9",
+      "title": "Nowoczesne mieszkanie 47,7 m2, 2 pokoje, ul. Polna",
+      "neighborhood": "Grunwald",
+      "price": 569000,
+      "areaM2": 47.7,
+      "total": 51,
+      "breakdown": {
+        "distance": {
+          "value": 2024,
+          "points": 16,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11929,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 624,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 51
+      }
+    },
+    {
+      "id": "a02e2dbd-a355-45bd-baa8-3e8dbdc89440",
+      "title": "mieszkanie po remoncie na Jeżycach",
+      "neighborhood": "Jeżyce",
+      "price": 599000,
+      "areaM2": 50,
+      "total": 50,
+      "breakdown": {
+        "distance": {
+          "value": 1827,
+          "points": 20,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11980,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 450,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 50
+      }
+    },
+    {
+      "id": "3690084e-a52b-43e8-9696-80b69c839e07",
+      "title": "Przestronne mieszkanie w centrum Poznania - 2 poko",
+      "neighborhood": "Stare Miasto",
+      "price": 499900,
+      "areaM2": 50.32,
+      "total": 50,
+      "breakdown": {
+        "distance": {
+          "value": 1190,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9934,
+          "points": 15,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 50
+      }
+    },
+    {
+      "id": "59c5137c-e270-4843-81f5-30f12da63114",
+      "title": "2 Pokoje na kultowych Jeżycach",
+      "neighborhood": "Jeżyce",
+      "price": 596000,
+      "areaM2": 47.4,
+      "total": 49,
+      "breakdown": {
+        "distance": {
+          "value": 1974,
+          "points": 17,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12574,
+          "points": 2,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 530,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 49
+      }
+    },
+    {
+      "id": "fada840c-fa84-4ec3-acbb-c93e4cdd7b62",
+      "title": "Dwie niezależne kawalerki. Perełka inwestycyjna !",
+      "neighborhood": "Łazarz",
+      "price": 590000,
+      "areaM2": 42,
+      "total": 47,
+      "breakdown": {
+        "distance": {
+          "value": 1955,
+          "points": 17,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 14048,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 500,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 47
+      }
+    },
+    {
+      "id": "3b4ec470-8c4b-48e1-87bb-450a3d3fb19d",
+      "title": "Ogrodowa 12 | apartament B/1/4",
+      "neighborhood": "Stare Miasto",
+      "price": null,
+      "areaM2": 42.29,
+      "total": 47,
+      "breakdown": {
+        "distance": {
+          "value": 498,
+          "points": 42,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 47
+      }
+    },
+    {
+      "id": "1fb9e1e7-ae98-4f67-b4a1-abfde830796b",
+      "title": "Syndyk sprzeda mieszkanie na 1 piętrze",
+      "neighborhood": "Jeżyce",
+      "price": 482625,
+      "areaM2": 63,
+      "total": 46,
+      "breakdown": {
+        "distance": {
+          "value": 2012,
+          "points": 16,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 7661,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 46
+      }
+    },
+    {
+      "id": "07ea1a82-e290-45e3-8a7c-c26cf7780470",
+      "title": "Duże, 2 pokojowe mieszkanie - funkcjonalny lokal w",
+      "neighborhood": "Stare Miasto",
+      "price": 499900,
+      "areaM2": 45.3,
+      "total": 45,
+      "breakdown": {
+        "distance": {
+          "value": 1190,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11035,
+          "points": 10,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 45
+      }
+    },
+    {
+      "id": "29774fd7-d85a-4549-90a1-c235a7cbd148",
+      "title": "Wyjątkowe mieszkanie w urokliwej kamienicy - samo ",
+      "neighborhood": "Stare Miasto",
+      "price": 499900,
+      "areaM2": 45.78,
+      "total": 45,
+      "breakdown": {
+        "distance": {
+          "value": 1190,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10920,
+          "points": 10,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 45
+      }
+    },
+    {
+      "id": "46af993d-fe89-4d42-a7e0-766c21441636",
+      "title": "2 pokoje Ułańskie",
+      "neighborhood": "Grunwald",
+      "price": 650000,
+      "areaM2": 43.7,
+      "total": 45,
+      "breakdown": {
+        "distance": {
+          "value": 2103,
+          "points": 15,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 14874,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 700,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 45
+      }
+    },
+    {
+      "id": "fe59dcbc-b6c0-4d20-aec2-d39512b74324",
+      "title": "Komfortowe mieszkanie. Odbior już w maju",
+      "neighborhood": "Jeżyce",
+      "price": 476000,
+      "areaM2": 41,
+      "total": 45,
+      "breakdown": {
+        "distance": {
+          "value": 2202,
+          "points": 13,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11610,
+          "points": 7,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 0,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 45
+      }
+    },
+    {
+      "id": "12dcd25e-1c93-4ec1-b8fc-13ca7c2558ba",
+      "title": "Modna Dzielnica! Idealna dla Rodziny! Ogródek!",
+      "neighborhood": "Jeżyce",
+      "price": 620800,
+      "areaM2": 51.66,
+      "total": 43,
+      "breakdown": {
+        "distance": {
+          "value": 2196,
+          "points": 13,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12017,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 550,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 43
+      }
+    },
+    {
+      "id": "6680cbfa-c284-4396-ada8-fa54680ea4ee",
+      "title": "Mieszkanie 2-pokojowe 50m2 \"WIEŻA JEŻYCE\" w Poznan",
+      "neighborhood": "Jeżyce",
+      "price": 592000,
+      "areaM2": 49.38,
+      "total": 43,
+      "breakdown": {
+        "distance": {
+          "value": 2196,
+          "points": 13,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11989,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 600,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 43
+      }
+    },
+    {
+      "id": "e5356304-c90d-4373-bd07-d6ea7b6b4f4d",
+      "title": "Duże okna z widokiem na Garbary| Odrestaurowana ka",
+      "neighborhood": "Stare Miasto",
+      "price": 545375,
+      "areaM2": 43.63,
+      "total": 43,
+      "breakdown": {
+        "distance": {
+          "value": 918,
+          "points": 35,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12500,
+          "points": 3,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 43
+      }
+    },
+    {
+      "id": "0a8fc6f1-9769-4018-9df8-e8108b4fa556",
+      "title": "Mieszkanie, 97 m², Poznań",
+      "neighborhood": "Grunwald",
+      "price": 529000,
+      "areaM2": 97,
+      "total": 42,
+      "breakdown": {
+        "distance": {
+          "value": 2264,
+          "points": 12,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 5454,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 42
+      }
+    },
+    {
+      "id": "af333efd-9680-41fa-8ec7-d3ae1a25e1f8",
+      "title": "2-pok (52,6 m2) z tarasem (40m2) |Nowy Rynek 200m ",
+      "neighborhood": "Wilda",
+      "price": 627000,
+      "areaM2": 52.63,
+      "total": 42,
+      "breakdown": {
+        "distance": {
+          "value": 1087,
+          "points": 32,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11913,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 42
+      }
+    },
+    {
+      "id": "c2fcd908-8217-4727-bdd4-ecc198958680",
+      "title": "GOTOWE | 2-pok (52,6 m2) z tarasem (40m2) | NOWA C",
+      "neighborhood": "Wilda",
+      "price": 627000,
+      "areaM2": 52.63,
+      "total": 42,
+      "breakdown": {
+        "distance": {
+          "value": 1058,
+          "points": 32,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11913,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 42
+      }
+    },
+    {
+      "id": "5bb10e19-f07f-4239-b49e-f199a2f8b6df",
+      "title": "✨Twoje M na Chwaliszewie✨stan deweloperski",
+      "neighborhood": "Chwaliszewo",
+      "price": 629000,
+      "areaM2": 52.97,
+      "total": 41,
+      "breakdown": {
+        "distance": {
+          "value": 1223,
+          "points": 30,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11875,
+          "points": 6,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 41
+      }
+    },
+    {
+      "id": "51cd062b-5cf6-419a-8804-943b0b0e6ccf",
+      "title": "Mieszkanie z duszą w sercu miasta I Zrewitalizowan",
+      "neighborhood": "Stare Miasto",
+      "price": 547863,
+      "areaM2": 42.47,
+      "total": 41,
+      "breakdown": {
+        "distance": {
+          "value": 918,
+          "points": 35,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12900,
+          "points": 1,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 41
+      }
+    },
+    {
+      "id": "87590f5f-4d34-4360-a6cd-43a3320ea5c1",
+      "title": "Kup i Zarabiaj bezpieczne 7%!",
+      "neighborhood": null,
+      "price": 641900,
+      "areaM2": 51.31,
+      "total": 40,
+      "breakdown": {
+        "distance": {
+          "value": 2233,
+          "points": 13,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12510,
+          "points": 2,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 550,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 40
+      }
+    },
+    {
+      "id": "250d2793-f279-43e0-8af5-82ac7c18c5ac",
+      "title": "Wyjątkowa oferta na Chwaliszewie✨remont kamienicy",
+      "neighborhood": "Chwaliszewo",
+      "price": 599000,
+      "areaM2": 49.95,
+      "total": 39,
+      "breakdown": {
+        "distance": {
+          "value": 1278,
+          "points": 29,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11992,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 39
+      }
+    },
+    {
+      "id": "cb55bdf3-2a2c-465c-9621-db62ce54d933",
+      "title": "Jasne komfortowe 3 pokoje 57,3 m2 Jeżyce",
+      "neighborhood": "Jeżyce",
+      "price": 544500,
+      "areaM2": 57.3,
+      "total": 39,
+      "breakdown": {
+        "distance": {
+          "value": 2302,
+          "points": 12,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 9503,
+          "points": 17,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "ready_to_use",
+          "points": 10,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 39
+      }
+    },
+    {
+      "id": "f9403901-5822-4bb7-85ed-3c4574202380",
+      "title": "Ustawne mieszkanie 40,5m2 + balkon.",
+      "neighborhood": "Jeżyce",
+      "price": 537926,
+      "areaM2": 40,
+      "total": 38,
+      "breakdown": {
+        "distance": {
+          "value": 2196,
+          "points": 13,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 13448,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 400,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 38
+      }
+    },
+    {
+      "id": "5fb26c4c-adfc-420d-a22e-0ecc056896e3",
+      "title": "Komfortowe 2pok. centrum odbiór już w maju",
+      "neighborhood": "Jeżyce",
+      "price": 552000,
+      "areaM2": 40,
+      "total": 38,
+      "breakdown": {
+        "distance": {
+          "value": 2202,
+          "points": 13,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 13800,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": 0,
+          "points": 20,
+          "maxPoints": 20
+        },
+        "total": 38
+      }
+    },
+    {
+      "id": "ffb1d8ad-7604-4801-b1cc-1f3c9609ffd3",
+      "title": "Niedziałkowskiego Park",
+      "neighborhood": "Wilda",
+      "price": null,
+      "areaM2": null,
+      "total": 36,
+      "breakdown": {
+        "distance": {
+          "value": 1129,
+          "points": 31,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 36
+      }
+    },
+    {
+      "id": "7b101d06-eb90-4168-8684-b31c2b35f339",
+      "title": "Sokoła - dwa niezależne pokoje w bloku z lat 90",
+      "neighborhood": "Winiary",
+      "price": 525000,
+      "areaM2": 50.3,
+      "total": 34,
+      "breakdown": {
+        "distance": {
+          "value": 2015,
+          "points": 16,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 10437,
+          "points": 13,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 34
+      }
+    },
+    {
+      "id": "a8313af9-b561-48ab-8d7b-26b5a54c9069",
+      "title": "Epika Jeżyce - lokale inwestycyjne",
+      "neighborhood": "Jeżyce",
+      "price": null,
+      "areaM2": null,
+      "total": 30,
+      "breakdown": {
+        "distance": {
+          "value": 1501,
+          "points": 25,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 30
+      }
+    },
+    {
+      "id": "f9f2bed1-e14e-42ac-b960-4d7b7725e6f8",
+      "title": "Lokal inwestycyjny, dwa pokoje, wynajmuj i odzyska",
+      "neighborhood": "Jeżyce",
+      "price": 558378,
+      "areaM2": 40.71,
+      "total": 30,
+      "breakdown": {
+        "distance": {
+          "value": 1501,
+          "points": 25,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 13716,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 30
+      }
+    },
+    {
+      "id": "6018d4cb-7714-40fb-bbef-4d45af1c4d88",
+      "title": "Kolejova 1",
+      "neighborhood": "Łazarz",
+      "price": null,
+      "areaM2": null,
+      "total": 28,
+      "breakdown": {
+        "distance": {
+          "value": 1626,
+          "points": 23,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 28
+      }
+    },
+    {
+      "id": "e72ed760-37ff-4ab6-8956-9bdca28986fc",
+      "title": "Modena by Cordia",
+      "neighborhood": "Jeżyce",
+      "price": null,
+      "areaM2": null,
+      "total": 27,
+      "breakdown": {
+        "distance": {
+          "value": 1676,
+          "points": 22,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 27
+      }
+    },
+    {
+      "id": "1ff2a9b9-dee6-4c9a-b526-6cdcf57363da",
+      "title": "Goplana, etapy E-G",
+      "neighborhood": "Ogrody",
+      "price": null,
+      "areaM2": null,
+      "total": 25,
+      "breakdown": {
+        "distance": {
+          "value": 1823,
+          "points": 20,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "default",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 25
+      }
+    },
+    {
+      "id": "20ebb004-9d96-437d-af7a-dedc79e78879",
+      "title": "PRZEDSPRZEDAŻ nowego etapu - - - JEŻYCE - - - Dowi",
+      "neighborhood": "Jeżyce",
+      "price": 600000,
+      "areaM2": 50,
+      "total": 25,
+      "breakdown": {
+        "distance": {
+          "value": 2078,
+          "points": 15,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 12000,
+          "points": 5,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 25
+      }
+    },
+    {
+      "id": "8634f3e3-c70d-4070-aeef-ddd2a0a7d7be",
+      "title": "Gotowy dwupak | KUP I ODLICZ VAT | świetna lokaliz",
+      "neighborhood": "Jeżyce",
+      "price": 612000,
+      "areaM2": 53.8,
+      "total": 24,
+      "breakdown": {
+        "distance": {
+          "value": 2332,
+          "points": 11,
+          "maxPoints": 50
+        },
+        "pricePerM2": {
+          "value": 11375,
+          "points": 8,
+          "maxPoints": 20
+        },
+        "condition": {
+          "value": "to_completion",
+          "points": 5,
+          "maxPoints": 10
+        },
+        "expenses": {
+          "value": null,
+          "points": 0,
+          "maxPoints": 20
+        },
+        "total": 24
+      }
+    }
+  ]
+}

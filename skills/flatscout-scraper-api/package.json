@@ -26,8 +26,9 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "minimist": "^1.2.8",
     "node-fetch": "^2.7.0",
-    "minimist": "^1.2.8"
+    "pg": "^8.20.0"
   },
   "engines": {
     "node": ">=18.0.0"
